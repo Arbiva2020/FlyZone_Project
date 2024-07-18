@@ -1,0 +1,107 @@
+.userReport_main {
+    color: white;
+    font-family: lexend;
+    /* position: relative; */
+}
+
+.userReport_content {
+    display: flex;
+    flex-direction: row;
+}
+
+.userReport_all {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.userReport_headline {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.userReport_sidecontent {
+    width: 10%;
+}
+
+.userReport_page {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.userreport_select {
+    display: flex;
+    flex-direction: row;
+}
+
+.userReport_rightside {
+    display: flex;
+    flex-direction: row;
+}
+
+.userReport_report {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+    border-radius: 20px;
+    width: 95%;
+    padding: 20px;
+}
+
+.userReport_userData {
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+}
+
+.userReport_inputs {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    align-content: space-around;
+}
+
+.userReport_button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+
+.userreport_icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 20%;
+}
+
+.userreport_icon {
+    cursor: pointer;
+}
+
+.userReport_view {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

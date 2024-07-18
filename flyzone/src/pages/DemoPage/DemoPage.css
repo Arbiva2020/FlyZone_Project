@@ -1,0 +1,47 @@
+.demo_main {
+    color: white;
+    font-family: lexend;
+    position: relative;
+}
+
+.demo_headline {
+    text-align: center;
+    font-size: 25px;
+    margin: 20px auto 20px auto;
+}
+
+.demo_show {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.demo_video {
+    width: 900px;
+    height: 600px;
+}
+
+.demo_play {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.demo_progress {
+    margin-left: 10px;
+    height: 20px;
+    width: 850px;
+    background-color: #B943B4;
+    border-radius: 20px;
+}
+
+progress::-webkit-progress-bar {
+    background-color: white;
+    border-radius: 20px;
+ }
+progress::-webkit-progress-value {
+    background-color: #B943B4;
+    border-radius: 20px;
+ }

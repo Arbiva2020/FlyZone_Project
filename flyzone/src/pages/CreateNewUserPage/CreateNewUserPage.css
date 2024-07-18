@@ -1,0 +1,71 @@
+.createUser_form, .createUser_alert {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-family: lexend;
+    align-content: center;
+}
+
+.createUser_all {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.createUser_content {
+    border-style: solid;
+    border-radius: 20px;
+    border-color: white;
+    border-width: 1px;
+    padding: 20px 20px 0px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 0px 20px 0px;
+}
+
+.createUser_page {
+    display: flex;
+    flex-direction: row;
+}
+
+.createUser_headline {
+    text-align: center;
+    margin-top: 5%;
+    font-family: lexend;
+    font-size: 25px;
+}
+
+.createUser_checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.createUser_alert {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:blueviolet
+}
+
+.createUser_formLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 40vh;
+    margin: 10px 10px 30px 20px;
+}
+
+.createUser_formRight {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+    height: 40vh;
+    margin: 10px 10px 20px 20px;
+
+}

@@ -1,0 +1,93 @@
+.addUser_main {
+    color: white;
+    font-family: lexend;
+    position: relative;
+}
+
+.addUser_left {
+    width: 20%;
+}
+
+.addUser_content {
+    display: flex;
+    flex-direction: row;
+}
+
+.addUser_center {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.addUser_rows {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.addUser_left {
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+}
+
+.addUser_headline {
+    text-align: center;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.addUser_addingUser {
+    width: 60%; 
+}
+
+.addUser_parameter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.addUser_text {
+font-weight: 100;
+font-size: medium;
+width: 20%;
+}
+
+.adduser_input {
+width: 60%;
+}
+
+.addUser_key {
+    font-weight: 200;
+}
+
+.addUser_button {
+    width: 90%;
+    text-align: right;
+}
+
+.addUser_switches {
+    width: 50%;
+}
+
+.addUser_switchDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.addUser_switchText {
+    margin-right: 20px;
+}
+
+.add_switch {
+    width: 20%;
+    display: flex;
+}

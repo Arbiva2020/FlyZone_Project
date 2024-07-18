@@ -1,0 +1,43 @@
+.groupSideData_profile {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+    height: 150px;
+    color: white;
+    /* width: 15%; */
+    margin-right: 10px;
+    height: fit-content;
+    padding: 10px;
+    background-color: #2E2D2D;
+    margin-top: 50px;
+}
+
+.groupSideData_pic {
+    height: 80px;
+    width: 80px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 50%;
+    align-self: center;
+    position: relative;
+    align-self: flex-start;
+}
+
+.groupSideData_list {
+    font-size: 13px;
+    font-weight:lighter;
+    margin-left: 15px;
+    line-height: 50px;
+}
+
+.groupSideData_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}

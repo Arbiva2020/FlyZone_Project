@@ -1,0 +1,85 @@
+.contact_main {
+    color: white;
+    font-family: lexend;
+    position: relative;
+}
+
+.contact_headline {
+    text-align: center;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+.contact_frame {
+    height: 500px;
+    width: 600px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-width: 1px;
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.contactButtons {
+    align-self: center;
+    margin-bottom: 1rem;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+}
+
+.contact_form {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.form_name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 0px 0px 0px 0px;
+    width: 500px;
+    align-self: center;
+    height: 60px;
+    align-items: flex-start;
+}
+
+.mail_extra {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.form_extra {
+    height: 80px;
+    margin: 30px 10px 10px 10px;
+    padding: 15px;
+    hyphens: auto;
+    border-radius: 10px;
+    background-color: darkgray;
+    width: 400px;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+ 
+.flyzone_adress {
+    margin-left: auto;
+    margin-right: auto;
+    font-size:x-small;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}

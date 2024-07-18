@@ -1,0 +1,36 @@
+.input_main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size:x-small;
+    position: relative;
+}
+
+.input_Control {
+    height: 30px;
+    border-radius: 10px;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: darkgrey;
+    color: black;
+}
+
+.contact_error{
+    /* width: 175px;
+    padding-left: 3px;
+    padding-right: 3px; */
+    color: red;
+    font-size:8px;
+    /* align-self: baseline; */
+    position: absolute;
+    margin-top: 20%;
+    /* margin-bottom: 20%; */
+}
+
+.contact_error_blank {
+    background-color: #000000;
+    padding-left: 3px;
+    padding-right: 3px;
+    color: yellow;
+    position: relative;
+}

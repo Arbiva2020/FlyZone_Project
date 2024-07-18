@@ -1,0 +1,78 @@
+.splash_main{
+    margin-top: 100px;
+}
+
+.splash_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+   height: 300px;
+}
+
+.main_headline_splash {
+    color: #ffffff;
+    font-family: lexend;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 50px;
+    font-size: 600%;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.loading {
+    color: #ffffff;
+    font-family: lexend;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 50px;
+    font-size: 200%;
+    font-weight: 200;
+}
+
+@keyframes glow {
+    from {
+      text-shadow: 0 0 10px #B80CB0;
+    }
+    to {
+      text-shadow: 0 0 50px #B943B4, 0 0 5px #B80CB0;
+    }
+  }
+
+  .circle_1 {
+    background-color: #ffffff;
+    filter: blur(50px);
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    display: flex;
+    position: absolute;
+    z-index: 0;
+}
+
+.splash_div h5 {
+    color: #fff;
+    font-family: monospace;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid #B80CB0; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 2s steps(30, end),
+      blink-caret .65s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 20% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #B80CB0 }
+  }

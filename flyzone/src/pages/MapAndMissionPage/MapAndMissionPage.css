@@ -1,0 +1,37 @@
+.mapAndMission_main {
+    color: #ffffff;
+    display:flex; 
+    flex-direction: column;
+    font-family: 'Lexend';
+}
+
+.mapAndMission_hedline {
+    text-align: center;
+    margin-top: 3%;
+    font-family: lexend;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.mapAndMission_content {
+    display: flex;
+    flex-direction:row;
+}
+
+.mapAndMission_cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: space-between;
+    margin-right: 50px;
+}
+
+.mapAndMission_operations {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: end;
+    margin-right: 50px;
+  }
+

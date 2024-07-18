@@ -1,0 +1,90 @@
+.subscription_main {
+    color: white;
+    font-family: lexend;
+    position: relative;
+    }
+
+    .main_subscription_headline{
+        text-align: center;
+        font-size: 250%;
+        margin-top: 50px;
+    }
+
+    .subscription_plans {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 600px;
+    }
+    
+    .basic_plan {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .premium_plan {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .basic_frame {
+        border-style: solid;
+        border-width: 1px;
+        border-color: #ffffff;
+        border-radius: 20px;
+        background-color: gray;
+        color: black;
+        left: auto;
+        right: auto;
+        text-align: left;
+        height: 400px;
+        width: 250px;
+        padding: 20px;
+        margin: 50px;
+
+    }
+
+    .premium_frame {
+        border-style: solid;
+        border-width: 1px;
+        border-color: #ffffff;
+        border-radius: 20px;
+        background-color: gray;
+        color: black;
+        left: auto;
+        right: auto;
+        text-align: left;
+        height: 400px;
+        width: 250px;
+        padding: 20px;
+        margin: 50px;
+    }
+
+    .price {
+        color: #ffffff;
+        font-weight: bolder;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        bottom: -10%        
+    }
+    .headline {
+        font-weight: bold;
+        font-style: oblique;
+    }
+
+    .details_item:nth-child(odd){
+        margin: 20px;
+    }
+
+    .details_item:nth-child(even){
+        margin: 20px;
+    }

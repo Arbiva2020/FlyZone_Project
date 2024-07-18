@@ -1,0 +1,33 @@
+.paymentForm_main {
+    color: #ffffff;
+    display:flex; 
+    flex-direction: column;
+    font-family: 'Lexend';
+}
+
+.paymentForm_headline {
+    font-size: 25px;
+    margin: 20px 0px 20px 20px;
+    font-weight: 200;
+    font-family: 'Lexend', sans-serif;
+}
+
+.paymentForm_up{
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    margin: 5px;
+}
+
+.paymentForm_bottom {
+    border-style: solid;
+    border-width: 1px 0px 0px 0px;
+    margin: 5px;
+}
+
+.paymentForm_buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 auto;
+    align-content: center;
+}

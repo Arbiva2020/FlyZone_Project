@@ -1,0 +1,38 @@
+.header {
+    color: #ffffff;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+.menu {
+    color: #ffffff;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 50%;
+    font-family: lexend;
+    font-weight:lighter;
+    position: absolute;
+    right: 0px;
+    background: transparent;
+}
+
+.header_link {
+    color:#ffffff;
+    text-decoration: none;
+    display: flex;
+    align-self: center;
+}
+
+.logo_div {
+    margin-left: 20px;
+}
+
+.header_logo {
+    height: 100px;
+    width: 110px;
+    position: relative;
+    z-index: 1;
+}

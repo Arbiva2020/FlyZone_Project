@@ -1,0 +1,113 @@
+.mainView_content {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-family: lexend;
+    /* position: relative; */
+}
+
+.mainView_center {
+    width: 70%;
+}
+
+.mainView_right {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainView_hedline {
+    text-align: center;
+    margin-top: 5%;
+    font-family: lexend;
+    font-size: 25px;
+}
+
+.mainView_charts {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.mainView_table {
+    border-radius: 20px;
+    /* margin-top: 2%; */
+    /* margin-bottom: 10%; */
+    margin-left: 5%;
+    margin-right: 5%;
+    align-self: center;
+    height: 100vh;
+}
+
+.mainView_line {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: white;
+    display: flex;
+    justify-content: center;
+    height: 30vh;
+    width: 50%;
+    margin-right: 5px;
+    align-items: center;
+}
+
+.mainView_bar {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: white;
+    display: flex;
+    justify-content: center;
+    height: 30vh;
+    width: 50%;
+    margin-left: 5px;
+    align-items: center;
+}
+
+  .MuiSvgIcon-root-MuiSelect-icon {
+    color: red !important
+  }
+
+  .mainViewButtom {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+    background-color: #2e2d2d57;
+    justify-content:space-between ;
+    width: -webkit-fill-available;
+
+    /*
+    align-items: start;
+    width: 100%;
+    margin-right: 10px;
+    height: fit-content;
+    padding: 10px;
+    background-color: #2E2D2D;
+    margin-top: 50px; */
+  }
+
+  .mainView_charts_bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    width: 90%;
+}
+
+.mainView_goToStatsPage {
+    display: flex;
+    position: relative;
+    justify-content: right;
+    margin-top: 20px;
+}

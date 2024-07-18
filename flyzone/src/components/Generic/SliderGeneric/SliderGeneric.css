@@ -1,0 +1,10 @@
+.slider_slider {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.slider_parameter {
+    margin: 20px;
+    font-weight: lighter;
+}

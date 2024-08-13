@@ -14,7 +14,8 @@ const Input = ({name, type="text", placeholder="", onBlur=()=>{}, onChange=()=>{
     }
     setIsFormValid(prev => {return {...prev, [e.target.name]:true }})
   } 
-
+  console.log(onChange, onBlur, checkErrorsFunc)
+  
   return (
     <div className="input_main">
        <input

@@ -5,13 +5,17 @@ import Button from '../../components/Generic/Button/Button'
 import UserSideData from '../../components/UserSideData/UserSideData'
 import Map from '../../assets/map.png'
 import Select from '../../components/Generic/Select/Select'
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import './UserMapPage.css'
 
 const UserMapPage = () => {
+    const navigate = useNavigate();
+    const goBack = () => {
+      navigate(-1)
+    }
     const {id} = useParams
     console.log(id)
 
@@ -100,7 +104,13 @@ const UserMapPage = () => {
                 <UserSideData />
             </div>
         </div>
-        
+        <div className='userMap_backButton'>
+            <Link
+                onClick={goBack}
+            >
+                Go back
+            </Link>
+        </div>
     </div>
   )
 }

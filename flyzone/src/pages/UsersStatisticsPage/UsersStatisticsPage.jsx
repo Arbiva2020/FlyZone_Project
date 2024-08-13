@@ -18,9 +18,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import fakeData from "../../fakeData.json";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectGroup } from "../../store/slices/usersSlice";
+import { setSelectGroup, setFilterUsers } from "../../store/slices/usersSlice";
+
 
 
 ChartJS.register(
@@ -32,11 +32,10 @@ const UsersStatisticsPage = (props) => {
   const [selectedGroup, setSelectedGroup] = React.useState(false);
   const [popupVisibility, setPopupVisibility] = React.useState(false);
   const navigate = useNavigate()
-  const [data, setData] = useState(fakeData);
-  const {totalScoreSum, allUsers, avgMmr} = useSelector(state => state.users)
+  const {totalScoreSum, allUsersStatisticsPageData, avgMmr} = useSelector(state => state.users)
   const dispatch = useDispatch()
   
-
+console.log(allUsersStatisticsPageData)
   const columns = React.useMemo(
     () => [
       {
@@ -74,10 +73,8 @@ const UsersStatisticsPage = (props) => {
 
   const handleFilterChange = ({ target: { value } }) => {
     setFilterInput(value);
-    dispatch(setFilter(value))
-    
+    dispatch(setFilterUsers(value))
   };
-
 
   const handleSelectGroupchange = (e) => {
     setSelectedGroup([]);
@@ -101,7 +98,7 @@ const UsersStatisticsPage = (props) => {
     rows,
     prepareRow,
     setFilter,
-  } = useTable({ columns, data }, useFilters, useSortBy);
+  } = useTable({ columns, data:allUsersStatisticsPageData }, useFilters, useSortBy);
 
   const [userDoughnutData, setUserDoughnutData] = useState({
     labels: Object.keys(DoughnutDataBadges), 
@@ -169,12 +166,12 @@ console.log(rows)
                   <MenuItem value="/">
                     <em>None</em>
                   </MenuItem>
-                  {allUsers.map(group => <MenuItem>{group.group_id}</MenuItem>)}
+                  {allUsersStatisticsPageData.map((group, index) => <MenuItem key={index}>{group.group_id}</MenuItem>)}
                 </Select>
               </FormControl>
               <div className="users_searchInput">
               <Input
-                name={"search"}
+                name="Search"
                 value={filterInput}
                 placeholder="Search"
                 onChange={handleFilterChange}
@@ -226,7 +223,7 @@ console.log(rows)
                           <td
                             onClick={() =>
                               cell.column.Header === columns[0]["Header"]
-                                ? handleNavigateToUserPage(allUsers[cell.row.id].id)
+                                ? handleNavigateToUserPage(allUsersStatisticsPageData[cell.row.id].id)
                                 : console.log(cell)
                             }
                             {...cell.getCellProps()}

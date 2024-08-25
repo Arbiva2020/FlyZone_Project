@@ -362,10 +362,10 @@ def verify_token(token: str = Depends(oauth2_scheme)):
     except JWTError:
         raise HTTPException(status_code=403, detail="Token is invalid or expired")
     
-@app.get("/verify-token/{token}")
-async def verify_user_token(token: str):
-    verify_token(token=token)
-    return {"message":"Token is valid"}
+# @app.get("/verify-token/{token}")
+# async def verify_user_token(token: str):
+#     verify_token(token=token)
+#     return {"message":"Token is valid"}
     
 
 

@@ -23,13 +23,13 @@ import { setTestForm, setSliderform } from '../../store/slices/testSlice';
 
 const GenerateTest = () => {
 const {id} = useParams
-
+const dispatch = useDispatch()
 const testForm = useSelector(state => state.test.testForm)
 const sliderForm = useSelector(state => state.test.sliderForm)
-
-
-const dispatch = useDispatch()
-
+const [hover, setHover] = useState(false);
+const [selectScenario, setSelectScenario] = React.useState("");
+const [selectMissionType, setSelectMissionType] = React.useState("");
+const [selectMap, setSelectMap] = React.useState("");
 
 const handleTestForm = (name, value) => {
   dispatch(setTestForm({name,value}))
@@ -42,13 +42,13 @@ const handleSliderForm = (name, value) => {
 }
 
 
+const onHover = () => {
+  setHover(true)
+}
 
-
-
-const [selectScenario, setSelectScenario] = React.useState("")
-const [selectMissionType, setSelectMissionType] = React.useState("")
-const [selectMap, setSelectMap] = React.useState("")
-
+const onLeaveHover = () =>{
+  setHover(false)
+}
 
 const handleScenarioChange = (event) => {
   setSelectScenario(event.target.value);
@@ -66,17 +66,15 @@ const handleMapChange = (event) => {
 }
 
 
+function valuetext(value) {
+  return `Level ${value}`;
+}
 
-      function valuetext(value) {
-        return `Level ${value}`;
-      }
+const handleAssignTestToUser = () =>{
+  console.log(`test assigned to /generate/${id}`)
+    // navigate(`/user/${id}`)
+}
 
-      const handleAssignTestToUser = () =>{
-        console.log(`test assigned to /generate/${id}`)
-        // navigate(`/user/${id}`)
-      }
-
-    
 let sizeOptions = companiesDb.map(a=> a.size)
 // console.log(sizeOptions)
 let needed = companiesDb.map(function(value){
@@ -128,7 +126,18 @@ let needed = companiesDb.map(function(value){
                                           </MenuItem>
                                          )})}
                                         </Select>
-                                        </FormControl>
+                                      </FormControl>
+                                      <Link className='information_link' to="/scenarioAndMission">
+                                        <sup>
+                                          {hover ? "scenarios" : 
+                                             <FiInfo 
+                                             style={{fontSize:"100%", color:"white"}}
+                                             onMouseEnter={onHover}
+                                             onMouseLeave={onLeaveHover}
+                                           />
+                                          }
+                                        </sup>
+                                      </Link> 
                                       </div>
                                     </div>
                                     <div className='generate_environment'>
@@ -184,7 +193,7 @@ let needed = companiesDb.map(function(value){
                                           </MenuItem>
                                          )})}
                                         </Select>
-                                        </FormControl>
+                                      </FormControl>
                                       <Link className='information_link' to="/mapAndMission">
                                         <sup>
                                           <FiInfo 

@@ -1,51 +1,38 @@
 import React, { useState, useEffect } from "react";
 import AuthHeader from "../../components/AuthHeader/AuthHeader";
 import SideBar from "../../components/SideBar/SideBar";
+import Input from "../../components/Generic/Input/Input";
+import { FaSearch } from "react-icons/fa";
+import { scenarios } from "../../dataFake";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Input from "../../components/Generic/Input/Input";
-import "../MapAndMissionPage/MapAndMissionPage.css";
-import { FaSearch } from "react-icons/fa";
-import { maps } from "../../dataFake";
-import InfoPopup from "../../components/InfoPopup/InfoPopup.jsx";
+import Button from "@mui/material/Button";
+import "../ScenarioAndMissionPage/ScenarioAndMissionPage.css";
 
-function MapAndMissionPage() {
-  const [filterMaps, setFilterMaps] = React.useState(maps);
-  const [openMap, setOpenMap] = React.useState(false);
-  const [mapInfo, setMapInfo] = useState({ headline: "", additionalData: "", name: ""});
 
-  const handleInputChange = (val) =>
-    setFilterMaps(
-      maps.filter((map) => map.characteristics.join(", ").includes(val))
-    );
+function ScenarioAndMissionPage() {
+    const [filterScenarios, setFilterScenarios] = React.useState(scenarios);
+    const [openMap, setOpenMap] = React.useState(false);
 
-  const setMapInfoHandler = (header, moreData) => {
-    const newObj = { name: header, additionalData: moreData };
-    setMapInfo(newObj);
-  };
+    const handleInputChange = (val) =>
+        setFilterScenarios(
+            scenarios.filter((scenario) => scenario.key_words.join(", ").includes(val))
+        );
 
-  useEffect(() => {
-    console.log('got here')
-    if (mapInfo.name || mapInfo.additionalData) {
-        console.log('gothere 2', openMap)
-      setOpenMap(!openMap);
-    }
-  }, [mapInfo]);
-
+    // const [mapInfo, setMapInfo] = useState({ headline: "", additionalData: "", name: ""});
   return (
-    <div className="mapAndMission_main">
+    <div className="scenarioAndMission_main">
       <AuthHeader />
-      <div className="mapAndMission_content">
+      <div className="scenarioAndMission_content">
         <SideBar />
-        <div className="mapAndMission_body">
-          <div className="mapAndMission_hedline">
-            Map Types and Characteristics
+        <div className="scenarioAndMission_body">
+          <div className="scenarioAndMission_hedline">
+            Mission scenarios 
           </div>
-          <div className="mapAndMission_operations">
+          <div className="scenarioAndMission_operations">
             <Input
               autoComplete={"off"}
               placeholder="Search"
@@ -56,8 +43,8 @@ function MapAndMissionPage() {
               <FaSearch />
             </i>
           </div>
-          <div className="mapAndMission_cards">
-            {filterMaps.map((mapa, index) => (
+          <div className="scenarioAndMission_cards">
+            {filterScenarios.map((scenario, index) => (
               <Card
                 key={index}
                 sx={{
@@ -81,40 +68,24 @@ function MapAndMissionPage() {
                       alignItems: "center",
                     }}
                   >
-                    <CardMedia
+                    {/* <CardMedia
                       component="img"
-                      alt={mapa.name}
+                      alt={scenario.scenarioName}
                       height="140"
-                      image={mapa.map}
+                      image={scenario.map}
                       style={{
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
                       }}
-                    ></CardMedia>
+                    ></CardMedia> */}
                     <Typography gutterBottom variant="h5" component="div">
-                      {mapa.name}
+                      {scenario.scenarioName}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {mapa.description}
+                      {scenario.description}
                     </Typography>
                     <CardActions>
-                      <Button
-                        size="small"
-                        style={{
-                          color: "white",
-                          borderStyle: "solid",
-                          borderColor: "white",
-                          borderWidth: "1px",
-                          borderRadius: "10px",
-                          marginTop: "10px",
-                        }}
-                        onClick={() =>
-                          setMapInfoHandler(mapa.name, mapa.additionalData)
-                        }
-                      >
-                        Learn More
-                      </Button>
                       <Button
                         size="small"
                         style={{
@@ -129,7 +100,7 @@ function MapAndMissionPage() {
                         //   setMapInfoHandler(mapa.name, mapa.additionalData)
                         // }
                       >
-                        Select Map
+                        Apply scenario
                       </Button>
                     </CardActions>
                   </CardContent>
@@ -138,11 +109,11 @@ function MapAndMissionPage() {
             ))}
             {openMap && (
               <InfoPopup
-                isOpen={openMap}
-                headline={mapInfo.name}
-                onCancel={() => setOpenMap(false)}
+                // isOpen={openMap}
+                // headline={mapInfo.name}
+                // onCancel={() => setOpenMap(false)}
               >
-                <p>{mapInfo.additionalData}</p>
+                <p></p>
                 dsaldsaklasjdsakljasdkla
               </InfoPopup>
             )}
@@ -153,4 +124,4 @@ function MapAndMissionPage() {
   );
 }
 
-export default MapAndMissionPage;
+export default ScenarioAndMissionPage

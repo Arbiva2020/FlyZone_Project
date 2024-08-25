@@ -26,19 +26,16 @@
     border-radius: 20px;
     background-color: #2E2D2D;
     color: white;
-    width:fit-content;
-    height:fit-content;
+    width:400px;
+    height:220px;
     align-items: center;
     display: flex;
     flex-direction: column;
-    /* justify-content:space-evenly; */
-    align-content: center;
-    position: fixed;
-    right: 50%;
-    left: 50%;
-    top:30%;
-    /* bottom: 50%; */
-    margin-top: 100px;
+    position: absolute;
+    left: 65%;
+    top:50%;
+    margin-top: -25px;
+    margin-left: -400px;
     padding: 20px;
 }
 

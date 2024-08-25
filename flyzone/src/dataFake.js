@@ -360,7 +360,7 @@ export const pieData =
             name: "Open sea", 
             map: Map4, 
             characteristics: ["refugee", "camp", "high density", "crowded"], 
-            description: "This map will be used for scenarios that require CCCCCCCCCCCCCCCCCCC",
+            description: "This map will be used for scenarios that require DDDDDDDDDDDDDDDD",
             additionalData:"Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem",
         },
         {
@@ -369,7 +369,7 @@ export const pieData =
             name: "Port", 
             map: Map1, 
             characteristics: ["refugee", "camp", "high density", "crowded"], 
-            description: "This map will be used for scenarios that require CCCCCCCCCCCCCCCCCCC", 
+            description: "This map will be used for scenarios that require EEEEEEEEEEEEEEEE", 
             additionalData:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? ",
         },
         {
@@ -388,33 +388,73 @@ export const pieData =
         {
             id: 1, 
             scenarioName: "Surveillance",
-            difficulty_level: [2, 3] 
+            difficulty_level: [2, 3], 
+            description: "Drone kept at a constan position in the height of X meters, taking videos of target Y for 20 min.",
+            key_words: ["constant position", "video", "max.height", "min.height"]
         },
         {
             id: 2, 
             scenarioName: "Photography",
-            difficulty_level: [1, 2]  
+            difficulty_level: [1, 2], 
+            description: "Drone must take photos of at least 3 different angles of object Y, in various distances and without being spotted",
+            key_words: ["angles", "monitor", "photo"]  
         },
         {
             id: 3, 
             scenarioName: "Delivery",
-            difficulty_level: [2, 3]  
+            difficulty_level: [2, 3],
+            description: "Drone will get to a X location, lower down the delivary and go back home within 30 min.",
+            key_words: ["Drop", "Location", "obstacle"]  
         },
         {
             id: 4, 
             scenarioName: "Collection",
-            difficulty_level: [2, 3]  
+            difficulty_level: [2, 3], 
+            description: "Drone will get to a X location, collect the delivary and go back home within 30 min.",
+            key_words: []  
         },
         {
             id: 5, 
             scenarioName: "Targeting",
-            difficulty_level: [3, 4, 5]  
+            difficulty_level: [3, 4, 5], 
+            description: "Drone will have the specified target locked for X seconds, while keeping itself steady in mid air",
+            key_words: ["target", "focuse", "lock", "visible"]  
         },
         {
             id: 6, 
             scenarioName: "Indoors", 
-            difficulty_level: [4, 5]  
-        }
+            difficulty_level: [4, 5], 
+            description: "Drone will navigate between the rooms of the perimiter steadily, without any interactions with walls or objects",
+            key_words: ["room", "navigation", "collision", "contact", 'building']  
+        }, 
+        {
+            id: 7, 
+            scenarioName: "Tunnel", 
+            difficulty_level: [5, 5], 
+            description: "Drone will navigate through the tunnel steadily, without coliding in its walls",
+            key_words: ["wall", "side", "gps", "heating"]  
+        }, 
+        {
+            id: 8, 
+            scenarioName: "Kamikaze", 
+            difficulty_level: [3, 5],
+            description: "Drone will detect target and crush itself into it",
+            key_words: ["crush", "suicide"]  
+        }, 
+        {
+            id: 9, 
+            scenarioName: "Interception", 
+            difficulty_level: [5, 5], 
+            description: "Drone will shoot at a target within X seconds from detection",
+            key_words: ["target", "shoot", "prevent"]  
+        }, 
+        {
+            id: 10, 
+            scenarioName: "Release cargo",
+            difficulty_level: [2, 3],
+            description: "Drone will get to a X location, release cargo from air and go back home within 30 min.",
+            key_words: ["drop", "cargo"]  
+        },
     ]
 
     export const adminList = 

@@ -10,22 +10,20 @@ import {testGeneratingConditions} from '../GenerateTest/GenerateTestData'
 import {FiInfo} from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
-import { datafake } from '../../dataFake';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import CustomSelect from "../../components/Generic/Select/Select"
-import Input from '../../components/Generic/Input/Input';
 import UserSideData from '../../components/UserSideData/UserSideData';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTestForm, setSliderform } from '../../store/slices/testSlice';
 
 const GenerateTest = () => {
 const {id} = useParams
-const dispatch = useDispatch()
-const testForm = useSelector(state => state.test.testForm)
-const sliderForm = useSelector(state => state.test.sliderForm)
+const dispatch = useDispatch();
+const testForm = useSelector(state => state.test.testForm);
+const sliderForm = useSelector(state => state.test.sliderForm);
 const [hover, setHover] = useState(false);
 const [selectScenario, setSelectScenario] = React.useState("");
 const [selectMissionType, setSelectMissionType] = React.useState("");
@@ -40,7 +38,6 @@ const handleSliderForm = (name, value) => {
   dispatch(setSliderform({name,value}))
   console.log(value)
 }
-
 
 const onHover = () => {
   setHover(true)
@@ -64,7 +61,6 @@ const handleMapChange = (event) => {
   setSelectMap(event.target.value);
   console.log(event.target)
 }
-
 
 function valuetext(value) {
   return `Level ${value}`;
@@ -127,13 +123,12 @@ let needed = companiesDb.map(function(value){
                                          )})}
                                         </Select>
                                       </FormControl>
-                                      <Link className='information_link' to="/scenarioAndMission">
-                                        <sup>
+                                      <Link className='information_link' to="/scenarioAndMission" onMouseLeave={onLeaveHover}>
+                                        <sup style={{color:"white"}}>
                                           {hover ? "scenarios" : 
                                              <FiInfo 
                                              style={{fontSize:"100%", color:"white"}}
                                              onMouseEnter={onHover}
-                                             onMouseLeave={onLeaveHover}
                                            />
                                           }
                                         </sup>

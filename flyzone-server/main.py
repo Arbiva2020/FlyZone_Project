@@ -23,7 +23,7 @@ load_dotenv('.env')
 app = FastAPI(
     title = "FlyZone API",
     description = "A service for data collection of user preformance in the FlyZone VR platform",
-    # docs_url = "/",
+    docs_url = "/",
     debug=True
 )
 
@@ -89,8 +89,8 @@ class UserBase(BaseModel):
     mmr: int
     badges: int
     total_assessments: int
-    number_of_failurs: int
-    straight_failurs: int
+    number_of_failures: int
+    straight_failures: int
     assessment_overdue: bool
     total_score: int
     company_id: int
@@ -440,6 +440,13 @@ async def read_users(db:db_dependency, skip: int=0, limit: int = 100):
     users = db.query(models.User).offset(skip).limit(limit).all()
     return users
 
+@app.get("/users/{user_id}")
+async def get_user_by_id(user_id: int, user_name: str):
+    return {"user_name":user_name, "user_id": user_id}
+
+@app.patch("/users/{user_id}")
+async def update_user_by_id(user_id: int, user_name: str):
+    return {"user_name": user_name, "user_id": user_id}
 
 @app.put("/users/{user_id}")
 async def update_user(user_id: int, user_name: str):

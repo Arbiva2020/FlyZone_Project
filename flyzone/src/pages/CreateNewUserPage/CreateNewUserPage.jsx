@@ -169,6 +169,7 @@ import { registerDefaultValidState } from '../../constants/FormDeaults';
 import { validateEmail, validateMinMax, validatePassword, confirmPassword } from '../../validators/validators';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetErrors, resetToInitialState, setErrors, setUserData, toggleShowPassword } from '../../store/slices/authSlice';
+import handleScenarioData from "../../App"
 
 function CreateNewUserPage() {
     const {userData, errors, showPassword} = useSelector(state=>state.auth);
@@ -271,7 +272,8 @@ function CreateNewUserPage() {
                                     name={"first_name"}
                                     value={userData.first_name}
                                     placeholder="First name"
-                                    onChange={handleInputChange}
+                                    onChange={handleScenarioData}
+                                    // onChange={handleInputChange}
                                     onBlur={(e) => handleChange(e.target.name, e.target.value)}
                                     checkErrorsFunc={validateMinMax}
                                     errorFuncParams={['first_name', 3, 20]}
@@ -281,7 +283,8 @@ function CreateNewUserPage() {
                                     name={"last_name"}
                                     value={userData.last_name}
                                     placeholder="Last Name"
-                                    onChange={handleInputChange}
+                                    onChange={handleScenarioData}
+                                    // onChange={handleInputChange}
                                     onBlur={(e) => handleChange(e.target.name, e.target.value)}
                                     checkErrorsFunc={validateMinMax}
                                     errorFuncParams={['last_name', 3, 20]}
@@ -291,20 +294,23 @@ function CreateNewUserPage() {
                                     name={"username"}
                                     value={userData.username}
                                     placeholder="Username"
-                                    onChange={handleInputChange}
+                                    onChange={handleScenarioData}
+                                    // onChange={handleInputChange}
                                 />
                                 <Input
                                     name={"password"}
                                     value={userData.password}
                                     placeholder="Password"
                                     type="password"
-                                    onChange={handleInputChange}
+                                    onChange={handleScenarioData}
+                                    // onChange={handleInputChange}
                                 />
                                 <Input
                                     name={"email"}
                                     value={userData.email}
                                     placeholder="Email"
-                                    onChange={handleInputChange}
+                                    onChange={handleScenarioData}
+                                    // onChange={handleInputChange}
                                 />
                             </div>
                             <div className='createUser_formRight'>
@@ -312,24 +318,28 @@ function CreateNewUserPage() {
                                     name={"company_id"}
                                     value={userData.company_id}
                                     placeholder="Company ID"
-                                    onChange={handleInputChange}
+                                    onChange={handleScenarioData}
+                                    // onChange={handleInputChange}
                                 />
                                 <Input
                                     name={"group_id"}
                                     value={userData.group_id}
                                     placeholder="Group ID"
-                                    onChange={handleInputChange}
+                                    onChange={handleScenarioData}
+                                    // onChange={handleInputChange}
                                 />
                                 <Input
                                     name={"profileImguser"}
                                     value={userData.profileImguser}
                                     placeholder="Profile Image URL"
-                                    onChange={handleInputChange}
+                                    onChange={handleScenarioData}
+                                    // onChange={handleInputChange}
                                 />
                                 <div className='createUser_checkbox'>
                                     <Checkbox
                                         name="assessment_overdue"
-                                        onChange={handleInputChange}
+                                        onChange={handleScenarioData}
+                                        // onChange={handleInputChange}
                                         value={userData.assessment_overdue}
                                     />
                                     Assessment Overdue

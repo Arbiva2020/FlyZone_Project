@@ -170,14 +170,68 @@ import { validateEmail, validateMinMax, validatePassword, confirmPassword } from
 import { useDispatch, useSelector } from 'react-redux';
 import { resetErrors, resetToInitialState, setErrors, setUserData, toggleShowPassword } from '../../store/slices/authSlice';
 import handleScenarioData from "../../App"
+import { setTestForm } from '../../store/slices/testSlice';
 
 function CreateNewUserPage() {
     const {userData, errors, showPassword} = useSelector(state=>state.auth);
     const dispatch = useDispatch();
     const [isFormValid,setIsFormValid] = useState(registerDefaultValidState)
     const [isFormDisabled, setIsFormDisabled] = useState(true)
+
+
+    const [scenarioFormData, setScenarioFormData] = useState({})
+    const [users, setUsers] = useState({
+      id: "",
+      security_level: "",
+      username: "",
+      first_name: "",
+      last_name: "",
+      password: "",
+      email: "",
+      level: "",
+      next_level: "",
+      mmr: "",
+      badges: "",
+      total_assessments: "",
+      number_of_failures: "",
+      straight_failures: "",
+      assessment_overdue: "",
+      total_score: "",
+      company_id: "",
+      group_id: "",
+      profileImguser: "",
+    });
+    const fetchUsers = async() => {
+      const response = await api.get("/users");
+      setUsers(response.data)
+    };
   
+    useEffect(() => {
+      fetchUsers();
+    }, [])
   
+    //submitting data for a new test(instead of algorithmic):
+    const handleScenarioFormData = async(event) => {
+      event.preventDefault();
+      await api.post('/users', scenarioFormData);
+      fetchUsers();
+      setScenarioFormData({
+        map:"",
+        scenario:"",
+        missionType:"", 
+        startTime:"", 
+        endTime:"",
+        wind:"", 
+        fog:"", 
+        brightness:"", 
+      })
+    }
+
+
+
+
+  
+  // console.log(users)
     const handleChange = (name,value) => {
       dispatch(setUserData({name,value}))
     }
@@ -246,14 +300,14 @@ function CreateNewUserPage() {
 
 
 
-        event.preventDefault();
-        try {
-            await api.post('/users/', userData);
-            // Add any additional success handling here, e.g., fetching users, showing a success message
-        } catch (error) {
-            console.error('Failed to create user:', error);
-            // Add any error handling here, e.g., showing an error message
-        }
+        // event.preventDefault();
+        // try {
+        //     await api.post('/users/', userData);
+        //     // Add any additional success handling here, e.g., fetching users, showing a success message
+        // } catch (error) {
+        //     console.error('Failed to create user:', error);
+        //     // Add any error handling here, e.g., showing an error message
+        // }
     };
 
     return (

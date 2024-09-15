@@ -155,6 +155,7 @@
     font-weight: lighter;
     align-self: center;
     display: contents;
+    flex-direction: row;
 }
 
 .generate_environment_select {

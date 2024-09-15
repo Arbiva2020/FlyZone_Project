@@ -29,13 +29,10 @@ const [selectScenario, setSelectScenario] = React.useState("");
 const [selectMissionType, setSelectMissionType] = React.useState("");
 const [selectMap, setSelectMap] = React.useState("");
 
+console.log(testForm)
+
 const handleTestForm = (name, value) => {
   dispatch(setTestForm({name,value}))
-  console.log(value)
-}
-
-const handleSliderForm = (name, value) => {
-  dispatch(setSliderform({name,value}))
   console.log(value)
 }
 
@@ -47,15 +44,6 @@ const onLeaveHover = () =>{
   setHover(false)
 }
 
-const handleScenarioChange = (event) => {
-  setSelectScenario(event.target.value);
-  console.log(event.target.value)
-}
-
-const handleMissionTypeChange = (event) => {
-  setSelectMissionType(event.target.value);
-  console.log(event.target.value)
-}
 
 const handleMapChange = (event) => {
   setSelectMap(event.target.value);
@@ -103,99 +91,74 @@ let needed = companiesDb.map(function(value){
                           <div className='scaling_left'>
                             <div className='left_headline'>Environment parameters:</div>
                                     <div className='generate_environment'>
-                                      <div className='generate_environment_text'>Scenario:</div>
+                                      <div className='generate_environment_text'><Link to="/scenarioAndMission" style={{color:"white", textDecoration:"none"}}>Scenario:</Link>
+                                        {/* <Link className='information_link' to="/scenarioAndMission" onMouseLeave={onLeaveHover}>
+                                          <sup style={{color:"white"}}>
+                                            {hover ? "scenarios" : 
+                                              <FiInfo 
+                                              style={{fontSize:"100%", color:"white"}}
+                                              onMouseEnter={onHover}
+                                            />
+                                            }
+                                          </sup>
+                                        </Link>  */}
+                                      </div>
                                       <div className='generate_environment_select'> 
-                                      <FormControl sx={{m: 1, minWidth: 120, backgroundColor: 'gray'}}>
+                                      <FormControl sx={{m: 1, minWidth: 120}}>
                                         <InputLabel id="select-generateTest-label">Select scenario</InputLabel>
-                                        <Select 
+                                        <CustomSelect 
                                           label="Choose scenario" 
+                                          name="scenario"
                                           title="Choose scenario"
-                                          onChange={handleScenarioChange}
-                                          value={selectScenario}
-                                          // value={scenarios.map((value)=><MenuItem value={scenarioOptions}>{value=Object.values(value.scenarioName).join('')}</MenuItem>)} 
-                                          customStyles={{color:"secondary"}}
-                                        >
-                                         {scenarios.map(scenario => {
-                                          return(
-                                          <MenuItem key={scenario.id} value={scenario.id}>
-                                            {scenario.scenarioName}
-                                          </MenuItem>
-                                         )})}
-                                        </Select>
+                                          onChange={handleTestForm}
+                                          value={testForm.scenario}
+                                          options={scenarios}
+                                        />
                                       </FormControl>
-                                      <Link className='information_link' to="/scenarioAndMission" onMouseLeave={onLeaveHover}>
-                                        <sup style={{color:"white"}}>
-                                          {hover ? "scenarios" : 
-                                             <FiInfo 
-                                             style={{fontSize:"100%", color:"white"}}
-                                             onMouseEnter={onHover}
-                                           />
-                                          }
-                                        </sup>
-                                      </Link> 
                                       </div>
                                     </div>
                                     <div className='generate_environment'>
-                                      <div className='generate_environment_text'>Mission Type:</div>
+                                      <div className='generate_environment_text'><Link to="/scenarioAndMission" style={{color:"white", textDecoration:"none"}}>Mission Type:</Link></div>
                                       <div className='generate_environment_select'>
 
-                                      <FormControl sx={{m: 1, minWidth: 120, backgroundColor: 'gray'}}>
+                                      <FormControl sx={{m: 1, minWidth: 120}}>
                                         <InputLabel id="select-generateTest-label">Select mission</InputLabel>
-                                        <Select
+                                        <CustomSelect
                                           labelId="select-mission-change"
                                           id="select-mission-change"
-                                          value={selectMissionType}
+                                          name="mission"
+                                          value={testForm.mission}
                                           label="Assessment type"
-                                          onChange={handleMissionTypeChange}
-                                          inputProps={{
-                                            MenuProps: {
-                                                MenuListProps: {
-                                                    sx: {
-                                                        backgroundColor: 'rgb(45, 43, 43)',
-                                                        color: "white",
-                                                    },
-                                                }
-                                            }
-                                        }}
-                                        >
-                                         {missions.map(mission => {
-                                          return(
-                                          <MenuItem key={mission.id} value={mission.id}>
-                                            {mission.missionType}
-                                          </MenuItem>
-                                         )})}
-                                        </Select>
+                                          onChange={handleTestForm}
+                                          options={missions}
+                                        />
                                       </FormControl>
                                       </div>
                                     </div>
 
                                     <div className='generate_environment'>
-                                      <div className='generate_environment_text'>Map:</div>
-                                      <div className='generate_environment_select'  style={{display:"flex", alignItems:"center"}}>
-                                      <FormControl sx={{m: 1, minWidth: 120, backgroundColor: 'gray'}}>
+                                      <div className='generate_environment_text'><Link to="/mapAndMission" style={{color:"white", textDecoration:"none"}}>Map:</Link></div>
+                                      <div className='generate_environment_select' style={{display:"flex", alignItems:"center"}}>
+                                      <FormControl sx={{m: 1, minWidth: 120}}>
                                         <InputLabel id="select-generateTest-label">Select map</InputLabel>
-                                        <Select 
+                                        <CustomSelect 
                                           label="Choose map" 
-                                          title="Choose map"
-                                          value={selectMap}
-                                          onChange={handleMapChange}
-                                          customStyles={{color:"secondary"}} 
-                                        >
-                                          {maps.map(map => {
-                                          return(
-                                          <MenuItem key={map.id} value={map.id}>
-                                            {map.name}
-                                          </MenuItem>
-                                         )})}
-                                        </Select>
+                                          id="select-map-change"
+                                          // title="Choose map"
+                                          name="map"
+                                          value={testForm.map}
+                                          onChange={handleTestForm}
+                                          options={maps}
+                                        />
+                                    
                                       </FormControl>
-                                      <Link className='information_link' to="/mapAndMission">
+                                      {/* <Link className='information_link' to="/mapAndMission">
                                         <sup>
                                           <FiInfo 
                                             style={{fontSize:"100%", color:"white"}}
                                           />
                                         </sup>
-                                      </Link> 
+                                      </Link>  */}
                                       </div>
                                     </div>
                           </div>
@@ -215,11 +178,11 @@ let needed = companiesDb.map(function(value){
                                       max={data.max}
                                       marks={true}
                                       disabled={false}
+                                      name="timeToFinish"
                                       valueLabelDisplay="auto"
                                       aria-label="small steps"
                                       style={{color: "purple"}}
-                                      onChange={handleSliderForm}
-                                      // onChange={(event)=>{console.log(event)}}
+                                      onChange={(e) => handleTestForm(e.target.name, e.target.value)}
                                     />
                                   </div>
                                     )}
@@ -259,8 +222,9 @@ let needed = companiesDb.map(function(value){
                                       disabled={false}
                                       valueLabelDisplay="auto"
                                       aria-label="small steps"
+                                      name="wind"
                                       style={{color: "purple"}}
-                                      onChange={(event)=>{console.log(event)}}
+                                      onChange={(e) => handleTestForm(e.target.name, e.target.value)}
                                     />
                                   </div>
                                     )}

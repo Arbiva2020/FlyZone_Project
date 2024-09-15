@@ -11,12 +11,22 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import "../ScenarioAndMissionPage/ScenarioAndMissionPage.css";
+import { setTestForm } from "../../store/slices/testSlice";
+import {useDispatch} from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 
 function ScenarioAndMissionPage() {
     const [filterScenarios, setFilterScenarios] = React.useState(scenarios);
     const [openMap, setOpenMap] = React.useState(false);
+const dispatch = useDispatch();
+const navigate = useNavigate()
 
+    const handleTestForm = (name, value) => {
+      dispatch(setTestForm({name,value}))
+      console.log(value)
+    }
+    
     const handleInputChange = (val) =>
         setFilterScenarios(
             scenarios.filter((scenario) => scenario.key_words.join(", ").includes(val))
@@ -70,7 +80,7 @@ function ScenarioAndMissionPage() {
                   >
                     {/* <CardMedia
                       component="img"
-                      alt={scenario.scenarioName}
+                      alt={scenario.name}
                       height="140"
                       image={scenario.map}
                       style={{
@@ -80,7 +90,7 @@ function ScenarioAndMissionPage() {
                       }}
                     ></CardMedia> */}
                     <Typography gutterBottom variant="h5" component="div">
-                      {scenario.scenarioName}
+                      {scenario.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       {scenario.description}
@@ -96,9 +106,10 @@ function ScenarioAndMissionPage() {
                           borderRadius: "10px",
                           marginTop: "10px",
                         }}
-                        // onClick={() =>
-                        //   setMapInfoHandler(mapa.name, mapa.additionalData)
-                        // }
+                         onClick={() => {
+                          handleTestForm("scenario", scenario.name)
+                          navigate(-1)
+                         }}
                       >
                         Apply scenario
                       </Button>

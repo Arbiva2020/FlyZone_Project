@@ -387,70 +387,70 @@ export const pieData =
     export const scenarios = [
         {
             id: 1, 
-            scenarioName: "Surveillance",
+            name: "Surveillance",
             difficulty_level: [2, 3], 
             description: "Drone kept at a constan position in the height of X meters, taking videos of target Y for 20 min.",
             key_words: ["constant position", "video", "max.height", "min.height"]
         },
         {
             id: 2, 
-            scenarioName: "Photography",
+            name: "Photography",
             difficulty_level: [1, 2], 
             description: "Drone must take photos of at least 3 different angles of object Y, in various distances and without being spotted",
             key_words: ["angles", "monitor", "photo"]  
         },
         {
             id: 3, 
-            scenarioName: "Delivery",
+            name: "Delivery",
             difficulty_level: [2, 3],
             description: "Drone will get to a X location, lower down the delivary and go back home within 30 min.",
             key_words: ["Drop", "Location", "obstacle"]  
         },
         {
             id: 4, 
-            scenarioName: "Collection",
+            name: "Collection",
             difficulty_level: [2, 3], 
             description: "Drone will get to a X location, collect the delivary and go back home within 30 min.",
             key_words: []  
         },
         {
             id: 5, 
-            scenarioName: "Targeting",
+            name: "Targeting",
             difficulty_level: [3, 4, 5], 
             description: "Drone will have the specified target locked for X seconds, while keeping itself steady in mid air",
             key_words: ["target", "focuse", "lock", "visible"]  
         },
         {
             id: 6, 
-            scenarioName: "Indoors", 
+            name: "Indoors", 
             difficulty_level: [4, 5], 
             description: "Drone will navigate between the rooms of the perimiter steadily, without any interactions with walls or objects",
             key_words: ["room", "navigation", "collision", "contact", 'building']  
         }, 
         {
             id: 7, 
-            scenarioName: "Tunnel", 
+            name: "Tunnel", 
             difficulty_level: [5, 5], 
             description: "Drone will navigate through the tunnel steadily, without coliding in its walls",
             key_words: ["wall", "side", "gps", "heating"]  
         }, 
         {
             id: 8, 
-            scenarioName: "Kamikaze", 
+            name: "Kamikaze", 
             difficulty_level: [3, 5],
             description: "Drone will detect target and crush itself into it",
             key_words: ["crush", "suicide"]  
         }, 
         {
             id: 9, 
-            scenarioName: "Interception", 
+            name: "Interception", 
             difficulty_level: [5, 5], 
             description: "Drone will shoot at a target within X seconds from detection",
             key_words: ["target", "shoot", "prevent"]  
         }, 
         {
             id: 10, 
-            scenarioName: "Release cargo",
+            name: "Release cargo",
             difficulty_level: [2, 3],
             description: "Drone will get to a X location, release cargo from air and go back home within 30 min.",
             key_words: ["drop", "cargo"]  
@@ -469,28 +469,28 @@ export const pieData =
     export const missions = [
         {
             id: 1, 
-            missionType: "A",
+            name: "A",
         },
         {
             id: 2, 
-            missionType: "B",
+            name: "B",
         },
         {
             id: 3, 
-            missionType: "C",
+            name: "C",
         },
         {
             id: 4, 
-            missionType: "D",
+            name: "D",
              
         },
         {
             id: 5, 
-            missionType: "E",
+            name: "E",
         },
         {
             id: 6, 
-            missionType: "F", 
+            name: "F", 
         }
     ]
 

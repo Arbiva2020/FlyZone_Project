@@ -287,18 +287,6 @@ def authenticate_user(username: str, password: str, db: Session):
     return user
 
 
-# def authenticate_user(username: str, password: str, db: Session):
-#     user = get_user_by_username(db, username)
-#     print("!!!!!!!!!!!!", username)
-#     if not user:
-#         print("User not found", username)
-#         return False
-#     if not verify_password(password, user.password):
-#         print("Password does not match")
-#         return False
-#     print("User authenticated")
-#     return user
-
 
 def create_access_token(data:dict, expires_delta: timedelta | None=None):
     to_encode = data.copy()
@@ -311,30 +299,6 @@ def create_access_token(data:dict, expires_delta: timedelta | None=None):
     return encoded_jwt
 
 
-# def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-#     to_encode = data.copy()
-#     if expires_delta:
-#         expire = datetime.utcnow() + expires_delta
-#     else:
-#         expire = datetime.utcnow() + timedelta(minutes=15)
-#     to_encode.update({"exp": expire})
-#     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-#     return encoded_jwt
-
-# @app.post("/token")
-# def login_for_access_token(form_data: OAuth2PasswordRequestForm=Depends(), db: Session=Depends(get_db)):
-#     user= authenticate_user(form_data.username, form_data.password, db)
-#     if not user:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED, 
-#             detail="Incorrect username or password", 
-#             headers={"WWW-Authenticate":"Bearer"}
-#         )
-#     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-#     access_token = create_access_token(
-#         data={"sub": user.username}, expires_delta=access_token_expires
-#     )
-#     return {"access_token":access_token, "token_type":"bearer"}
 
 @app.post("/token", response_model=dict)
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -361,12 +325,6 @@ def verify_token(token: str = Depends(oauth2_scheme)):
         return payload
     except JWTError:
         raise HTTPException(status_code=403, detail="Token is invalid or expired")
-    
-# @app.get("/verify-token/{token}")
-# async def verify_user_token(token: str):
-#     verify_token(token=token)
-#     return {"message":"Token is valid"}
-    
 
 
 
@@ -382,6 +340,8 @@ async def login_user(user:UserLoginBase, db: db_dependency):
         print(e)
         raise HTTPException(status_code=500, detail=str(e))
 
+
+## working
 @app.post("/users/", response_model=UserModel)
 async def create_user(user: UserBase, db: db_dependency):
     try:
@@ -420,7 +380,7 @@ async def create_company(company: CompanyBase, db: db_dependency):
         db.rollback()  # Rollback in case of error
         raise HTTPException(status_code=500, detail=str(e))
     
-
+## working
 @app.post("/maps/", response_model=MapModel)
 async def create_map(map: MapBase, db: db_dependency):
     try:
@@ -432,110 +392,61 @@ async def create_map(map: MapBase, db: db_dependency):
     except Exception as e:
         db.rollback()  # Rollback in case of error
         raise HTTPException(status_code=500, detail=str(e))
+
+## working
+@app.get("/maps/", response_model=List[MapModel])
+async def read_maps(db:db_dependency, skip: int=0, limit: int = 100):
+    maps = db.query(models.Map).offset(skip).limit(limit).all()
+    return maps
     
     
-    
+## working  
+@app.get("/users/{user_username}")
+async def read_user(user_username: str, db: db_dependency):
+    user = db.query(models.User).filter(models.User.username == user_username).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user  
+
+
+@app.get("/maps/{map_map_name}")
+async def get_map_my_name(map_map_name: str, db: db_dependency):
+    map = db.query(models.Map).filter(models.Map.map_name == map_map_name).first()
+    if map is None:
+        raise HTTPException(status_code=404, detail="Map not found")
+    return map  
+
+
+## working  
 @app.get("/users/", response_model=List[UserModel])
 async def read_users(db:db_dependency, skip: int=0, limit: int = 100):
     users = db.query(models.User).offset(skip).limit(limit).all()
     return users
 
+
 @app.get("/users/{user_id}")
-async def get_user_by_id(user_id: int, user_name: str):
-    return {"user_name":user_name, "user_id": user_id}
+async def get_user_by_id(user_id: int, db: db_dependency):
+    print(f"Querying user with ID: {user_id}")  
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    print(f"Found user: {user}") 
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
 
 @app.patch("/users/{user_id}")
 async def update_user_by_id(user_id: int, user_name: str):
     return {"user_name": user_name, "user_id": user_id}
 
+
 @app.put("/users/{user_id}")
 async def update_user(user_id: int, user_name: str):
     return {"user_name": user_name, "user_id": user_id}
 
+
 @app.delete('/users/{user_id}')
 async def delete_user_by_id(user_id):
     pass
-
-
-
-
-
-# @app.get("/")
-# async def root():
-#     return {"message": "Hello World"}
-
-# @app.get('/users')
-# async def get_all_users():
-#     pass
-
-# @app.post('/users')
-# async def create_user():
-#     pass
-
-# @app.get('/users/{user_id}')
-# async def get_user_by_id(user_id):
-#     pass
-
-# @app.patch('/users/{user_id}')
-# async def update_user_by_id(user_id):
-#     pass
-
-# @app.delete('/users/{user_id}')
-# async def delete_user_by_id(user_id):
-#     pass
-
-
-
-
-# @app.post("/users/", response_model=SchemaUser)
-# async def create_user(user: SchemaUser, db: db_dependency):
-#     db_user=models.User(**user.model_dump())
-#     db.add(db_user)
-#     db.commit()
-#     db.refresh(db-user)
-#     return db_user
-
-
-# @app.post("/users/", response_model=UserModel)
-# def create_user(user: UserBase, db: db_dependency):
-#     db_user = models.User(**user.dict())
-#     db.add(db_user)
-#     db.commit()
-#     db.refresh(db_user)
-#     return db_user
-
-
-# @app.post("/users/", response_model=SchemaUser)
-# async def create_user(user: SchemaUser, db:db_dependency):
-#     db_user = models.User(**user.dict())
-#     db.add(db_user)
-#     db.commit() 
-#     db.refresh(db_user)
-#     return db_user
-
-
-# @app.get("/users/{user_id}")
-# async def read_users(user_id:int):
-#     return {"user_id": user_id}
-
-
-# @app.get("/users", response_model=List[UserModel])
-# async def read_users(db: db_dependency, skip: int=0, limit: int=100):
-#     users = db.query(models.User).offset(skip).limit(limit).all()
-#     return users 
-
-
-# @app.get("/users/")
-# async def read_users(q: Annotated[str | None, Query(max_length=50)] = None):
-#     results = {"users": [{"user_id": "Foo"}, {"user_id": "Bar"}]}
-#     if q:
-#         results.update({"q": q})
-#     return results
-
-
-# @app.put("/users/{user_id}")
-# async def update_user(user_id: int, user_name: str):
-#     return {"user_name": user_name, "user_id": user_id}
 
 
 

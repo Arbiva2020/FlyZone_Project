@@ -1,20 +1,20 @@
-import React, {useState, useEffect} from 'react'
-import './GenerateTest.css'
-import SideBar from '../../components/SideBar/SideBar'
-import AuthHeader from '../../components/AuthHeader/AuthHeader'
+import React, {useState, useEffect} from 'react';
+import './GenerateTest.css';
+import SideBar from '../../components/SideBar/SideBar';
+import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import Slider from '@mui/material/Slider';
-import Button from '../../components/Generic/Button/Button'
-import '../../fakeData.json'
+import Button from '../../components/Generic/Button/Button';
+import '../../fakeData.json';
 import { companiesDb, missions, scenarios, maps, users, windSpeed, fogDensity } from '../../dataFake'
 import {testGeneratingConditions} from '../GenerateTest/GenerateTestData'
-import {FiInfo} from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import {FiInfo} from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import CustomSelect from "../../components/Generic/Select/Select"
+import CustomSelect from "../../components/Generic/Select/Select";
 import UserSideData from '../../components/UserSideData/UserSideData';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTestForm, setSliderform } from '../../store/slices/testSlice';
@@ -105,7 +105,7 @@ let needed = companiesDb.map(function(value){
                                       </div>
                                       <div className='generate_environment_select'> 
                                       <FormControl sx={{m: 1, minWidth: 120}}>
-                                        <InputLabel id="select-generateTest-label">Select scenario</InputLabel>
+                                        {/* <InputLabel id="select-generateTest-label">Select scenario</InputLabel> */}
                                         <CustomSelect 
                                           label="Choose scenario" 
                                           name="scenario"
@@ -122,11 +122,12 @@ let needed = companiesDb.map(function(value){
                                       <div className='generate_environment_select'>
 
                                       <FormControl sx={{m: 1, minWidth: 120}}>
-                                        <InputLabel id="select-generateTest-label">Select mission</InputLabel>
+                                        {/* <InputLabel id="select-generateTest-label">Select mission</InputLabel> */}
                                         <CustomSelect
                                           labelId="select-mission-change"
                                           id="select-mission-change"
                                           name="mission"
+                                          title="Mission scenario"
                                           value={testForm.mission}
                                           label="Assessment type"
                                           onChange={handleTestForm}
@@ -140,11 +141,11 @@ let needed = companiesDb.map(function(value){
                                       <div className='generate_environment_text'><Link to="/mapAndMission" style={{color:"white", textDecoration:"none"}}>Map:</Link></div>
                                       <div className='generate_environment_select' style={{display:"flex", alignItems:"center"}}>
                                       <FormControl sx={{m: 1, minWidth: 120}}>
-                                        <InputLabel id="select-generateTest-label">Select map</InputLabel>
+                                        {/* <InputLabel id="select-generateTest-label">Select map</InputLabel> */}
                                         <CustomSelect 
                                           label="Choose map" 
                                           id="select-map-change"
-                                          // title="Choose map"
+                                          title="Choose map"
                                           name="map"
                                           value={testForm.map}
                                           onChange={handleTestForm}
@@ -244,8 +245,8 @@ let needed = companiesDb.map(function(value){
                       />
                     </div>
                     <div className='geberateTest_down'> 
-                      <switch></switch>
-                      {handleAssignTestToUser ?  <progress className='genertateTest_progress'></progress> : <Button customStyles={{}} onClick={handleAssignTestToUser}/>} 
+                      {/* <switch></switch> */}
+                      {handleAssignTestToUser ? <progress className='genertateTest_progress'></progress> : <Button customStyles={{}} onClick={handleAssignTestToUser}/>} 
                     </div> 
                   </div>
                 </div>

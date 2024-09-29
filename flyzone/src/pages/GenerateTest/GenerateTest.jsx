@@ -29,6 +29,8 @@ const [selectScenario, setSelectScenario] = React.useState("");
 const [selectMissionType, setSelectMissionType] = React.useState("");
 const [selectMap, setSelectMap] = React.useState("");
 
+
+
 console.log(testForm)
 
 const handleTestForm = (name, value) => {
@@ -36,19 +38,23 @@ const handleTestForm = (name, value) => {
   console.log(value)
 }
 
-const onHover = () => {
-  setHover(true)
-}
+const handleGroupChange = (obj) => {
+  setTestForm(obj);
+};
 
-const onLeaveHover = () =>{
-  setHover(false)
-}
+// const onHover = () => {
+//   setHover(true)
+// }
+
+// const onLeaveHover = () =>{
+//   setHover(false)
+// }
 
 
-const handleMapChange = (event) => {
-  setSelectMap(event.target.value);
-  console.log(event.target)
-}
+// const handleMapChange = (event) => {
+//   setSelectMap(event.target.value);
+//   console.log(event.target)
+// }
 
 function valuetext(value) {
   return `Level ${value}`;
@@ -64,6 +70,8 @@ let sizeOptions = companiesDb.map(a=> a.size)
 let needed = companiesDb.map(function(value){
   return value.name
 })
+
+console.log(companiesDb[2].groups)
 
       return (
     <div className='generateTest_main'>
@@ -81,7 +89,7 @@ let needed = companiesDb.map(function(value){
                     <div className='generatetest_select'>
                         <FormControl style={{display:"flex", flexDirection:"row"}}>
                           <CustomSelect name="company" title="Company" onChange={handleTestForm} value={testForm.company} options={companiesDb} />
-                          <CustomSelect name="group" title="Group" onChange={handleTestForm} value={testForm.group} options={companiesDb} />
+                          <CustomSelect name="group" title="Group" onChange={handleTestForm} value={testForm.pilot} options={companiesDb} />
                           <CustomSelect name="pilot" title="Pilot" onChange={handleTestForm} value={testForm.pilot} options={companiesDb} />
                         </FormControl>
                       </div>
@@ -182,7 +190,7 @@ let needed = companiesDb.map(function(value){
                                       name="timeToFinish"
                                       valueLabelDisplay="auto"
                                       aria-label="small steps"
-                                      style={{color: "purple"}}
+                                      style={{color: "#7c6d94"}}
                                       onChange={(e) => handleTestForm(e.target.name, e.target.value)}
                                     />
                                   </div>
@@ -224,7 +232,7 @@ let needed = companiesDb.map(function(value){
                                       valueLabelDisplay="auto"
                                       aria-label="small steps"
                                       name="wind"
-                                      style={{color: "purple"}}
+                                      style={{color: "#7c6d94"}}
                                       onChange={(e) => handleTestForm(e.target.name, e.target.value)}
                                     />
                                   </div>

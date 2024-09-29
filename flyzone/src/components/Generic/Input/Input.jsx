@@ -7,14 +7,16 @@ const Input = ({name, type="text", placeholder="", onBlur=()=>{}, onChange=()=>{
   const handleOnBlur = (e) => {
     setError("")
     onBlur(e)
-    const response = checkErrorsFunc(...errorFuncParams, e.target.value)
-    if(!response.isSuccess){
-      setError(response.errorMessage)
-      return
+    console.log(checkErrorsFunc)
+    if(typeof checkErrorsFunc === 'function'){
+      const response = checkErrorsFunc(...errorFuncParams, e.target.value)
+      if(!response.isSuccess){
+        setError(response.errorMessage)
+        return
+      }
     }
     setIsFormValid(prev => {return {...prev, [e.target.name]:true }})
   } 
-  console.log(onChange, onBlur, checkErrorsFunc)
   
   return (
     <div className="input_main">

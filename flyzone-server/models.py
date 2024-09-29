@@ -44,7 +44,7 @@ class Company(Base):
 
 class Map(Base):
     __tablename__ = 'maps'
-    id = Column(Integer, primary_key=True, index=True)
+    map_id = Column(Integer, primary_key=True, index=True)
     map_name = Column(String, index=True)
     map_img = Column(String)
     map_popularity = Column(Integer)
@@ -107,6 +107,13 @@ class Level(Base):
     mission_id = Column(Integer, ForeignKey('missions.id'))
     basemap_id = Column(Integer, ForeignKey('maps.id'))
     difficulty_level = Column(Integer)
+    connection_lost = Column(Integer)
+    payload = Column(Integer)
+    dust = Column(Integer)
+    night_vision = (Boolean)
+    trees = (Integer)
+    birds = (Integer)
+    battery_usage = (Integer)
 
 class Level_results(Base):
     __tablename__ = 'levelResults'
@@ -123,5 +130,17 @@ class Level_results(Base):
     mission_id = Column(Integer, ForeignKey('missions.id'))
     basemap_id = Column(Integer, ForeignKey('maps.id'))
     difficulty_level = Column(Integer)
+    connection_lost = Column(Integer)
+    payload = Column(Integer)
+    dust = Column(Integer)
+    night_vision = (Boolean)
+    trees = (Integer)
+    birds = (Integer)
+    battery_usage = (Integer)
+
+
+    
+    
+    
 
 

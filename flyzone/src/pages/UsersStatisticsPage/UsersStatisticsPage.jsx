@@ -170,16 +170,16 @@ console.log(rows)
                 </Select>
               </FormControl>
               <div className="users_searchInput">
-              <Input
-                name="Search"
-                value={filterInput}
-                placeholder="Search"
-                onChange={handleFilterChange}
-                customStyles={{ width: "300px" }}
-              />
-              <i className="users_icon" onClick={handleFilterChange}>
-                <FaSearch />
-              </i>
+                <Input
+                  name="Search"
+                  value={filterInput}
+                  placeholder="Search"
+                  onChange={handleFilterChange}
+                  customStyles={{ width: "300px" }}
+                />
+                <i className="users_icon" onClick={handleFilterChange}>
+                  <FaSearch />
+                </i>
               </div>
             </div>
             <div className="users_chart">

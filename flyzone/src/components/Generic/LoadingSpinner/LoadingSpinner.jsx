@@ -7,7 +7,7 @@ const LoadingSpinner = () => {
     <div>
       LoadingSpinner
       <Box sx={{ display: 'flex' }}>
-        <CircularProgress style={{color: "#B943B4"}}/>
+        <CircularProgress style={{color: "#b9acce"}}/>
       </Box>
     </div>
   )

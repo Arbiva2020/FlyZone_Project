@@ -14,7 +14,7 @@
     border-width: 0.5px;
     height: 3rem;
     color:#ffffff;
-    background-color: black; 
+    background-color:#2d2b30; 
 }
 
 .btn.btn-lightStyle {
@@ -36,7 +36,7 @@
     border-width: 0.5px;
     height: 3rem;
     color: black;
-    background-color: #B943B4; 
+    background-color: #b9acce; 
 }
 
 .btn.btn-cancelStyle {
@@ -59,16 +59,16 @@
 }
 
 .btn:hover {
-    border: 1px solid  hsl(303, 39%, 58%);
+    border: 1px solid  #b9acce;
   
-    background-color: #B943B4;
+    background-color:#7c6d94;
   
     background-image: -webkit-gradient(
       linear,
       left top,
       left bottom,
-      color-stop(0%, #B943B4),
-      color-stop(100%, hsl(303, 39%, 58%))
+      color-stop(0%, #b9acce),
+      color-stop(100%, #7c6d94)
     );
   }
 

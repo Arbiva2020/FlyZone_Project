@@ -7,10 +7,11 @@ import Map5 from "../src/assets/map5.png";
 
 export const allUsers = [
     {
-      id: "123456",
+      security_level: 1,
+      userName: "Radio BlaBla",
       firstName: "Uri",
       lastName: "Levi",
-      userName: "Radio BlaBla",
+      password: "SA535536",
       email: "Radio@BlaBla.com",
       profileImguser: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU",
       level: 1,
@@ -33,13 +34,15 @@ export const allUsers = [
       totalScore: 230,
       straight_failures: 2,
       assessment_overdue: 0,
-      admin: "true"
+      admin: "true", 
+      id: "123456",
     },
     {
-      id: "123455",
+      security_level: 0,
+      userName: "Show",
       firstName: "Netta",
       lastName: "Glory",
-      userName: "Show",
+      password: "AAA111",
       email: "netta@glory.com",
       profileImguser: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDcky3ZF_NZZk3__VxrH-kC7ESKB6th_z8A&usqp=CAU",
       level: 3,
@@ -62,13 +65,15 @@ export const allUsers = [
       totalScore: 550,
       straight_failures: 5,
       assessment_overdue: 1,
-      admin: "false"
+      admin: "false", 
+      id: "123455",
     },
     {
-      id: "123454",
+      security_level: 2,
+      userName: "Dust",
       firstName: "Anne",
       lastName: "James",
-      userName: "Dust",
+      password: "BBB222",
       email: "anne@james.com",
       profileImguser: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGDNPqYvfVXr50g4wSf4HLD4p557PbSFNdJaKHA0Sqmva990kgeqCWX32L8hlD2NNWyeU&usqp=CAU",
       level: 5,
@@ -92,13 +97,15 @@ export const allUsers = [
       totalScore: 2671,
       straight_failures: 1,
       assessment_overdue: 2,
-      admin: "false"
+      admin: "false", 
+      id: "123454",
     },
     {
-      id: "123456",
+      security_level: 3,
+      userName: "Mosh",
       firstName: "Moshe",
       lastName: "Rabenu",
-      userName: "Mosh",
+      password: "CCC333",
       email: "Moshe@rabenu.com",
       profileImguser: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGDNPqYvfVXr50g4wSf4HLD4p557PbSFNdJaKHA0Sqmva990kgeqCWX32L8hlD2NNWyeU&usqp=CAU",
       level: 1,
@@ -120,7 +127,8 @@ export const allUsers = [
       totalScore: 3371,
       straight_failures: 4,
       assessment_overdue: 0,
-      admin: "false"
+      admin: "false", 
+      id: "123456",
     }
   ]
 

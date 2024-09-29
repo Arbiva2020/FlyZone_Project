@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // the redux logic for the auth feature (in the login and register forms)
 const initialState = {
-  loginForm: {firstName:'', lastName:'', password:''},
+  // loginForm: {firstName:'', lastName:'', password:''},
+  loginForm: {userName: '', password:''},
   userData: {
     security_level: 1,
     username: '',

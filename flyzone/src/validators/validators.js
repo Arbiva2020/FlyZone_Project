@@ -21,8 +21,8 @@ export const validatePassword = (str) => {
 }
 
 
-export const confirmPassword = (validatePassword, str) => {
-    if(validatePassword === str){
+export const confirmPassword = (pass, confirmedPass) => {
+    if(pass === confirmedPass){
         return {isSuccess:true, errorMessage:''}
     } return {isSuccess: false, errorMessage:"Passwords do not match"}
 }

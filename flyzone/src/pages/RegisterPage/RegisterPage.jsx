@@ -55,8 +55,7 @@ const RegisterPage = () => {
           }
       }
       if(key === "confirmedPassword"){
-        isValid = confirmPassword(registerForm[key])
-        console.log(isValid)
+        isValid = confirmPassword(registerForm["password"], registerForm[key])
         if(!isValid){
           dispatch(setErrors(`${key} does not meet the requirements of one uppercase, one lowercase`))
         }

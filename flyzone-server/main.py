@@ -13,7 +13,7 @@ from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import timedelta, datetime
 from pytz import timezone
-
+from models import User
 import models
 from database import SessionLocal, engine
 
@@ -157,6 +157,13 @@ class LevelBase(BaseModel):
     mission_id: int
     basemap_id: int
     difficulty_level: int
+    connection_lost: int
+    payload: int
+    dust: int
+    night_vision: int
+    trees: int
+    birds: int
+    battery_usage: int
 
 class Level_resultsBase(BaseModel):
     level_level: int
@@ -169,7 +176,15 @@ class Level_resultsBase(BaseModel):
     time_to_finish: int
     mission_id: int
     basemap_id: int
-    difficulty_level: int 
+    difficulty_level: int
+    connection_lost: int
+    payload: int
+    dust: int
+    night_vision: int
+    trees: int
+    birds: int
+    battery_usage: int
+ 
 
 
 
@@ -355,6 +370,26 @@ async def create_user(user: UserBase, db: db_dependency):
         raise HTTPException(status_code=500, detail=str(e))
     
 
+## working    
+@app.get("/users/{user_id}")
+async def get_user_by_id(user_id: int, db: db_dependency):
+    print(f"Querying user with ID: {user_id}")  
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    print(f"Found user: {user}") 
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+
+# @app.get("/users/")
+# async def read_userLevel_by_query(level: int):
+#     users_to_return = []
+#     for user in users:
+#         if user.get("level").casefold() == level.casefold():
+#             users_to_return.append(user)
+#     return users_to_return
+    
+
 @app.post("/groups/", response_model=GroupModel)
 async def create_group(group: GroupBase, db: db_dependency):
     try:
@@ -380,6 +415,13 @@ async def create_company(company: CompanyBase, db: db_dependency):
         db.rollback()  # Rollback in case of error
         raise HTTPException(status_code=500, detail=str(e))
     
+## working   
+@app.get("/companies/", response_model=List[CompanyModel])
+async def read_companies(db:db_dependency, skip: int=0, limit: int = 100):
+    companies = db.query(models.Company).offset(skip).limit(limit).all()
+    return companies
+
+    
 ## working
 @app.post("/maps/", response_model=MapModel)
 async def create_map(map: MapBase, db: db_dependency):
@@ -392,6 +434,7 @@ async def create_map(map: MapBase, db: db_dependency):
     except Exception as e:
         db.rollback()  # Rollback in case of error
         raise HTTPException(status_code=500, detail=str(e))
+
 
 ## working
 @app.get("/maps/", response_model=List[MapModel])
@@ -406,15 +449,27 @@ async def read_user(user_username: str, db: db_dependency):
     user = db.query(models.User).filter(models.User.username == user_username).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return user  
+    return user 
+ 
 
-
+## working 
 @app.get("/maps/{map_map_name}")
 async def get_map_my_name(map_map_name: str, db: db_dependency):
     map = db.query(models.Map).filter(models.Map.map_name == map_map_name).first()
     if map is None:
         raise HTTPException(status_code=404, detail="Map not found")
-    return map  
+    return map
+
+
+
+@app.get("/maps/{map_id}")
+async def get_map_by_id(map_id: int, db: db_dependency):
+    print(f"Querying map with ID: {map_id}")
+    map = db.query(models.Map).filter(models.Map.id == map_id).first()
+    print(f"Found map: {map}")
+    if map is None:
+        raise HTTPException(status_code=404, detail="Map not found")
+    return map   
 
 
 ## working  
@@ -425,13 +480,21 @@ async def read_users(db:db_dependency, skip: int=0, limit: int = 100):
 
 
 @app.get("/users/{user_id}")
-async def get_user_by_id(user_id: int, db: db_dependency):
-    print(f"Querying user with ID: {user_id}")  
+async def read_user_by_id(user_id: int, db: db_dependency):
     user = db.query(models.User).filter(models.User.id == user_id).first()
-    print(f"Found user: {user}") 
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return user
+    return user 
+
+
+# @app.get("/users/{user_id}")
+# async def get_user_by_id(user_id: int, db: db_dependency):
+#     print(f"Querying user with ID: {user_id}")  
+#     user = db.query(models.User).filter(models.User.id == user_id).first()
+#     print(f"Found user: {user}") 
+#     if user is None:
+#         raise HTTPException(status_code=404, detail="User not found")
+#     return user
 
 
 @app.patch("/users/{user_id}")

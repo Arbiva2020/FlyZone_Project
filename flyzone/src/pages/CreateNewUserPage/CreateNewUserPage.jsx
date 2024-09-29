@@ -163,7 +163,7 @@ import Input from '../../components/Generic/Input/Input';
 import Button from '../../components/Generic/Button/Button';
 import Checkbox from "../../components/Generic/Checkbox/Checkbox";
 import SideBar from '../../components/SideBar/SideBar';
-import api from "../../api";
+//import api from "../../api";
 import "./CreateNewUserPage.css";
 import { registerDefaultValidState } from '../../constants/FormDeaults'; 
 import { validateEmail, validateMinMax, validatePassword, confirmPassword } from '../../validators/validators';
@@ -202,8 +202,8 @@ function CreateNewUserPage() {
       profileImguser: "",
     });
     const fetchUsers = async() => {
-      const response = await api.get("/users");
-      setUsers(response.data)
+      //const response = await api.get("/users");
+      //setUsers(response.data)
     };
   
     useEffect(() => {
@@ -213,7 +213,7 @@ function CreateNewUserPage() {
     //submitting data for a new test(instead of algorithmic):
     const handleScenarioFormData = async(event) => {
       event.preventDefault();
-      await api.post('/users', scenarioFormData);
+      //await api.post('/users', scenarioFormData);
       fetchUsers();
       setScenarioFormData({
         map:"",

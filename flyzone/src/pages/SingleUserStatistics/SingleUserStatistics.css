@@ -43,7 +43,7 @@
     margin-right: 10px;
     height: fit-content;
     padding: 10px;
-    background-color: #2E2D2D;
+    background-color: rgba(46, 45, 45, 0.3);  
     margin-top: 50px;
 }
 
@@ -168,14 +168,14 @@
 
 .singleUser_SubInfo {
     width: 30%;
-    background-color: #2E2D2D;
+    background-color: rgba(46, 45, 45, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around; 
     border-style: solid;
     border-color: white;
-    border-width: 2px;
+    border-width: 1px;
     border-radius: 20px;
 }
 

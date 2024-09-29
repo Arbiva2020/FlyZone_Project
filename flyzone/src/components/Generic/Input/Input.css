@@ -11,8 +11,10 @@
     border-radius: 10px;
     padding-left: 3px;
     padding-right: 3px;
-    background-color: darkgrey;
-    color: black;
+    background-color: transparent;
+    color: white;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .contact_error{

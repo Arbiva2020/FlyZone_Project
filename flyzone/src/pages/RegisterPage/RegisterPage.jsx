@@ -6,6 +6,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
 import { registerDefaultValidState } from '../../constants/FormDeaults' 
 import { validateEmail, validateMinMax, validatePassword, confirmPassword } from '../../validators/validators'
 import './RegisterPage.css'
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
 import { resetErrors, resetToInitialState, setErrors, setRegisterForm, toggleShowPassword } from '../../store/slices/authSlice'
 
@@ -72,8 +73,45 @@ const RegisterPage = () => {
       return
     }
     console.log(registerForm)
-    //take an action
+    // const registerForm = {}
+    // axios.post('http://127.0.0.1:8000/users/', registerForm).then((response) => {
+    //   console.log(response.data)
+    // })
   }
+
+  const registerNewUser = () => {
+    console.log("Registering user with data:", registerForm);
+    
+    // Directly use the existing registerForm
+    const userData = {
+      security_level: 1, // or whatever default value you want
+      username: registerForm.username,  // Ensure username is filled in registerForm
+      first_name: registerForm.firstName,
+      last_name: registerForm.lastName,
+      password: registerForm.password,
+      email: registerForm.email,
+      level: 0, // or whatever default value you want
+      next_level: 0, // or whatever default value you want
+      mmr: 0, // or whatever default value you want
+      badges: 0, // or whatever default value you want
+      total_assessments: 0, // or whatever default value you want
+      number_of_failures: 0, // or whatever default value you want
+      straight_failures: 0, // or whatever default value you want
+      assessment_overdue: false, // or whatever default value you want
+      total_score: 0, // or whatever default value you want
+      company_id: 1, // Make sure this ID exists in your DB
+      group_id: 1, // Make sure this ID exists in your DB
+      profileImguser: '' // or whatever default value you want
+    };
+
+    axios.post('http://127.0.0.1:8000/users/', userData)
+      .then((response) => {
+        console.log("User registered successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Registration error:", error.response ? error.response.data : error.message);
+      });
+};
 
   return (
     <div className='register_main'>
@@ -90,6 +128,7 @@ const RegisterPage = () => {
                checkErrorsFunc={validateMinMax}
                errorFuncParams={['firstName', 3, 20]}
                setIsFormValid={setIsFormValid}
+               onChange={(e) => setRegisterForm.first_Name(e.target.value)}
             />
             <Input 
                name={"lastName"} 
@@ -99,6 +138,7 @@ const RegisterPage = () => {
                checkErrorsFunc={validateMinMax}
                errorFuncParams={['lastName', 3, 20]}
                setIsFormValid={setIsFormValid}
+               onChange={(e) => setRegisterForm.last_Name(e.target.value)}
             />
                <Input 
                name={"email"} 
@@ -107,6 +147,8 @@ const RegisterPage = () => {
                onBlur={(e) => handleChange(e.target.name, e.target.value)}
                checkErrorsFunc={validateEmail}
                setIsFormValid={setIsFormValid}
+               onChange={(e) => setRegisterForm.email(e.target.value)}
+
             />
             <div className='wrapIconAndInput'>
               <Input 
@@ -117,10 +159,11 @@ const RegisterPage = () => {
                 onBlur={(e) => handleChange(e.target.name, e.target.value)}
                 checkErrorsFunc={validatePassword}
                 setIsFormValid={setIsFormValid}
+                onChange={(e) => setRegisterForm.password(e.target.value)}
               />
                {showPassword ? <AiFillEye className="eyeIcon" onClick={() =>dispatch(toggleShowPassword())}/> : <AiFillEyeInvisible className="eyeCanceldIcon" onClick={() =>dispatch(toggleShowPassword())}/>}
             </div>
-            <div className='wrapIconAndInput'>
+            {/* <div className='wrapIconAndInput'>
               <Input 
                 name={"confirmedPassword"} 
                 value={registerForm.confirmedPassword}
@@ -132,14 +175,15 @@ const RegisterPage = () => {
                 setIsFormValid={setIsFormValid}
               />
               {showPassword ? <AiFillEye className="eyeIcon" onClick={() =>dispatch(toggleShowPassword())}/> : <AiFillEyeInvisible className="eyeCanceldIcon" onClick={() =>dispatch(toggleShowPassword())}/>}
-            </div>
+            </div> */}
           </div>
         </form>
         <div className='registerButton'>
           <Button 
             text={"Submit"}
             isDisabled={isFormDisabled}
-            onClick={handleSubmitForm}
+            // onClick={handleSubmitForm}
+            onClick={registerNewUser}
             isLightStyle
           />
         </div>

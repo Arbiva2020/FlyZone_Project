@@ -280,7 +280,7 @@ def create_user(db: Session, user: UserCreate):
 
 @app.post("/register")
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
-    print("####")
+    print("Received user registration:", user)
     db_user = get_user_by_username(db, username=user.username)
     print("##########", db_user)
     if db_user:
@@ -317,6 +317,7 @@ def create_access_token(data:dict, expires_delta: timedelta | None=None):
 
 @app.post("/token", response_model=dict)
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    print("Received data:", form_data)
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(

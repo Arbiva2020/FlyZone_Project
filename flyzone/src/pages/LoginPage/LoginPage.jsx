@@ -10,15 +10,20 @@ import './LoginPage.css';
 import { resetErrors, resetToInitialState, setErrors, setLoginForm, toggleShowPassword } from '../../store/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from './apiHooks/login';
+import { getFromServer } from "../../api"
+import axios from 'axios';
 
 const LoginPage = () => {
   const { loginForm, errors, showPassword } = useSelector(state => state.auth);
-  const dispatch = useDispatch();
   const [isFormValid, setIsFormValid] = useState(loginDefaultValidState);
   const [isFormDisabled, setIsFormDisabled] = useState(true);
+  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const loginMutation = useLoginMutation()
-console.log(loginMutation)
+
+// console.log(loginMutation)
   useEffect(() => {
     console.log(isFormValid)
     for (const key in isFormValid) {
@@ -42,6 +47,7 @@ console.log(loginMutation)
  
   const handleSubmitForm = async (event) => {
     event.preventDefault();
+    setLoading(true);
     dispatch(resetErrors());
     let isValid = true;
 
@@ -56,6 +62,7 @@ console.log(loginMutation)
             isValid = validatePassword(loginForm[key]).isSuccess;
             if (!isValid) {
                 dispatch(setErrors(`Password doesn't match`));
+                console.log(isFormValid)
             }
         }
     }
@@ -65,30 +72,46 @@ console.log(loginMutation)
     }
 
     try {
-      await loginMutation.mutate(loginForm)
+      const formData = {
+        username: loginForm.userName, // This should match your FastAPI model
+        password: loginForm.password,
+    };
+
+      await loginMutation.mutateAsync(formData)
+      setLoading(false)
       if(loginMutation.isSuccess){
         console.log('hi')
       } else{
         console.log('bye')
       }
-        // const response = await axios.post('http://localhost:8000/token', loginForm, {
-        //     headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded',
-        //     },
-        // });
 
 
-        // if (response.status === 200) {
-        //     const data = response.data;
-        //     localStorage.setItem('token', data.access_token);
-        //     navigate('/mainView');
-        // } else {
-        //     dispatch(setErrors(response.data.detail || 'Authentication failed!'));
-        // }
+      
+        const response = await axios.post('http://localhost:8000/token', {
+          username: loginForm.userName, 
+          password: loginForm.password
+        }, {
+            headers: {
+               'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+
+
+        if (response.status === 200) {
+            const data = response.data;
+            localStorage.setItem('token', data.access_token);
+            navigate('/mainView');
+        } else {
+            dispatch(setErrors(response.data.detail || 'Authentication failed!'));
+        }
+
     } catch (error) {
         setLoading(false);
+        console.error("Login failed:", error.response.data);
         dispatch(setErrors('An error has occurred. Please try again later'));
     }
+    setLoading(false);
 };
 
   return (

@@ -3,6 +3,11 @@ from sqlalchemy.orm import relationship
 from database import Base
 
 # Define your models
+class login(Base):
+    __tablename__ = "login"
+    username = Column(String, primary_key=True, index=True)
+    password = Column(String)
+    
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)

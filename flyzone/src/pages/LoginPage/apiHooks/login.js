@@ -22,19 +22,33 @@ export const useFetchAllUsers = () => {
   };
 
   export const useLoginMutation = () => {
+    // const queryClient = useQueryClient();
+  
+    // const uploadMutation = useMutation({
+    //   mutationFn: (formData) =>
+    //     postToServer(`token`, formData),
+  
+    //   onSuccess: () => {
+    //     queryClient
+    //       .invalidateQueries({
+    //         queryKey: ['all-users'],
+    //       })
+    //       .then(() => {});
+    //   },
+    // });
+    // return uploadMutation;
+    
     const queryClient = useQueryClient();
   
-    const uploadMutation = useMutation({
+    return useMutation({
       mutationFn: (formData) =>
-        postToServer(`token`, formData),
+        postToServer('token', formData), // Ensure postToServer is set up correctly
   
       onSuccess: () => {
-        queryClient
-          .invalidateQueries({
-            queryKey: ['all-users'],
-          })
-          .then(() => {});
+        queryClient.invalidateQueries(['all-users']); // Adjust this if necessary
+      },
+      onError: (error) => {
+        console.error("Login failed:", error); // Log the error for debugging
       },
     });
-    return uploadMutation;
   };

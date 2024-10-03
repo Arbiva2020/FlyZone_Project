@@ -13,7 +13,7 @@ export const usePostNewUser = () => {
     } = useQuery({
       queryKey: ['post-user'],
       queryFn: () =>
-        postToServerServer(`post-user`).then((res) => res.data),
+        postToServer(`post-user`).then((res) => res.data),
     });
   
     return {
@@ -21,7 +21,7 @@ export const usePostNewUser = () => {
     };
   };
 
-  export const useLoginMutation = () => {
+  export const useRegisterMutation = () => {
     const queryClient = useQueryClient();
   
     const uploadMutation = useMutation({

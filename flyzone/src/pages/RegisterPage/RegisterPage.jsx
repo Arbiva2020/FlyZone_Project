@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header'
 import Button from '../../components/Generic/Button/Button'
 import Input from '../../components/Generic/Input/Input'
@@ -16,6 +17,7 @@ const RegisterPage = () => {
   const [isFormValid,setIsFormValid] = useState(registerDefaultValidState)
   const [isFormDisabled, setIsFormDisabled] = useState(true)
 
+  const navigate = useNavigate();
 
   const handleChange = (name,value) => {
     dispatch(setRegisterForm({name,value}))
@@ -82,31 +84,31 @@ const RegisterPage = () => {
   const registerNewUser = () => {
     console.log("Registering user with data:", registerForm);
     
-    // Directly use the existing registerForm
     const userData = {
-      security_level: 1, // or whatever default value you want
-      username: registerForm.username,  // Ensure username is filled in registerForm
+      security_level: 1, 
+      username: registerForm.username,  
       first_name: registerForm.firstName,
       last_name: registerForm.lastName,
       password: registerForm.password,
       email: registerForm.email,
-      level: 0, // or whatever default value you want
-      next_level: 0, // or whatever default value you want
-      mmr: 0, // or whatever default value you want
-      badges: 0, // or whatever default value you want
-      total_assessments: 0, // or whatever default value you want
-      number_of_failures: 0, // or whatever default value you want
-      straight_failures: 0, // or whatever default value you want
-      assessment_overdue: false, // or whatever default value you want
-      total_score: 0, // or whatever default value you want
-      company_id: 1, // Make sure this ID exists in your DB
-      group_id: 1, // Make sure this ID exists in your DB
-      profileImguser: '' // or whatever default value you want
+      level: 0, 
+      next_level: 0, 
+      mmr: 0, 
+      badges: 0, 
+      total_assessments: 0, 
+      number_of_failures: 0, 
+      straight_failures: 0, 
+      assessment_overdue: false, 
+      total_score: 0, 
+      company_id: 1, 
+      group_id: 1, 
+      profileImguser: '' 
     };
 
     axios.post('http://127.0.0.1:8000/users/', userData)
       .then((response) => {
         console.log("User registered successfully:", response.data);
+        navigate('/mainView')
       })
       .catch((error) => {
         console.error("Registration error:", error.response ? error.response.data : error.message);

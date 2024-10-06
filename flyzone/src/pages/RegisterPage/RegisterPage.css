@@ -14,7 +14,7 @@
 
 .register_frame {
     height: 500px;
-    width: 250px;
+    width: 400px;
     border-style: solid;
     border-color: gray;
     border-radius: 20px;
@@ -33,6 +33,11 @@
     margin-bottom: 10%;
 }
 
+.register_form_container {
+    display: flex;
+    flex-direction: row;
+}
+
 .register_form {
     display: flex;
     flex-direction: column;
@@ -46,6 +51,7 @@
     flex-direction: column;
     height: 300px;
     justify-content: space-evenly;
+    margin: 0px 10px 0px 10px;
 }
 
 .wrapIconAndInput {

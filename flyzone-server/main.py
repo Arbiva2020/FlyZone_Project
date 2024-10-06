@@ -68,6 +68,7 @@ class UserLoginBase(BaseModel):
     password: str
 
 class UserCreate(BaseModel):
+    # security_level: int
     first_name: str
     last_name: str
     username: str
@@ -512,6 +513,12 @@ async def update_user(user_id: int, user_name: str):
 async def delete_user_by_id(user_id):
     pass
 
+# @app.delete('/users/{user_id}')
+# async def delete_user_by_id(user_id: int):
+#     for i in range(len(UserModel)):
+#       if UserModel[i].get("id").casefold() == user_id.casefold():
+#           UserModel.pop(i)
+#           break
 
 
 if __name__ == "__main__":

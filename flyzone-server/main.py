@@ -149,11 +149,12 @@ class SpottedBase(BaseModel):
 class LevelBase(BaseModel):
     level_level: int
     user_id: int
+    user: int
     fog_level: int
     brightness_level: int
     wind_level: int
     close_calls: int
-    spoted: int
+    spotted: int
     time_to_finish: int
     mission_id: int
     basemap_id: int
@@ -382,14 +383,6 @@ async def get_user_by_id(user_id: int, db: db_dependency):
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-
-# @app.get("/users/")
-# async def read_userLevel_by_query(level: int):
-#     users_to_return = []
-#     for user in users:
-#         if user.get("level").casefold() == level.casefold():
-#             users_to_return.append(user)
-#     return users_to_return
     
 
 @app.post("/groups/", response_model=GroupModel)
@@ -481,22 +474,20 @@ async def read_users(db:db_dependency, skip: int=0, limit: int = 100):
     return users
 
 
+## working  
+@app.get("/groups/", response_model=List[GroupModel])
+async def read_all_groups(db:db_dependency, skip: int=0, limit: int = 100):
+    groups = db.query(models.Group).offset(skip).limit(limit).all()
+    return groups
+
+
+## working
 @app.get("/users/{user_id}")
 async def read_user_by_id(user_id: int, db: db_dependency):
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return user 
-
-
-# @app.get("/users/{user_id}")
-# async def get_user_by_id(user_id: int, db: db_dependency):
-#     print(f"Querying user with ID: {user_id}")  
-#     user = db.query(models.User).filter(models.User.id == user_id).first()
-#     print(f"Found user: {user}") 
-#     if user is None:
-#         raise HTTPException(status_code=404, detail="User not found")
-#     return user
 
 
 @app.patch("/users/{user_id}")
@@ -509,16 +500,31 @@ async def update_user(user_id: int, user_name: str):
     return {"user_name": user_name, "user_id": user_id}
 
 
-@app.delete('/users/{user_id}')
-async def delete_user_by_id(user_id):
-    pass
 
 # @app.delete('/users/{user_id}')
-# async def delete_user_by_id(user_id: int):
-#     for i in range(len(UserModel)):
-#       if UserModel[i].get("id").casefold() == user_id.casefold():
-#           UserModel.pop(i)
-#           break
+# async def delete_user_by_id(user_id: int, db: db_dependency):
+#     user = db.query(models.User).filter(models.User.id == user_id).first()
+#     return ("user deleted:", user_id)
+
+
+@app.delete("/users/{user_first_name}")
+async def delete_user_by_firstname(user_first_name: str, db: db_dependency):
+    user = db.query(models.User).filter(models.User.first_name == user_first_name).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return ("user deleted:", user)
+
+@app.delete("/companies/{company_id}")
+async def delete_company_by_id(company_id: int, db: db_dependency):
+    company = db.query(models.Company).filter(models.Company.id == company_id).first()
+    if company is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return ("company deleted:", company)  
+
+
+
+
+
 
 
 if __name__ == "__main__":

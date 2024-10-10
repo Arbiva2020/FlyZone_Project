@@ -7,6 +7,8 @@ const initialState = {
   totalScoreSum: 0,
   avgMmr: 0,
   chosenUser: {},
+  companies: [], 
+  
   //chosenUserPieData:[]
 };
 
@@ -20,6 +22,9 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    setCompaniesDB: (state, action) => {
+      state.companies = action.payload
+    },
     setAllusers: (state, action) => {
       state.allUsersPrimary = action.payload;
       const dataForStatisticsPageTable = action.payload.map((user) => {
@@ -78,7 +83,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { setAllusers, setChosenUser, setSelectGroup, setFilterUsers } =
+export const { setAllusers, setChosenUser, setSelectGroup, setFilterUsers, setCompaniesDB } =
   usersSlice.actions;
 
 export default usersSlice.reducer;

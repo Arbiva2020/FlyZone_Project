@@ -5,6 +5,8 @@ import "../../components/Generic/Button/Button.css"
 import Header from '../../components/Header/Header'
 import Button from '../../components/Generic/Button/Button'
 import Drone1 from '../../assets/Drone1-removebg-preview.png'
+import drone13 from '../../assets/drone13.png'
+
 
 const HomePage = () => {
 
@@ -42,7 +44,7 @@ const HomePage = () => {
       
       </div>
       <div className='drone1'>
-        <img src={Drone1}/>
+        <img src={drone13}/>
       </div>
       <div className='circle2'></div>
     </div>

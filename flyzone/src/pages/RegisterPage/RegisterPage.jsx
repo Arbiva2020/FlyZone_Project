@@ -100,9 +100,9 @@ const RegisterPage = () => {
       straight_failures: 0, 
       assessment_overdue: false, 
       total_score: 0, 
-      company_id: 1, 
-      group_id: 1, 
-      profileImguser: '' 
+      company_id: registerForm.company_id, 
+      group_id: registerForm.group_id, 
+      profileImguser: registerForm.profileImguser 
     };
 
     axios.post('http://127.0.0.1:8000/users/', userData)
@@ -119,9 +119,23 @@ const RegisterPage = () => {
     <div className='register_main'>
       <Header />
       <div className='register_frame'>
-      <h3 className='register_headline'>Register:</h3>
+      <h3 className='register_headline'>Register new user:</h3>
         <form className="register_form">
           <div className='register_form_name'>
+          <Input 
+               name={"company_id"} 
+               value={registerForm.company_id}
+               placeholder="Company"
+               onBlur={(e) => handleChange(e.target.name, e.target.value)}
+               onChange={(e) => setRegisterForm.company_id(e.target.value)}
+            />
+            <Input 
+               name={"group_id"} 
+               value={registerForm.grooup_id}
+               placeholder="Group"
+               onBlur={(e) => handleChange(e.target.name, e.target.value)}
+               onChange={(e) => setRegisterForm.group_id(e.target.value)}
+            />
           <Input 
                name={"firstName"} 
                value={registerForm.firstName}
@@ -165,6 +179,13 @@ const RegisterPage = () => {
               />
                {showPassword ? <AiFillEye className="eyeIcon" onClick={() =>dispatch(toggleShowPassword())}/> : <AiFillEyeInvisible className="eyeCanceldIcon" onClick={() =>dispatch(toggleShowPassword())}/>}
             </div>
+            <Input 
+               name={"profileImguser"} 
+               value={registerForm.profileImguser}
+               placeholder="Profile pic"
+               onBlur={(e) => handleChange(e.target.name, e.target.value)}
+               onChange={(e) => setRegisterForm.profileImguser(e.target.value)}
+            />
             {/* <div className='wrapIconAndInput'>
               <Input 
                 name={"confirmedPassword"} 

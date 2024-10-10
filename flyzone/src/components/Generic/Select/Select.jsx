@@ -7,6 +7,7 @@ import { OutlinedInput } from '@mui/material';
 import './Select.css'
 
 const CustomSelect = ({onChange, name, value='', title, options=[], label="default"}) => {
+  console.log(options, name)
 
   return (
     <div className='select_main'>

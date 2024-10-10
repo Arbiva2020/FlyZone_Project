@@ -8,7 +8,7 @@ export const store = configureStore({
   reducer: {
     users:usersReducer,
     auth: authReducer,
-    test:testReducer,
+    testFlight:testReducer,
     userStatisticCharts: userStatisticChartsReducer,
   },
 });

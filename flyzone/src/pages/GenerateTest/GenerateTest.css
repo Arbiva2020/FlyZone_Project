@@ -192,3 +192,9 @@
     display: flex;
     justify-items: center;
 }
+
+.generateTest_down {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

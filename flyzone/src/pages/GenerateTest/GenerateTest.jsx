@@ -4,43 +4,39 @@ import SideBar from '../../components/SideBar/SideBar';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import Slider from '@mui/material/Slider';
 import Button from '../../components/Generic/Button/Button';
-import '../../fakeData.json';
-import { companiesDb, missions, scenarios, maps, users, windSpeed, fogDensity } from '../../dataFake'
 import {testGeneratingConditions} from '../GenerateTest/GenerateTestData'
-import {FiInfo} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import CustomSelect from "../../components/Generic/Select/Select";
 import UserSideData from '../../components/UserSideData/UserSideData';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTestForm, setSliderform } from '../../store/slices/testSlice';
+import { setTestForm, setTestGenerationFormData } from '../../store/slices/testSlice';
 
 const GenerateTest = () => {
 const {id} = useParams
 const dispatch = useDispatch();
-const testForm = useSelector(state => state.test.testForm);
-const sliderForm = useSelector(state => state.test.sliderForm);
+const {companies:companiesDb, allUsersPrimary:users} = useSelector(state => state.users)
+const {missions, scenarios, maps, windSpeed, fogDensity, testForm, sliderForm} = useSelector(state => state.testFlight)
 const [hover, setHover] = useState(false);
-const [selectScenario, setSelectScenario] = React.useState("");
-const [selectMissionType, setSelectMissionType] = React.useState("");
-const [selectMap, setSelectMap] = React.useState("");
 
-
-
-console.log(testForm)
+function updateGroupSelect(name, value) {
+  if(company != undefined){
+    dispatch(setTestForm({name,value}))
+  }
+}
 
 const handleTestForm = (name, value) => {
   dispatch(setTestForm({name,value}))
   console.log(value)
 }
 
-const handleGroupChange = (obj) => {
-  setTestForm(obj);
-};
+const handleTestGroupsForm = (groups, value) => {
+}
+
+useEffect(() => {
+  dispatch(setTestGenerationFormData())
+},[])
 
 // const onHover = () => {
 //   setHover(true)
@@ -51,11 +47,6 @@ const handleGroupChange = (obj) => {
 // }
 
 
-// const handleMapChange = (event) => {
-//   setSelectMap(event.target.value);
-//   console.log(event.target)
-// }
-
 function valuetext(value) {
   return `Level ${value}`;
 }
@@ -65,13 +56,9 @@ const handleAssignTestToUser = () =>{
     // navigate(`/user/${id}`)
 }
 
-let sizeOptions = companiesDb.map(a=> a.size)
-// console.log(sizeOptions)
-let needed = companiesDb.map(function(value){
-  return value.name
-})
+let sizeOptions = companiesDb?.map(a=> a.size)
 
-console.log(companiesDb[2].groups)
+
 
       return (
     <div className='generateTest_main'>
@@ -89,7 +76,7 @@ console.log(companiesDb[2].groups)
                     <div className='generatetest_select'>
                         <FormControl style={{display:"flex", flexDirection:"row"}}>
                           <CustomSelect name="company" title="Company" onChange={handleTestForm} value={testForm.company} options={companiesDb} />
-                          <CustomSelect name="group" title="Group" onChange={handleTestForm} value={testForm.pilot} options={companiesDb} />
+                          <CustomSelect name="groups" title="Groups" onChange={handleTestGroupsForm} value={testForm.group} options={companiesDb} />
                           <CustomSelect name="pilot" title="Pilot" onChange={handleTestForm} value={testForm.pilot} options={companiesDb} />
                         </FormControl>
                       </div>
@@ -149,7 +136,6 @@ console.log(companiesDb[2].groups)
                                       <div className='generate_environment_text'><Link to="/mapAndMission" style={{color:"white", textDecoration:"none"}}>Map:</Link></div>
                                       <div className='generate_environment_select' style={{display:"flex", alignItems:"center"}}>
                                       <FormControl sx={{m: 1, minWidth: 120}}>
-                                        {/* <InputLabel id="select-generateTest-label">Select map</InputLabel> */}
                                         <CustomSelect 
                                           label="Choose map" 
                                           id="select-map-change"
@@ -252,7 +238,7 @@ console.log(companiesDb[2].groups)
                         onClick={handleAssignTestToUser}
                       />
                     </div>
-                    <div className='geberateTest_down'> 
+                    <div className='generateTest_down'> 
                       {/* <switch></switch> */}
                       {handleAssignTestToUser ? <progress className='genertateTest_progress'></progress> : <Button customStyles={{}} onClick={handleAssignTestToUser}/>} 
                     </div> 

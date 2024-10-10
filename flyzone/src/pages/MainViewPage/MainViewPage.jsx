@@ -13,10 +13,12 @@ import UpgradeAdd from '../../components/UpgradeAdd/UpgradeAdd'
 import './MainViewPage.css'
 import Button from '../../components/Generic/Button/Button'
 import { useNavigate } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux'
+import { setCompaniesDB } from '../../store/slices/usersSlice'
+import { companiesDb } from '../../dataFake'
 
 const MainViewPage = (props) => {
-
+const dispatch = useDispatch()
   const [selectValue, setSelectValue] = React.useState('');
   const [users, setUsers] = React.useState([])
 
@@ -37,12 +39,18 @@ const MainViewPage = (props) => {
   })
 
   const fetchUsers = async() => {
-    const response = await api.get('/users/');
-    setUsers(response.data)
+    //const response = await api.get('/users/');
+    //setUsers(response.data)
+  }
+
+  const fetchCompanies = async () => {
+    //const response = await api.get('/companies/')
+    dispatch(setCompaniesDB(companiesDb))
   }
 
   useEffect(() => {
     fetchUsers();
+    fetchCompanies();
   }, [])
 
   const handleChange = (event) => {

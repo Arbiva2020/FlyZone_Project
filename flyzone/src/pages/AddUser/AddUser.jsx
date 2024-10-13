@@ -20,7 +20,6 @@ const handleCompanyChange = (event) => {
 }
 
 let value = companiesDb.map((element)=> element.name)
-console.log(value)
 
 
 const handleAddUser = ()=> {

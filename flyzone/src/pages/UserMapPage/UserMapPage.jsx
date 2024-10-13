@@ -38,7 +38,6 @@ const UserMapPage = () => {
 
     const handleTestForm = (name, value) => {
         dispatch(setTestForm({name,value}))
-        console.log(value)
       }
 
     function updateSelection(e, name, value) {
@@ -51,8 +50,8 @@ const UserMapPage = () => {
         }
     }
 
-console.log(testForm)
-console.log(mapData)
+// console.log(testForm)
+// console.log(mapData)
 
   return (
     <div className='userMap_main'>

@@ -231,7 +231,6 @@ function CreateNewUserPage() {
 
 
   
-  // console.log(users)
     const handleChange = (name,value) => {
       dispatch(setUserData({name,value}))
     }
@@ -287,7 +286,6 @@ function CreateNewUserPage() {
             }
             if(key ==="email"){
               isValid = validateEmail(userData[key])
-              console.log(isValid)
               if(!isValid){
                 dispatch(setErrors('email is not Valid'))
               }
@@ -296,7 +294,6 @@ function CreateNewUserPage() {
           if(!isValid){
             return
           }
-          console.log(userData)
 
 
 

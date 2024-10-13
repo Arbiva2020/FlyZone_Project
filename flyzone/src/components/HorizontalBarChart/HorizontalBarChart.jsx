@@ -17,7 +17,6 @@ import { Colors } from 'chart.js'
 
 function HorizontalBarChart ({chartData}) {
   const screenWidth = window.innerWidth
-  // console.log(screenWidth)
   const options = {
     indexAxis: 'y',
     plugins: {

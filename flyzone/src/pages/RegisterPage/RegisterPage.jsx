@@ -65,7 +65,6 @@ const RegisterPage = () => {
     }
       if(key ==="email"){
         isValid = validateEmail(registerForm[key])
-        console.log(isValid)
         if(!isValid){
           dispatch(setErrors('email is not Valid'))
         }
@@ -74,7 +73,6 @@ const RegisterPage = () => {
     if(!isValid){
       return
     }
-    console.log(registerForm)
     // const registerForm = {}
     // axios.post('http://127.0.0.1:8000/users/', registerForm).then((response) => {
     //   console.log(response.data)
@@ -82,7 +80,6 @@ const RegisterPage = () => {
   }
 
   const registerNewUser = () => {
-    console.log("Registering user with data:", registerForm);
     
     const userData = {
       security_level: 1, 
@@ -107,7 +104,6 @@ const RegisterPage = () => {
 
     axios.post('http://127.0.0.1:8000/users/', userData)
       .then((response) => {
-        console.log("User registered successfully:", response.data);
         navigate('/mainView')
       })
       .catch((error) => {

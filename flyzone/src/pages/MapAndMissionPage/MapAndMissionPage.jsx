@@ -29,7 +29,6 @@ function MapAndMissionPage() {
   };
 
   useEffect(() => {
-    console.log('got here')
     if (mapInfo.name || mapInfo.additionalData) {
         console.log('gothere 2', openMap)
       setOpenMap(!openMap);

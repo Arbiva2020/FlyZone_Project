@@ -27,7 +27,6 @@ const ContactPage = () => {
         }
       }
     }
-    console.log(isFormValid, isFormDisabled)
   },[isFormValid])
 
   const handleSubmitForm = () => {

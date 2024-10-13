@@ -18,13 +18,7 @@ const CreateProfilePage = () => {
   const handleChange = (name,value, event) => {
     setCreateProfileObject({...createProfileObject, name: e.target.value});
     setIsFilePicked(true);
-    console.log(event.target.files[0])
   }
-
-  useEffect(() => {
-    console.log(createProfileObject)
-    console.log(updated)
-  })
 
   useEffect(()=>{
     for (const key in isFormValid){
@@ -38,7 +32,6 @@ const CreateProfilePage = () => {
         }
       }
     }
-    console.log(isFormValid, isFormDisabled)
   },[isFormValid])
 
   const handleSubmitForm = () => {
@@ -63,7 +56,6 @@ const CreateProfilePage = () => {
       
       if(key ==="password"){
         isValid = validatePassword(createProfileObject[key])
-        console.log(isValid)
         if(!isValid){
           setErrors(prev => ['Password doesnt match',...prev])
         }
@@ -72,10 +64,8 @@ const CreateProfilePage = () => {
     if(!isValid){
       return
     }
-    console.log(createProfileObject)
     //take an action
   }
-console.log(errors)
 
   return (
     <div className='createProfile_main'>

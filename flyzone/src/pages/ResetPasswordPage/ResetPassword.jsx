@@ -27,7 +27,6 @@ const ResetPasswordPage = () => {
         }
       }
     }
-    console.log(isFormValid, isFormDisabled)
   },[isFormValid])
 
 
@@ -45,7 +44,6 @@ const ResetPasswordPage = () => {
     let isValid = true
 
     for (const key in resetObject){
-      console.log(key)
       if(key === "newPassword"){
         isValid = validatePassword(resetObject[key], 3, 20)
 
@@ -56,7 +54,6 @@ const ResetPasswordPage = () => {
       
       if(key ==="confirmNewPassword"){
         isValid = confirmPassword(resetObject[key])
-        console.log(isValid)
         if(!isValid){
           setErrors(prev => ['Password doesnt match',...prev])
         }
@@ -65,7 +62,6 @@ const ResetPasswordPage = () => {
     if(!isValid){
       return
     }
-    console.log(resetObject)
     //take an action
   }
   

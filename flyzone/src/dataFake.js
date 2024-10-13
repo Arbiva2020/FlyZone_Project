@@ -5,39 +5,74 @@ import Map3 from "../src/assets/map3.png";
 import Map4 from "../src/assets/map4.png";
 import Map5 from "../src/assets/map5.png";
 
+// [{id:1, name:'adidush'},{id:2, name:'adiush'},{id:3, name:'ush'},{id:4, name:'adush'},{id:5, name:'ah'},]
+
 export const allUsers = [
     {
-      security_level: 1,
-      userName: "Radio BlaBla",
-      firstName: "Uri",
-      lastName: "Levi",
-      password: "SA535536",
-      email: "Radio@BlaBla.com",
-      profileImguser: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU",
-      level: 1,
-      company_id: "4",
-      company_name: "DownWind",
-      group_id: "2",
-      currentLevel: "A",
-      testsFinal: [
-        90,
-        34,
-        80,
-        45,
-        90,
-        34
-      ],
-      MMR: 4,
-      badges: 2,
-      total_assessments: 6,
-      numberOfFailurs: 1,
-      totalScore: 230,
-      straight_failures: 2,
-      assessment_overdue: 0,
-      admin: "true", 
-      id: "123456",
-    },
-    {
+        security_level: 1,
+        userName: "Radio BlaBla",
+        firstName: "Uri2",
+        lastName: "Levi2",
+        password: "SA535536",
+        email: "Radio@BlaBla.com",
+        profileImguser: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU",
+        level: 1,
+        company_id: "4",
+        company_name: "DownWind",
+        group_id: "4",
+        group_name:"adush",
+        currentLevel: "A",
+        testsFinal: [
+          90,
+          34,
+          80,
+          45,
+          90,
+          34
+        ],
+        MMR: 4,
+        badges: 2,
+        total_assessments: 6,
+        numberOfFailurs: 1,
+        totalScore: 230,
+        straight_failures: 2,
+        assessment_overdue: 0,
+        admin: "true", 
+        id: "1234567",
+      },
+      {
+        security_level: 1,
+        userName: "Radio BlaBla",
+        firstName: "Uri",
+        lastName: "Levi",
+        password: "SA535536",
+        email: "Radio@BlaBla.com",
+        profileImguser: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU",
+        level: 1,
+        company_id: "4",
+        company_name: "DownWind",
+        group_id: "2",
+        group_name:"adiush",
+        currentLevel: "A",
+        testsFinal: [
+          90,
+          34,
+          80,
+          45,
+          90,
+          34
+        ],
+        MMR: 4,
+        badges: 2,
+        total_assessments: 6,
+        numberOfFailurs: 1,
+        totalScore: 230,
+        straight_failures: 2,
+        assessment_overdue: 0,
+        admin: "true", 
+        id: "123456",
+      },
+        {
       security_level: 0,
       userName: "Show",
       firstName: "Netta",
@@ -49,6 +84,7 @@ export const allUsers = [
       company_id: "1",
       company_name: "ICL",
       group_id: "3",
+      group_name:"ush",
       currentLevel: "A",
       testsFinal: [
         20,
@@ -80,6 +116,7 @@ export const allUsers = [
       company_id: "3",
       company_name: "Candoo",
       group_id: "1",
+      group_name:"adidush",
       currentLevel: "D",
       testsFinal: [
         10,
@@ -111,7 +148,8 @@ export const allUsers = [
       level: 1,
       company_id: "4",
       company_name: "Flywere",
-      group_id: "6",
+      group_id: "5",
+      group_name:"ah",
       currentLevel: "B",
       testsFinal: [
         50,
@@ -289,14 +327,14 @@ export const pieData =
             name: "ICL",
             size: "Large", 
             numberOfPilots: 5, 
-            groups: [1,2,3,4,5,6]
+            groups: [{id:1, name:'adidush'},{id:2, name:'adiush'},{id:3, name:'ush'},{id:4, name:'adush'},{id:5, name:'ah'},]
         },
         {
             id: 2, 
             name: "Elbit",
             size: "Large", 
             numberOfPilots: 3, 
-            groups: [1,2,3]
+            groups: [{id:3, name:'ush'},{id:4, name:'adush'},{id:5, name:'ah'},]
         },
         {
             id: 3, 
@@ -304,7 +342,7 @@ export const pieData =
             size: "Medium", 
             numberOfPilots: 2, 
             numberOfPilots: 3, 
-            groups: [1,2,3,4,5]
+            groups: [{id:1, name:'adidush'},{id:2, name:'adiush'},{id:5, name:'ah'},]
         },
         {
             id: 4, 
@@ -312,7 +350,7 @@ export const pieData =
             size: "Small", 
             numberOfPilots: 4, 
             numberOfPilots: 3, 
-            groups: [1,2]
+            groups: [{id:1, name:'adidush'},{id:2, name:'adiush'}]
         }
     ]
     

@@ -13,7 +13,6 @@ export const validateEmail = (str) => {
 
 //To check a password minimum 8 characters which contain at least one numeric digit, one uppercase and one lowercase letter
 export const validatePassword = (str) => {
-    console.log(str)
     if(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()-+]).{8,}$/.test(str)){
         return {isSuccess:true, errorMessage:''}
     } 

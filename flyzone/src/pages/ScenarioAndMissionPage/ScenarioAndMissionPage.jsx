@@ -24,7 +24,6 @@ const navigate = useNavigate()
 
     const handleTestForm = (name, value) => {
       dispatch(setTestForm({name,value}))
-      console.log(value)
     }
     
     const handleInputChange = (val) =>

@@ -7,7 +7,6 @@ const Input = ({name, type="text", placeholder="", onBlur=()=>{}, onChange=()=>{
   const handleOnBlur = (e) => {
     setError("")
     onBlur(e)
-    console.log(checkErrorsFunc)
     if(typeof checkErrorsFunc === 'function'){
       const response = checkErrorsFunc(...errorFuncParams, e.target.value)
       if(!response.isSuccess){

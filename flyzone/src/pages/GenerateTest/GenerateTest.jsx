@@ -11,40 +11,45 @@ import FormControl from '@mui/material/FormControl';
 import CustomSelect from "../../components/Generic/Select/Select";
 import UserSideData from '../../components/UserSideData/UserSideData';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTestForm, setTestGenerationFormData } from '../../store/slices/testSlice';
+import { setGroupOptions, setPilotOptions, setTestForm, setTestGenerationFormData } from '../../store/slices/testSlice';
+
 
 const GenerateTest = () => {
 const {id} = useParams
 const dispatch = useDispatch();
 const {companies:companiesDb, allUsersPrimary:users} = useSelector(state => state.users)
-const {missions, scenarios, maps, windSpeed, fogDensity, testForm, sliderForm} = useSelector(state => state.testFlight)
+const {missions, scenarios, maps, windSpeed, fogDensity, testForm, groupsOptions, pilotOptions, sliderForm} = useSelector(state => state.testFlight)
 const [hover, setHover] = useState(false);
 
-function updateGroupSelect(name, value) {
-  if(company != undefined){
-    dispatch(setTestForm({name,value}))
-  }
-}
+
+
 
 const handleTestForm = (name, value) => {
   dispatch(setTestForm({name,value}))
-  console.log(value)
 }
 
-const handleTestGroupsForm = (groups, value) => {
+const handleCompanySelected = (name,value) => {
+  handleTestForm(name,value)
+  const chosenCompany = companiesDb.find(cmp => cmp.name === value)
+  const chosenCompanyGroups = chosenCompany.groups
+  dispatch(setGroupOptions(chosenCompanyGroups))
 }
+
+const handleGroupSelected = (name,value) => {
+  handleTestForm(name,value)
+  const designatedPilots = users.filter(user => user.group_name === value && user.company_name === testForm.company)
+  const tweakedPilotInfoForSelect = designatedPilots.map(pilot => ({
+    name: `${pilot.firstName} ${pilot.lastName}`, // Use space between names
+    id: pilot.id
+  }));
+  dispatch(setPilotOptions(tweakedPilotInfoForSelect))
+}
+
 
 useEffect(() => {
   dispatch(setTestGenerationFormData())
 },[])
 
-// const onHover = () => {
-//   setHover(true)
-// }
-
-// const onLeaveHover = () =>{
-//   setHover(false)
-// }
 
 
 function valuetext(value) {
@@ -57,7 +62,6 @@ const handleAssignTestToUser = () =>{
 }
 
 let sizeOptions = companiesDb?.map(a=> a.size)
-
 
 
       return (
@@ -75,9 +79,9 @@ let sizeOptions = companiesDb?.map(a=> a.size)
                   <div className='generatetest_centerGeneration'>
                     <div className='generatetest_select'>
                         <FormControl style={{display:"flex", flexDirection:"row"}}>
-                          <CustomSelect name="company" title="Company" onChange={handleTestForm} value={testForm.company} options={companiesDb} />
-                          <CustomSelect name="groups" title="Groups" onChange={handleTestGroupsForm} value={testForm.group} options={companiesDb} />
-                          <CustomSelect name="pilot" title="Pilot" onChange={handleTestForm} value={testForm.pilot} options={companiesDb} />
+                          <CustomSelect name="company" title="Company" onChange={handleCompanySelected} value={testForm.company} options={companiesDb} />
+                          <CustomSelect name="groups" title="Groups" disabled={groupsOptions?.length === 0} onChange={handleGroupSelected} value={testForm.groups} options={groupsOptions || []} />
+                          <CustomSelect name="pilot" title="Pilot" onChange={handleTestForm} value={testForm.pilot} options={pilotOptions} />
                         </FormControl>
                       </div>
                     <div className='generate_frames'>

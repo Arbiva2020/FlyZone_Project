@@ -18,7 +18,6 @@ import { Colors } from 'chart.js'
 
 function BarChart ({chartData}) {
   const screenWidth = window.innerWidth
-  // console.log(screenWidth)
   const options = {
     plugins: {
       legend: {

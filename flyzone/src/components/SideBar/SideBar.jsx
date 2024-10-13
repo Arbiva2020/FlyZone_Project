@@ -10,7 +10,6 @@ const SideBar = ({currentUserId}) => {
    function toggleStyle(id) {
     setSideBarActiveId(id)
   }
-console.log(currentUserId)
   return (
     <div className='sidebar_main'>
         <div className='sidebar_menu'>
@@ -18,7 +17,6 @@ console.log(currentUserId)
               let dynamicPath
               if(data.path.includes('[:id]')){
                 dynamicPath = data.path.replace('[:id]', currentUserId)
-                console.log(dynamicPath)
               }
               return (
                 <div 

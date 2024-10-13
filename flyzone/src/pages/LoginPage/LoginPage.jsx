@@ -23,9 +23,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const loginMutation = useLoginMutation()
 
-// console.log(loginMutation)
   useEffect(() => {
-    console.log(isFormValid)
     for (const key in isFormValid) {
       if (isFormValid[key] === false) {
         if (!isFormDisabled) {
@@ -62,7 +60,6 @@ const LoginPage = () => {
             isValid = validatePassword(loginForm[key]).isSuccess;
             if (!isValid) {
                 dispatch(setErrors(`Password doesn't match`));
-                console.log(isFormValid)
             }
         }
     }
@@ -80,9 +77,7 @@ const LoginPage = () => {
       await loginMutation.mutateAsync(formData)
       setLoading(false)
       if(loginMutation.isSuccess){
-        console.log('hi')
       } else{
-        console.log('bye')
       }
 
 
@@ -150,7 +145,6 @@ const LoginPage = () => {
                 text={"Login"}
                 isLightStyle
                 onClick={(event) => {
-                    console.log("Button clicked!"); 
                     handleSubmitForm(event);
                 }}
                 isDisabled={isFormDisabled}

@@ -10,19 +10,15 @@ const userStatisticChartsSlice = createSlice({
   initialState,
   reducers: {
     setSelectedUser: (state, action) => {
-      console.log(action)
       state.userData[action.payload.name] = action.payload.value;
     },
     setUserLineChart: (state, action) => {
-      console.log(action)
       state.userData[action.payload.name] = action.payload.value;
     },
     setUserBarChart: (state, action) => {
-      console.log(action)
       state.userData[action.payload.name] = action.payload.value;
     },
     setUserSecondBarChart: (state, action) => {
-      console.log(action)
       state.userData[action.payload.name] = action.payload.value;
     },
   }

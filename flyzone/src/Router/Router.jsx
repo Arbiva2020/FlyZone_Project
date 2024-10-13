@@ -24,7 +24,7 @@ import MapAndMissionPage from '../pages/MapAndMissionPage/MapAndMissionPage'
 import ScenarioAndMissionPage from '../pages/ScenarioAndMissionPage/ScenarioAndMissionPage'
 import DummyPage from '../pages/DummyPage/DummyPage'
 import { useDispatch } from 'react-redux'
-import fakeData from '../fakeData.json'
+import {allUsers} from '../dataFake'
 import { setAllusers } from '../store/slices/usersSlice'
 import CreateNewUserPage from '../pages/CreateNewUserPage/CreateNewUserPage'
 
@@ -32,7 +32,7 @@ const Router = () => {
 const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(setAllusers(fakeData))
+    dispatch(setAllusers(allUsers))
   },[])
 
 

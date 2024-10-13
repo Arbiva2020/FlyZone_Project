@@ -8,7 +8,7 @@ const initialState = {
   avgMmr: 0,
   chosenUser: {},
   companies: [], 
-  
+  groups: []
   //chosenUserPieData:[]
 };
 
@@ -22,6 +22,9 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    setGroups: (state, action) => {
+      state.groups = action.payload
+    },
     setCompaniesDB: (state, action) => {
       state.companies = action.payload
     },
@@ -64,7 +67,6 @@ const usersSlice = createSlice({
     setFilterUsers: (state, action) => {
       state.allUsersStatisticsPageData = state.allUsersPrimaryStatisticsPageData.filter((row) => {
         for (const key in row) {
-          console.log(typeof row[key]);
           if (typeof row[key] === "object") {
             continue;
           } else {
@@ -83,7 +85,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { setAllusers, setChosenUser, setSelectGroup, setFilterUsers, setCompaniesDB } =
+export const { setAllusers, setChosenUser, setSelectGroup, setFilterUsers, setCompaniesDB, setGroups } =
   usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -231,6 +231,13 @@ export const pieData =
         timeOut: 10,
     }
 
+
+    export const gaugeData = 
+    {
+        success: 80,
+        fail: 20
+    }
+
     export const horizontalBarData = 
     [
         {crash: 30, battary: 10, targeted: 15, wind: 15, balancing: 25, timeOut: 5},

@@ -67,6 +67,7 @@ const usersSlice = createSlice({
     setFilterUsers: (state, action) => {
       state.allUsersStatisticsPageData = state.allUsersPrimaryStatisticsPageData.filter((row) => {
         for (const key in row) {
+          console.log(typeof row[key]);
           if (typeof row[key] === "object") {
             continue;
           } else {

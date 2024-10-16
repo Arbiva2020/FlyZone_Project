@@ -106,3 +106,48 @@ export const testGeneratingConditions =
             disabeld:"",
         },
     ]
+
+
+    export const testGeneratingElements = 
+     [
+        {
+            title: "Payload", 
+            defaultValue:"",
+            getAriaValueText:"",
+            step:10,
+            min:1,
+            max:60,
+            marks:"",
+            disabeld:"",
+        }, 
+        {
+            title: "Connection", 
+            defaultValue:"",
+            getAriaValueText:"",
+            step:1,
+            min:1,
+            max:5,
+            marks:"",
+            disabeld:"",
+        },
+        {
+            title: "Density", 
+            defaultValue:"",
+            getAriaValueText:"",
+            step:1,
+            min:1,
+            max:10,
+            marks:"",
+            disabeld:"",
+        },
+        {
+            title: "Arial disturbance", 
+            defaultValue:"",
+            getAriaValueText:"",
+            step:1,
+            min:1,
+            max:5,
+            marks:"",
+            disabeld:"",
+        },
+    ]

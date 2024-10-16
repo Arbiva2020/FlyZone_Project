@@ -22,11 +22,11 @@ const MainViewPage = (props) => {
 const dispatch = useDispatch()
   const [selectValue, setSelectValue] = React.useState('');
   const [users, setUsers] = React.useState([])
-  const [groups, setGroups] = React.useState([])
 
   useEffect(() => {
     const verifyToken = async() => {
       const token = localStorage.getItem('token');
+        console.log(token)
       try {
         const response = await fetch('http://localhost:8000/verify-token/${token}');
         if(!response.ok) {
@@ -56,6 +56,7 @@ const dispatch = useDispatch()
 
   const handleChange = (event) => {
     setSelectValue(event.target.value);
+    console.log(event.target.value)
   };
 
   const [mainViewData, setMainViewData] = useState({
@@ -100,6 +101,7 @@ const dispatch = useDispatch()
     ] 
 })
 
+// console.log(maps[1].total)
 
 const [mainViewMap, setMainViewMap] = useState({
   labels: maps.map((data) => data.name), 
@@ -143,8 +145,9 @@ const navigateToAllStatsPage = () => {
          <div className='mainView_center'>
           <div className='mainView_hedline'>Main View</div>
           <div className='mainView_table'>
-            <FormControl>
-                {/* <Select
+            <FormControl sx={{m: 1, minWidth: 120, backgroundColor: 'gray'}}>
+                <InputLabel id="select-main-view-label">Select group</InputLabel>
+                <Select
                   labelId="select-main-view-label"
                   id="select-main-view-id"
                   value={selectValue}
@@ -168,14 +171,7 @@ const navigateToAllStatsPage = () => {
                   <MenuItem value={"b"}>Group 2 from db</MenuItem>
                   <MenuItem value={"c"}>Group 3 from db</MenuItem>
                   <MenuItem value={"d"}>Group 4 from db</MenuItem>
-                </Select> */}
-                <CustomSelect 
-                  name="company" 
-                  title="Companies" 
-                  // onChange={handleTestForm} 
-                  // value={testForm.pilot} 
-                  // options={companiesDb} 
-                />
+                </Select>
               </FormControl>
             <div className='mainView_charts'>
               <div className='mainView_line'><LineChart chartData={mainLineData} /></div>

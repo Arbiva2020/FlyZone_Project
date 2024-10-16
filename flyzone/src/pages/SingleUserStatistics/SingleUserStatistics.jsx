@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import AuthHeader from '../../components/AuthHeader/AuthHeader'
 import SideBar from '../../components/SideBar/SideBar'
-// import Profile from '../../assets/Profile.png'
 import './SingleUserStatistics.css'
 import BarChart from '../../components/BarChart/BarChart'
 import PieChart from '../../components/PieChart/PieChart'
@@ -10,7 +9,7 @@ import LineChart from '../../components/LineChart/LineChart'
 import HorizontalBarChart from '../../components/HorizontalBarChart/HorizontalBarChart'
 import UserSideData from '../../components/UserSideData/UserSideData'
 import Button from '../../components/Generic/Button/Button'
-import { lineData, pieData, datafake, horizontalBarData } from '../../dataFake'
+import { lineData, pieData, datafake, horizontalBarData, gaugeData } from '../../dataFake'
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
 import { Chart as ChartJS, Colors } from 'chart.js/auto'
 import { IoMdArrowDropdownCircle } from "react-icons/io";
@@ -30,28 +29,32 @@ function SingleUserStatistics() {
       {
         label: "Collisions", 
         data: datafake.map((data) => data.collisions),
-        backgroundColor: "aqua", 
-        borderColor: "white"
+        backgroundColor: 'rgb(192, 226, 233, 0.8)', 
+        borderColor: "white", 
+        borderWidth: 0.5 
       },
       {
         label: "Avg. Score", 
         data: datafake.map((data) => data.avgScore),
         backgroundColor: "blue", 
-        borderColor: "white"
+        borderColor: "white", 
+        borderWidth: 0.5
       },
       {
         label: "Battary", 
         data: datafake.map((data) => data.battary),
-        backgroundColor: "white", 
-        borderColor: "white"
+        backgroundColor: 'rgb(54, 162, 235, 0.8)', 
+        borderColor: "white", 
+        borderWidth: 0.5
       },
       {
         label: "Points", 
         data: datafake.map((data) => data.points),
-        backgroundColor: "pink", 
-        borderColor: "white"
+        backgroundColor: 'rgb(110, 119, 180, 0.8)', 
+        borderColor: "white",
+        borderWidth: 0.5
       }
-    ]
+    ], 
   })
 
   const [singleuserPieData, setSingleuserPieData] = useState({
@@ -68,14 +71,17 @@ function SingleUserStatistics() {
           'rgb(0, 0, 0)',
         ],
         backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 206, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(153, 102, 255)',
-          'rgb(255, 159, 64)',
+          'rgb(110, 119, 180, 0.8)',
+          'rgb(54, 162, 235, 0.8)',
+          'rgb(142, 110, 180, 0.8)',
+          'rgb(110, 113, 180, 0.8)',
+          'rgb(110, 148, 180, 0.8)',
+          'rgb(192, 226, 233, 0.8)',
         ],
-        borderWidth:1
+        borderColor: [
+          'rgb(250, 250, 254)'
+        ],
+        borderWidth:0.5, 
       },
     ]
   })
@@ -89,24 +95,24 @@ function SingleUserStatistics() {
         axis:"y",
         data: Object.values(horizontalBarData[0]), 
         borderColor: [
-          'rgb(0, 0, 0)'
+          'rgb(250, 250, 254)'
         ],
         backgroundColor: [
-          'rgb(255, 99, 132)'
+          'rgb(192, 226, 233, 0.8)'
         ],
-        borderWidth:1,
+        borderWidth:0.5,
         label:"User avg"
       },
       {
         axis:"y",
         data: Object.values(horizontalBarData[1]), 
         borderColor: [
-          'rgb(0, 0, 0)'
+          'rgb(250, 250, 254)'
         ],
         backgroundColor: [
-          'rgb(255, 159, 64)'
+          'rgb(110, 148, 180, 0.8)'
         ],
-        borderWidth:1,
+        borderWidth:0.5,
         label:"Total avg"
       },
     ]
@@ -127,27 +133,22 @@ function SingleUserStatistics() {
 
 
 const [singleuserDoughnutData, setSingleuserDoughnutData] = useState({
-  labels: Object.keys(pieData), 
+  labels: Object.keys(gaugeData), 
   datasets: [
     {
-      data: Object.values(pieData), 
+      data: Object.values(gaugeData), 
       borderColor: [
-        'rgb(0, 0, 0)',
-        'rgb(0, 0, 0)',
-        'rgb(0, 0, 0)',
-        'rgb(0, 0, 0)',
-        'rgb(0, 0, 0)',
-        'rgb(0, 0, 0)',
+        'rgb(250, 250, 254)',
+        'rgb(250, 250, 254)',
       ],
       backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 206, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(153, 102, 255)',
-        'rgb(255, 159, 64)',
+        'rgb(192, 226, 233, 0.8)',
+        'rgb(110, 148, 180, 0.8)',
       ],
-      borderWidth:1
+      borderWidth:1,
+      cutout: '80%', 
+      circumference: 180, 
+      rotation: 270,
     },
   ]
 })
@@ -174,7 +175,7 @@ const handleNavigateToTestPage = (userId)=>{
         </div>
         <div className='singleUser_charts'>
           <div className='singleUser_headline'>Users' Statistics</div>
-          <p className='singelUser_text'>* The data presented here is of the last 4 tests. For full data <Link to="/fullStats">Click here</Link></p>
+          <p className='singelUser_text'>* The data presented here is of the last 4 tests. For full data <Link to="/fullStats" style={{color:"lightslategray"}}>{""}Click here</Link></p>
           <div className='singleUser_upper_chart_section'>
             <div className='singleUser_num_left'>
               <div className='singleUser_num_numLeft'>
@@ -188,7 +189,12 @@ const handleNavigateToTestPage = (userId)=>{
                 <h2 style={{color:"lightblue", fontSize:"300%"}}>35%</h2>
                 <div className='singleUserTrend'>
                   <p style={{fontSize:"80%"}}>Increase</p>
-                  {(<p>Decrease</p> ? <IoMdArrowDropdownCircle style={{color:"red", marginLeft:"5px"}}/> : <IoMdArrowDropupCircle style={{color:"green", marginLeft:"5px"}}/>)}
+                  {/* if grade now is higher that previous grade: 
+                    {higher ? <p><IoMdArrowDropupCircle style={{color:"green", marginLeft:"5px"}}/></p> <p>Increase</p> : <IoMdArrowDropdownCircle style={{color:"red", marginLeft:"5px"}}/></p> <p>Decrease</p>}
+                  */}
+
+                  
+                  {(<p>Decrease</p> ? <IoMdArrowDropupCircle style={{color:"lightgreen", marginLeft:"5px"}}/> : <IoMdArrowDropdownCircle style={{color:"red", marginLeft:"5px"}}/>)}
                 </div>
               </div>
               <div className='singleUser_SubInfo'>

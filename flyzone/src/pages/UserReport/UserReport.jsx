@@ -5,7 +5,6 @@ import SideBar from "../../components/SideBar/SideBar";
 import UserSideData from "../../components/UserSideData/UserSideData"
 import Button from "../../components/Generic/Button/Button"
 import Input from "../../components/Generic/Input/Input"
-import PieChart from "../../components/PieChart/PieChart"
 import Checkbox from '@mui/material/Checkbox';
 import { pink } from '@mui/material/colors';
 import Box from '@mui/material/Box';
@@ -19,10 +18,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import { FiPrinter } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
-import '../../fakeData.json'
+import CustomSelect from '../../components/Generic/Select/Select';
+import { setGroupOptions, setPilotOptions, setTestForm, setTestGenerationFormData } from '../../store/slices/testSlice';
+import { companiesDb, allUsers } from '../../dataFake';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 
 const UserReport = () => {
+  const dispatch = useDispatch()
+  const {companies:companiesDb, allUsersPrimary:users} = useSelector(state => state.users)
+  const {missions, scenarios, maps, windSpeed, fogDensity, testForm, groupsOptions, pilotOptions, sliderForm} = useSelector(state => state.testFlight)
   const [pros, setPros] = React.useState('');
   const [cons, setCons] = React.useState('');
   const [valueSelect, setValueSelect] = React.useState('');
@@ -32,10 +39,30 @@ const UserReport = () => {
 
   }, [])
 
-  const handleChange = (event) => {
-    setValueSelect(event.target.value);
-    console.log(event.target.value)
-  };
+  const handleTestForm = (name, value) => {
+    dispatch(setTestForm({name,value}))
+  }
+  
+  const handleCompanySelected = (name,value) => {
+    handleTestForm(name,value)
+    const chosenCompany = companiesDb.find(cmp => cmp.name === value)
+    const chosenCompanyGroups = chosenCompany.groups
+    dispatch(setGroupOptions(chosenCompanyGroups))
+  }
+  
+  const handleGroupSelected = (name,value) => {
+    handleTestForm(name,value)
+    const designatedPilots = users.filter(user => user.group_name === value && user.company_name === testForm.company)
+    const tweakedPilotInfoForSelect = designatedPilots.map(pilot => ({
+      name: `${pilot.firstName} ${pilot.lastName}`, // Use space between names
+      id: pilot.id
+    }));
+    dispatch(setPilotOptions(tweakedPilotInfoForSelect))
+  }
+
+  useEffect(() => {
+    dispatch(setTestGenerationFormData())
+  },[])
 
   const [checkedBox, setCheckedBox] = React.useState({
     Time: false,
@@ -79,89 +106,29 @@ const UserReport = () => {
             <div className='userReport_rightside'>
               <div className='userReport_all'>
                 <div className='userreport_select'>
-                <FormControl sx={{m: 1, minWidth: 120}}>
-                <InputLabel id="select-main-view-label">Select Company</InputLabel>
-                  <Select
-                      labelId="select-main-view-label"
-                      id="select-main-view-id"
-                      value={valueSelect}
-                      label="Assessment type"
-                      onChange={handleChange}
-                      inputProps={{
-                        MenuProps: {
-                            MenuListProps: {
-                                sx: {
-                                    backgroundColor: 'rgb(45, 43, 43)',
-                                    color: "white",
-                                },
-                            }
-                        }
-                    }}
-                  >
-                    <MenuItem value="/">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"a"}>Group 1 from db</MenuItem>
-                    <MenuItem value={"b"}>Group 2 from db</MenuItem>
-                    <MenuItem value={"c"}>Group 3 from db</MenuItem>
-                    <MenuItem value={"d"}>Group 4 from db</MenuItem>
-                  </Select>
-                  </FormControl>
-                  <FormControl sx={{m: 1, minWidth: 120}}>
-                <InputLabel id="select-main-view-label">Select Group</InputLabel>
-                  <Select
-                      labelId="select-main-view-label"
-                      id="select-main-view-id"
-                      // value={}
-                      label="Assessment type"
-                      // onChange={}
-                      inputProps={{
-                        MenuProps: {
-                            MenuListProps: {
-                                sx: {
-                                    backgroundColor: 'rgb(45, 43, 43)',
-                                    color: "white",
-                                },
-                            }
-                        }
-                    }}
-                  >
-                    <MenuItem value="/">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"a"}>Group 1 from db</MenuItem>
-                    <MenuItem value={"b"}>Group 2 from db</MenuItem>
-                    <MenuItem value={"c"}>Group 3 from db</MenuItem>
-                    <MenuItem value={"d"}>Group 4 from db</MenuItem>
-                  </Select>
-                  </FormControl>
-                  <FormControl sx={{m: 1, minWidth: 120}}>
-                <InputLabel id="select-main-view-label">Select Pilot</InputLabel>
-                  <Select
-                      labelId="select-main-view-label"
-                      id="select-main-view-id"
-                      // value={}
-                      label="Assessment type"
-                      // onChange={}
-                      inputProps={{
-                        MenuProps: {
-                            MenuListProps: {
-                                sx: {
-                                    backgroundColor: 'rgb(45, 43, 43)',
-                                    color: "white",
-                                },
-                            }
-                        }
-                    }}
-                  >
-                    <MenuItem value="/">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"a"}>Group 1 from db</MenuItem>
-                    <MenuItem value={"b"}>Group 2 from db</MenuItem>
-                    <MenuItem value={"c"}>Group 3 from db</MenuItem>
-                    <MenuItem value={"d"}>Group 4 from db</MenuItem>
-                  </Select>
+                  <FormControl style={{display:"flex", flexDirection:"row"}}>
+                    <CustomSelect 
+                      name="company" 
+                      title="Company" 
+                      onChange={handleCompanySelected} 
+                      value={testForm.company} 
+                      options={companiesDb} 
+                    />
+                    <CustomSelect 
+                      name="groups" 
+                      title="Groups" 
+                      disabled={groupsOptions?.length === 0} 
+                      onChange={handleGroupSelected} 
+                      value={testForm.groups} 
+                      options={groupsOptions || []} 
+                    />
+                    <CustomSelect 
+                      name="pilot" 
+                      title="Pilot" 
+                      onChange={handleTestForm} 
+                      value={testForm.pilot} 
+                      options={pilotOptions} 
+                    />
                   </FormControl>
                 </div>
                 <div className='userReport_report'>

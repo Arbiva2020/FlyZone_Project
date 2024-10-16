@@ -43,10 +43,10 @@
 }
 
 .mainView_line {
-    border-style: solid;
+    /* border-style: solid;
     border-width: 1px;
     border-radius: 20px;
-    border-color: white;
+    border-color: white; */
     display: flex;
     justify-content: center;
     height: 30vh;
@@ -56,10 +56,10 @@
 }
 
 .mainView_bar {
-    border-style: solid;
+    /* border-style: solid;
     border-width: 1px;
     border-radius: 20px;
-    border-color: white;
+    border-color: white; */
     display: flex;
     justify-content: center;
     height: 30vh;
@@ -75,15 +75,15 @@
   .mainViewButtom {
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
+    /* border-radius: 20px;
     border-style: solid;
     border-color: white;
-    border-width: 1px;
+    border-width: 1px; */
     color: white;
     width: fit-content;
     height: fit-content;
     align-items: center;
-    background-color: #2e2d2d57;
+    /* background-color: #2e2d2d57; */
     justify-content:space-between ;
     width: -webkit-fill-available;
 

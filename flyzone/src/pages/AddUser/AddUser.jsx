@@ -3,7 +3,6 @@ import Button from '../../components/Generic/Button/Button'
 import Input from '../../components/Generic/Input/Input'
 import AuthHeader from '../../components/AuthHeader/AuthHeader'
 import SideBar from '../../components/SideBar/SideBar'
-// import fakeData from '../../fakeData.json'
 import Switch from '../../components/Generic/Switch/Switch'
 import Select from "../../components/Generic/Select/Select"
 import { companiesDb } from '../../dataFake'
@@ -38,7 +37,6 @@ const handleAddUser = ()=> {
                 <div className='addUser_rows'>
                 <div className='addUser_addingUser'>
                     <div className='addUser_parameter'>
-                        {/* {fakeData.map(({firstName, lastName, userName, password, group_id}) => <div>{firstName}</div> )} */}
                         <div className='addUser_text'><h4 className='addUser_key'>First name:</h4></div>
                         <div className='adduser_input'><Input /></div>
                     </div>

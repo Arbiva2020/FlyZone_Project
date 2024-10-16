@@ -10,13 +10,13 @@ import LineChart from '../../components/LineChart/LineChart'
 import HorizontalBarChart from '../../components/HorizontalBarChart/HorizontalBarChart'
 import UserSideData from '../../components/UserSideData/UserSideData'
 import Button from '../../components/Generic/Button/Button'
-import { lineData, pieData, datafake, horizontalBarData } from '../../dataFake'
+import { lineData, pieData, datafake, horizontalBarData, allUsers } from '../../dataFake'
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
 import { Chart as ChartJS, Colors } from 'chart.js/auto'
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { IoMdArrowDropupCircle } from "react-icons/io";
 import { Link } from 'react-router-dom';
-import fakeData from "../../fakeData.json";
+
 
 ChartJS.register(
   Colors
@@ -24,58 +24,43 @@ ChartJS.register(
 
 function UserFullStats(props) {
   const {id, firstName} = useParams()
-  console.log(id)
-  console.log(firstName)
 
-
-  console.log((fakeData.map((data) => data.testsFinal)))
-  function longe(){
-    let longish=0;
-    for(let i=0; i>=fakeData.length; i++){
-        if(fakeData.length[i]>fakeData.length[i+1]){
-            longish===fakeData.length[i]
-        }else longish === fakeData.length[i+1]
+const [userAllTests, setUserAllTests] = useState({
+  labels: allUsers.map((data) => (data.testsFinal).index+1),
+  datasets: [
+    {
+      // label: "Tests",
+      data: allUsers.map((data) => data.testsFinal), 
+      borderColor: "pink",
+      backgroundColor: "pink"
     }
-    return
-  }
-console.log(longe())
-
-  const [userAllTests, setUserAllTests] = useState({
-    labels: fakeData.map((data) => (data.testsFinal).index+1),
-    datasets: [
-      {
-        // label: "Tests",
-        data: fakeData.map((data) => data.testsFinal), 
-        borderColor: "pink",
-        backgroundColor: "pink"
-      }
-    ] 
+  ] 
 })
 
   const [singleuserData, setSingleuserData] = useState({
-    labels: datafake.map((data) => data.id), 
+    labels: allUsers.map((data) => data.id), 
     datasets: [
       {
         label: "Collisions", 
-        data: datafake.map((data) => data.collisions),
+        data: allUsers.map((data) => data.collisions),
         backgroundColor: "aqua", 
         borderColor: "white"
       },
       {
         label: "Avg. Score", 
-        data: datafake.map((data) => data.avgScore),
+        data: allUsers.map((data) => data.avgScore),
         backgroundColor: "blue", 
         borderColor: "white"
       },
       {
         label: "Battary", 
-        data: datafake.map((data) => data.battary),
+        data: allUsers.map((data) => data.battary),
         backgroundColor: "white", 
         borderColor: "white"
       },
       {
         label: "Points", 
-        data: datafake.map((data) => data.points),
+        data: allUsers.map((data) => data.points),
         backgroundColor: "pink", 
         borderColor: "white"
       }
@@ -140,8 +125,8 @@ console.log(longe())
       },
     ]
   })
-  console.log(Object.values(horizontalBarData[0]))
-  console.log(Object.values(horizontalBarData[1]))
+  // console.log(Object.values(horizontalBarData[0]))
+  // console.log(Object.values(horizontalBarData[1]))
 
   const [singleuserLineData, setSingleuserLineData] = useState({
     labels: Object.keys(lineData),
@@ -217,7 +202,7 @@ const handleNavigateToTestPage = (id)=>{
         <div className='userFullStats_charts'>
           <div className='userFullStats_headline'>Users' Complete Statistics</div>
           <p className='userFullStats_text'>Presented here is the full data for user *userName*. For additional information regarding the </p>
-          <p className='userFullStats_text'> tests generated<Link>Click here</Link></p>
+          <p className='userFullStats_text'> tests generated<Link style={{color:"lightslategray"}}>{" "}Click here</Link></p>
           <div className='userFullStats_upper_chart_section'>
             <div className='userFullStats_mainView_line_left'><LineChart chartData={userAllTests} /></div>
             <div className='userFullStats_mainView_line_right'><LineChart chartData={userAllTests} /></div>

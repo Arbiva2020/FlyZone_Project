@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SplashScreenPage.css'
 import HomePage from '../HomePage/HomePage';
 
@@ -19,6 +19,9 @@ useEffect(()=> {
       {/* <div className='circle_1'></div> */}
       <div className='splash_div'>
         <h1 className='main_headline_splash'>FlyZone</h1>
+        <h3 className='splash_secondaryHeadline'>Innovation in smart drone-training technology</h3>
+        {/* <br></br>
+        <br></br> */}
         <h5 className='loading'>Loading...</h5>
       </div>
     </div> : <HomePage />

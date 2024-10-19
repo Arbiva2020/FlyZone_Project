@@ -11,6 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import CustomSelect from "../../components/Generic/Select/Select";
 import UserSideData from '../../components/UserSideData/UserSideData';
 import { useDispatch, useSelector } from 'react-redux';
+import InfoPopup from '../../components/InfoPopup/InfoPopup';
 import { setGroupOptions, setPilotOptions, setTestForm, setTestGenerationFormData } from '../../store/slices/testSlice';
 
 
@@ -77,6 +78,7 @@ let sizeOptions = companiesDb?.map(a=> a.size)
                     <div className='generateTest_headline'>
                         Generate Test
                     </div>
+                    {/* <InfoPopup /> */}
                   <div className='generatetest_centerGeneration'>
                     <div className='generatetest_select'>
                         <FormControl style={{display:"flex", flexDirection:"row"}}>

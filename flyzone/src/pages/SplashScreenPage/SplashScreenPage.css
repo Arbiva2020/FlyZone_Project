@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-   height: 300px;
+   height: 500px;
 }
 
 .main_headline_splash {
@@ -17,8 +17,16 @@
     flex-direction: row;
     justify-content: left;
     margin-left: 50px;
+    margin-top: 100px;
     font-size: 600%;
     animation: glow 2s ease-in-out infinite alternate;
+}
+
+.splash_secondaryHeadline {
+  color: white;
+  font-family: lexend;
+  position: relative;
+  /* letter-spacing: 120%; */
 }
 
 .loading {

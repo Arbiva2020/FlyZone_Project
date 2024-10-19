@@ -65,25 +65,25 @@ const dispatch = useDispatch()
       {
         label: "Collisions", 
         data: mainViewDatafake.map((data) => data.collisions),
-        backgroundColor: "aqua", 
+        backgroundColor: 'rgba(94, 114, 250, 0.8)', 
         borderColor: "white"
       },
       {
         label: "Avg. Score", 
         data: mainViewDatafake.map((data) => data.avgScore),
-        backgroundColor: "blue", 
+        backgroundColor: 'rgb(54, 162, 235, 0.8)', 
         borderColor: "white"
       },
       {
         label: "Avg. Score", 
         data: mainViewDatafake.map((data) => data.battary),
-        backgroundColor: "white", 
+        backgroundColor:  'rgba(94, 114, 250, 0.8)', 
         borderColor: "white"
       },
       {
         label: "Avg. Score", 
         data: mainViewDatafake.map((data) => data.points),
-        backgroundColor: "pink", 
+        backgroundColor: 'rgb(192, 226, 233, 0.8)', 
         borderColor: "white"
       }
     ]
@@ -95,8 +95,8 @@ const dispatch = useDispatch()
       {
         label: mainViewLineData.headline,
         data: Object.values(mainViewLineData), 
-        borderColor: "pink",
-        backgroundColor: "pink"
+        borderColor: "white",
+        backgroundColor: "white", 
       }
     ] 
 })
@@ -116,11 +116,11 @@ const [mainViewMap, setMainViewMap] = useState({
     maps[4].total
     ],
     backgroundColor: [
-      'rgba(191, 7, 102, 0.8)',
-      'rgba(131, 4, 166, 0.8)',
-      'rgba(131, 141, 166, 0.8)',
+      'rgb(192, 226, 233, 0.8)',
+      'rgba(94, 114, 250, 0.8)',
+      'rgb(54, 162, 235, 0.8)',
       'rgba(12, 141, 178, 1)',
-      'rgba(65, 136, 253, 0.88)'
+      'rgb(110, 119, 180, 0.8)'
     ],
     borderColor: [
       'rgb(75, 192, 192)',
@@ -145,53 +145,58 @@ const navigateToAllStatsPage = () => {
          <div className='mainView_center'>
           <div className='mainView_hedline'>Main View</div>
           <div className='mainView_table'>
-            <FormControl sx={{m: 1, minWidth: 120, backgroundColor: 'gray'}}>
-                <InputLabel id="select-main-view-label">Select group</InputLabel>
-                <Select
-                  labelId="select-main-view-label"
-                  id="select-main-view-id"
-                  value={selectValue}
-                  label="Assessment type"
-                  onChange={handleChange}
-                  inputProps={{
-                    MenuProps: {
-                        MenuListProps: {
-                            sx: {
-                                backgroundColor: 'rgb(45, 43, 43)',
-                                color: "white",
-                            },
-                        }
-                    }
-                }}
-                >
-                  <MenuItem value="/">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"a"}>Group 1 from db</MenuItem>
-                  <MenuItem value={"b"}>Group 2 from db</MenuItem>
-                  <MenuItem value={"c"}>Group 3 from db</MenuItem>
-                  <MenuItem value={"d"}>Group 4 from db</MenuItem>
-                </Select>
-              </FormControl>
-            <div className='mainView_charts'>
-              <div className='mainView_line'><LineChart chartData={mainLineData} /></div>
-              <div className='mainView_bar'><BarChart chartData={mainViewData} /></div>
-            </div>
-            <div className='mainViewButtom'>
-              <div className='mainView_hedline' style={{marginTop:"0px"}}>Additional data</div>
-              <div className='mainView_charts_bottom'>
-                <div className='mainView_line'><BarChart chartData={mainViewMap} /></div>
-                <div className='mainView_bar'><BarChart chartData={mainViewMap} /></div>
-              </div>
-            </div>
-              <div className="mainView_goToStatsPage">
-                <Button customStyles={{borderColor:"black", color:"pink"}}
-                    text={"Go to stats..."}
+          <p className='mainView_prev'>Main view page presents the assessment results devided by organic groups.  
+                                    To view results, please pick a group in the dropdown. <br/> The difault state show 
+                                    the first group in the alphabetical/numerical order. 
+          </p>
+            <div className='mainView_formControl'>
+              <FormControl sx={{m: 1, minWidth: 120}}>
+                  <InputLabel id="select-main-view-label">Select group</InputLabel>
+                  <Select
+                    labelId="select-main-view-label"
+                    id="select-main-view-id"
+                    value={selectValue}
+                    label="Assessment type"
+                    onChange={handleChange}
+                    inputProps={{
+                      MenuProps: {
+                          MenuListProps: {
+                              sx: {
+                                  color: "gray",
+                              },
+                          }
+                      }
+                  }}
+                  >
+                    <MenuItem value="/">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"a"}>Group 1 from db</MenuItem>
+                    <MenuItem value={"b"}>Group 2 from db</MenuItem>
+                    <MenuItem value={"c"}>Group 3 from db</MenuItem>
+                    <MenuItem value={"d"}>Group 4 from db</MenuItem>
+                  </Select>
+                </FormControl>
+                <div className="mainView_goToStatsPage">
+                <Button customStyles={{borderColor:"black"}}
+                    text={"Go to stats"}
                     // isLightStyle
                     // onClick={handleSubmitForm}
                     // isDisabled={isFormDisabled}
                     onClick={navigateToAllStatsPage}
                 />
+            </div>
+              </div>
+            <div className='mainView_charts'>
+              <div className='mainView_line'><LineChart chartData={mainLineData} /></div>
+              <div className='mainView_bar'><BarChart chartData={mainViewData} /></div>
+            </div>
+            <div className='mainViewButtom'>
+              <div className='mainView_hedline' style={{marginTop:"0px"}}><h6>Additional data</h6></div>
+              <div className='mainView_charts_bottom'>
+                <div className='mainView_line'><BarChart chartData={mainViewMap} /></div>
+                <div className='mainView_bar'><BarChart chartData={mainViewMap} /></div>
+              </div>
             </div>
           </div>
          

@@ -31,10 +31,10 @@
 
 .demo_progress {
     margin-left: 10px;
-    height: 20px;
+    height: 10px;
     width: 850px;
-    background-color: #B943B4;
-    border-radius: 20px;
+    background-color: #b9acce;
+    border-radius: 10px;
 }
 
 progress::-webkit-progress-bar {
@@ -42,6 +42,6 @@ progress::-webkit-progress-bar {
     border-radius: 20px;
  }
 progress::-webkit-progress-value {
-    background-color: #B943B4;
+    background-color: #b9acce;
     border-radius: 20px;
  }

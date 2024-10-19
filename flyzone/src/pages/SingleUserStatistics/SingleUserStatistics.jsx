@@ -36,7 +36,7 @@ function SingleUserStatistics() {
       {
         label: "Avg. Score", 
         data: datafake.map((data) => data.avgScore),
-        backgroundColor: "blue", 
+        backgroundColor: "rgba(94, 114, 250, 0.8)", 
         borderColor: "white", 
         borderWidth: 0.5
       },

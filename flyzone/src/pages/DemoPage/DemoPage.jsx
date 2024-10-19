@@ -29,7 +29,7 @@ const DemoPage = () => {
     <div className='demo_main'>
         <Header />
         <div className='demo_headline'>
-            Play Demo
+            Platform Demo
         </div>
         <div className='demo_show'>
             <video 
@@ -40,7 +40,7 @@ const DemoPage = () => {
             <source src={media2} type="video/mp4"/>
             </video>
             <div className='demo_play'>
-                <h4 onClick={handleTogglePlay} style={isPlaying ? {color:"white"} : {color:"#B943B4"}}>
+                <h4 onClick={handleTogglePlay} style={isPlaying ? {color:"white"} : {color:"#b9acce"}}>
                     {isPlaying ? "Pause" : "Play"}
                 </h4>
                 <progress className='demo_progress' value={progress} max="100" style={{progressColor: 'rgb(185, 67, 180'}}/>

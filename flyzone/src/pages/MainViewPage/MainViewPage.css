@@ -3,11 +3,17 @@
     flex-direction: row;
     color: white;
     font-family: lexend;
-    /* position: relative; */
 }
 
 .mainView_center {
     width: 80%;
+}
+
+.mainView_prev {
+    font-size: small;
+    margin: 10px 0px 10px 0px;
+    line-height: 25px;
+    font-weight: 200;
 }
 
 .mainView_right {
@@ -24,12 +30,21 @@
     font-size: 25px;
 }
 
+.mainView_formControl {
+    display: flex;
+    flex-direction: row;
+    height: 10vh;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
 .mainView_charts {
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin-bottom: 40px;
+    background-color: #2e2d2d57;
 }
 
 .mainView_table {
@@ -49,8 +64,8 @@
     border-color: white; */
     display: flex;
     justify-content: center;
-    height: 30vh;
-    width: 50%;
+    height: 35vh;
+    width: 45%;
     margin-right: 5px;
     align-items: center;
 }
@@ -62,8 +77,8 @@
     border-color: white; */
     display: flex;
     justify-content: center;
-    height: 30vh;
-    width: 50%;
+    height: 35vh;
+    width: 45%;
     margin-left: 5px;
     align-items: center;
 }
@@ -101,14 +116,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 20px;
-    width: 90%;
+    width: 100%;
 }
 
 .mainView_goToStatsPage {
     display: flex;
-    position: relative;
-    justify-content: right;
+    flex-direction: row;
+    /* align-items:baseline; */
     margin-top: 20px;
 }

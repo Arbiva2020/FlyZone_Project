@@ -13,11 +13,11 @@ const UpgradeAdd = () => {
   return (
     <div className='add' 
          onClick={navigateToPaymentPage}>
-        <h5 style={{marginBottom:"5px", marginTop:"5px", fontSize:"100%", color:"#2E2D2D"}}>Upgrade To</h5>
-        <h3 style={{color:"black", fontWeight:"900", marginBottom:"5px", marginTop:"5px", fontSize: "200%"}}>PREMIUM</h3>
-        <h6 style={{marginBottom:"10px", fontSize:"100%", color:"#2E2D2D"}}>And get</h6>
+        <h5 style={{marginBottom:"5px", marginTop:"5px", fontSize:"100%", color:"black"}}>Upgrade To</h5>
+        <h3 style={{color:"white", fontWeight:"900", marginBottom:"5px", marginTop:"5px", fontSize: "200%"}}>PREMIUM</h3>
+        <h6 style={{marginBottom:"10px", fontSize:"100%", color:"black"}}>And get</h6>
         <div className='arrow_bounce' style={{color:"black"}}><IoIosArrowDown /></div>  
-        <h5 style={{marginBottom:"10px", fontSize:"150%", color:"black"}}>30% OFF</h5>
+        <h5 style={{marginBottom:"10px", fontSize:"150%", color:"white"}}>30% OFF</h5>
     </div>
   )
 }

@@ -3,7 +3,7 @@
     /* border-style: solid;
     border-color: white;
     border-width: 3px; */
-    background-color:  pink;
+    background-color: rgba(94, 114, 250, 0.6);
     display: flex;
     flex-direction: column;
     justify-content: center;

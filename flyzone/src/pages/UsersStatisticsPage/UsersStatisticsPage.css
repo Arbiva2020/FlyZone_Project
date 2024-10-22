@@ -81,7 +81,7 @@ table {
     width: 100%;
     height: fit-content;
     border-collapse: collapse;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -89,7 +89,7 @@ table {
 
   th,td {
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color:rgba(46, 45, 45, 0.3);
   color: #fff;
 }
 th {
@@ -97,7 +97,7 @@ th {
   position: relative;
 }
 thead th {
-  background-color:  hsl(303, 39%, 58%);
+  background-color: rgb(110, 148, 180, 0.8);
 }
 tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.3);
@@ -148,17 +148,18 @@ tbody td:hover:before {
 }
 
 .users_charts {
-  background-color: #2E2D2D;
+  /* background-color: #2E2D2D;
   border-style: solid;
   border-width: 1px;
   border-radius: 20px;
-  border-color: white;
+  border-color: white; */
   height: 300px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   padding: 10px;
+  margin-top: 50px; 
 }
 
 .users_doughnut {
@@ -170,11 +171,11 @@ tbody td:hover:before {
 }
 
 .users_leftChart {
-  background-color: black;
+  /* background-color: black;
   border-style: solid;
   border-width: 1px;
   border-radius: 20px;
-  border-color: white;
+  border-color: white; */
   height: 80%;
   width: 30%;
   display: flex;
@@ -184,11 +185,11 @@ tbody td:hover:before {
 }
 
 .users_rightChart {
-  background-color: black;
+  /* background-color: black;
   border-style: solid;
   border-width: 1px;
   border-radius: 20px;
-  border-color: white;
+  border-color: white; */
   height: 80%;
   width: 30%;
   display: flex;
@@ -198,11 +199,11 @@ tbody td:hover:before {
 }
 
 .users_centerChart {
-  background-color: black;
+  /* background-color: black;
   border-style: solid;
   border-width: 1px;
   border-radius: 20px;
-  border-color: white;
+  border-color: white; */
   height: 80%;
   width: 30%;
   display: flex;

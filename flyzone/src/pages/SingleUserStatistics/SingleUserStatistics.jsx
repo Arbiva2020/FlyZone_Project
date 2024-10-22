@@ -5,6 +5,7 @@ import SideBar from '../../components/SideBar/SideBar'
 import './SingleUserStatistics.css'
 import BarChart from '../../components/BarChart/BarChart'
 import PieChart from '../../components/PieChart/PieChart'
+import GaugeChart from '../../components/GaugeChart/GaugeChart'
 import LineChart from '../../components/LineChart/LineChart'
 import HorizontalBarChart from '../../components/HorizontalBarChart/HorizontalBarChart'
 import UserSideData from '../../components/UserSideData/UserSideData'
@@ -87,7 +88,6 @@ function SingleUserStatistics() {
   })
 
 
-
   const [singleuserHorizontalData, setSingleuserHorizontalData] = useState({
     labels: Object.keys(horizontalBarData[0]), 
     datasets: [
@@ -132,7 +132,7 @@ function SingleUserStatistics() {
 })
 
 
-const [singleuserDoughnutData, setSingleuserDoughnutData] = useState({
+const [singleuserGaugeData, setSingleuserGaugeData] = useState({
   labels: Object.keys(gaugeData), 
   datasets: [
     {
@@ -153,6 +153,22 @@ const [singleuserDoughnutData, setSingleuserDoughnutData] = useState({
   ]
 })
 
+const gaugeScore = singleuserData.datasets[0].data[0]
+let rating = "No data";
+switch(rating) {
+  case gaugeScore < 50:
+    {rating: "Low"}
+    break
+  case gaugeScore >= 50 && gaugeScore <=80:
+    {rating:"Fair"}
+    break
+  case gaugeScore >80:
+    {rating:"Good"}
+    break
+}
+if(gaugeScore < 50){
+  rating === 'Low'
+}
 
 const navigate = useNavigate()
 
@@ -174,12 +190,14 @@ const handleNavigateToTestPage = (userId)=>{
           <SideBar currentUserId={chosenUser?.id}/>
         </div>
         <div className='singleUser_charts'>
-          <div className='singleUser_headline'>Users' Statistics</div>
-          <p className='singelUser_text'>* The data presented here is of the last 4 tests. For full data <Link to="/fullStats" style={{color:"lightslategray"}}>{""}Click here</Link></p>
+          <div className='singleUser_mainHeadline'>
+            <div className='singleUser_headline'>Users' Statistics</div>
+            <p className='singelUser_text'>* The data presented here is of the last 4 tests. For full data <Link to="/fullStats" style={{color:"lightslategray"}}>{""}Click here</Link></p>
+          </div>
           <div className='singleUser_upper_chart_section'>
             <div className='singleUser_num_left'>
               <div className='singleUser_num_numLeft'>
-                <DoughnutChart chartData={singleuserDoughnutData} />
+                <GaugeChart chartData={singleuserGaugeData} gaugeScore={gaugeScore} />
               </div>
               {/* <p className='singleUser_num_textLeft'>My name is Inigo Montoya</p> */}
             </div>

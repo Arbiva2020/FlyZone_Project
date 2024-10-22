@@ -5,6 +5,10 @@
     position: relative;
 }
 
+/* .singleUser_mainHeadline {
+    background-color: rgba(46, 45, 45, 0.3);
+} */
+
 .singleUser_headline {
     text-align: center;
     font-size: 25px;

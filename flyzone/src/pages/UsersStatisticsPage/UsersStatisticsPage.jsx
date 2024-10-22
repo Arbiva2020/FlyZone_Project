@@ -114,12 +114,12 @@ console.log(allUsersStatisticsPageData)
           'rgb(0, 0, 0)',
         ],
         backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 206, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(153, 102, 255)',
-          'rgb(255, 159, 64)',
+          'rgb(110, 119, 180, 0.9)',
+          'rgb(54, 162, 235, 0.9)',
+          'rgb(142, 110, 180, 0.9)',
+          'rgb(110, 113, 180, 0.9)',
+          'rgb(110, 148, 180, 0.9)',
+          'rgb(192, 226, 233, 0.9)',
         ],
         borderWidth:1
       },
@@ -144,7 +144,7 @@ console.log(rows)
           <div className="users_data">
             <div className="users_headline">Users Stats</div>
             <div className="users_table_operations">
-            <FormControl sx={{m: 1, minWidth: 120, backgroundColor: 'gray'}}>
+            <FormControl sx={{m: 1, minWidth: 120}}>
                 <InputLabel id="select-main-view-label">Select group</InputLabel>
                 <Select
                   labelId="select-main-view-label"
@@ -238,7 +238,7 @@ console.log(rows)
               </table>
             </div>
 
-            <div className="users_headline">Stats Summary</div>
+            {/* <div className="users_headline">Stats Summary</div> */}
             <div className="users_charts">
               <div className="users_leftChart">
                 <div className="users_statHeadline">

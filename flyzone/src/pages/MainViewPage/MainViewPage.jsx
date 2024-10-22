@@ -14,14 +14,15 @@ import UpgradeAdd from '../../components/UpgradeAdd/UpgradeAdd'
 import './MainViewPage.css'
 import Button from '../../components/Generic/Button/Button'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCompaniesDB } from '../../store/slices/usersSlice'
 import { companiesDb } from '../../dataFake'
 
 const MainViewPage = (props) => {
 const dispatch = useDispatch()
+// const {companies:companiesDb, allUsersPrimary:users} = useSelector(state => state.users)
   const [selectValue, setSelectValue] = React.useState('');
-  const [users, setUsers] = React.useState([])
+  // const [users, setUsers] = React.useState([])
 
   useEffect(() => {
     const verifyToken = async() => {
@@ -150,6 +151,23 @@ const navigateToAllStatsPage = () => {
                                     the first group in the alphabetical/numerical order. 
           </p>
             <div className='mainView_formControl'>
+            <FormControl style={{display:"flex", flexDirection:"row"}}>
+              <CustomSelect 
+                name="company" 
+                title="Company" 
+                // onChange={handleCompanySelected} 
+                // value={testForm.company} 
+                // options={companiesDb} 
+              />
+              <CustomSelect 
+                name="groups" 
+                title="Groups" 
+                // disabled={groupsOptions?.length === 0} 
+                // onChange={handleGroupSelected} 
+                // value={testForm.groups} 
+                // options={groupsOptions || []} 
+              />
+            </FormControl>
               <FormControl sx={{m: 1, minWidth: 120}}>
                   <InputLabel id="select-main-view-label">Select group</InputLabel>
                   <Select
@@ -201,10 +219,10 @@ const navigateToAllStatsPage = () => {
           </div>
          
          </div>
-         <div className='mainView_right'>
+         {/* <div className='mainView_right'>
             <GroupSideData />
             <UpgradeAdd />
-         </div>
+         </div> */}
       </div>
     </div>
   )

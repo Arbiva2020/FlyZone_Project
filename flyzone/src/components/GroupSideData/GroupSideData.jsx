@@ -13,11 +13,10 @@ const GroupSideData = () => {
   return (
     <div className='groupSideData_profile '>
             <div className='groupSideData_list'>
-              <p>id from BD</p>
               <p>Avg. level from BD</p>
               <p>Avg. score from BD</p>
               <p>no. of participants from BD</p>
-              <p>Avg. score from BD</p>
+              <p>Avg. time to finish</p>
             </div>
             {/* <div className='groupSideData_button'>
               <Button 

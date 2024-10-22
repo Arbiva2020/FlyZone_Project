@@ -20,7 +20,7 @@ export const allUsers = [
         company_id: "4",
         company_name: "DownWind",
         group_id: "4",
-        group_name:"adush",
+        group_name:"Alpha",
         currentLevel: "A",
         testsFinal: [
           90,
@@ -52,7 +52,7 @@ export const allUsers = [
         company_id: "4",
         company_name: "DownWind",
         group_id: "2",
-        group_name:"adiush",
+        group_name:"Beta",
         currentLevel: "A",
         testsFinal: [
           90,
@@ -84,7 +84,7 @@ export const allUsers = [
       company_id: "1",
       company_name: "ICL",
       group_id: "3",
-      group_name:"ush",
+      group_name:"Gama",
       currentLevel: "A",
       testsFinal: [
         20,
@@ -116,7 +116,7 @@ export const allUsers = [
       company_id: "3",
       company_name: "Candoo",
       group_id: "1",
-      group_name:"adidush",
+      group_name:"Delta",
       currentLevel: "D",
       testsFinal: [
         10,
@@ -149,7 +149,7 @@ export const allUsers = [
       company_id: "4",
       company_name: "Flywere",
       group_id: "5",
-      group_name:"ah",
+      group_name:"Opsylon",
       currentLevel: "B",
       testsFinal: [
         50,
@@ -315,17 +315,17 @@ export const pieData =
     
     export const mainViewLineData = 
         {
-            headline: "Tests Scores",
-            scoreFirst: 80,
-            scoreSecond: 30,
-            scoreThird: 70, 
-            scoreForth: 10, 
-            scoreFifth: 40, 
-            scoreSixth: 80,
-            scoreSeventh: 50,  
-            scoreEight: 10, 
-            scoreNineth: 40, 
-            scoreTenth: 80,
+            // headline: "Tests Scores",
+            First: 80,
+            Second: 30,
+            Third: 70, 
+            Forth: 10, 
+            Fifth: 40, 
+            Sixth: 80,
+            Seventh: 50,  
+            Eight: 10, 
+            Nineth: 40, 
+            Tenth: 80,
         }
 
         export const companiesDb = [
@@ -334,14 +334,14 @@ export const pieData =
             name: "ICL",
             size: "Large", 
             numberOfPilots: 5, 
-            groups: [{id:1, name:'adidush'},{id:2, name:'adiush'},{id:3, name:'ush'},{id:4, name:'adush'},{id:5, name:'ah'},]
+            groups: [{id:1, name:'Alpha'},{id:2, name:'Beta'},{id:3, name:'Gama'},{id:4, name:'Delta'},{id:5, name:'Opsylon'},]
         },
         {
             id: 2, 
             name: "Elbit",
             size: "Large", 
             numberOfPilots: 3, 
-            groups: [{id:3, name:'ush'},{id:4, name:'adush'},{id:5, name:'ah'},]
+            groups: [{id:3, name:'Beta'},{id:4, name:'Gama'},{id:5, name:'Delta'},]
         },
         {
             id: 3, 
@@ -349,7 +349,7 @@ export const pieData =
             size: "Medium", 
             numberOfPilots: 2, 
             numberOfPilots: 3, 
-            groups: [{id:1, name:'adidush'},{id:2, name:'adiush'},{id:5, name:'ah'},]
+            groups: [{id:1, name:'Alpha'},{id:2, name:'Delta'},{id:5, name:'Opsylon'},]
         },
         {
             id: 4, 
@@ -357,7 +357,7 @@ export const pieData =
             size: "Small", 
             numberOfPilots: 4, 
             numberOfPilots: 3, 
-            groups: [{id:1, name:'adidush'},{id:2, name:'adiush'}]
+            groups: [{id:1, name:'Alpha'},{id:2, name:'Delta'}]
         }
     ]
     

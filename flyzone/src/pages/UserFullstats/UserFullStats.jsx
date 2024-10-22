@@ -201,8 +201,7 @@ const handleNavigateToTestPage = (id)=>{
         </div>
         <div className='userFullStats_charts'>
           <div className='userFullStats_headline'>Users' Complete Statistics</div>
-          <p className='userFullStats_text'>Presented here is the full data for user *userName*. For additional information regarding the </p>
-          <p className='userFullStats_text'> tests generated<Link style={{color:"lightslategray"}}>{" "}Click here</Link></p>
+          <p className='userFullStats_text'>Presented here is the full data for user *userName*. For additional information regarding the tests generated<Link style={{color:"lightslategray"}}>{" "}Click here</Link></p>
           <div className='userFullStats_upper_chart_section'>
             <div className='userFullStats_mainView_line_left'><LineChart chartData={userAllTests} /></div>
             <div className='userFullStats_mainView_line_right'><LineChart chartData={userAllTests} /></div>

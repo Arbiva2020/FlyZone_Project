@@ -1,0 +1,42 @@
+.drone_main {
+    color: white;
+    font-family: lexend;
+    position: relative;
+}
+
+.drone_headline {
+    text-align: center;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.drone_sideContent {
+    width: 10%;
+}
+
+.drone_content {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.drone_mainContent {
+    display: flex;
+    flex-direction: row;
+}
+
+.drone_horizontal {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 40vh;
+}
+
+.drone_img {
+    width: 300px;
+    display: inline-block;
+    padding: 2px;
+    cursor: pointer;
+}

@@ -27,6 +27,7 @@ import { useDispatch } from 'react-redux'
 import {allUsers} from '../dataFake'
 import { setAllusers } from '../store/slices/usersSlice'
 import CreateNewUserPage from '../pages/CreateNewUserPage/CreateNewUserPage'
+import DroneTypePage from '../pages/DroneTypePage/DroneTypePage'
 
 const Router = () => {
 const dispatch = useDispatch()
@@ -58,6 +59,7 @@ const dispatch = useDispatch()
             <Route path="report" element={<UserReport/>} />
             <Route path="add" element={<AddUser/>} />
             <Route path="mapAndMission" element={<MapAndMissionPage/>} />
+            <Route path="chooseDrone" element={<DroneTypePage/>} />
             <Route path="scenarioAndMission" element={<ScenarioAndMissionPage/>} />
             <Route path="resetPassword" element={<ResetPasswordPage/>} />
             <Route path="generate/:id" element={<GenerateTest/>} />

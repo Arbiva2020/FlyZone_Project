@@ -16,7 +16,10 @@ return (
             <div className='infopopup_content'>
                  {children}
             </div>
-            <button className='infopopup_close' onClick={onCancel}>CLOSE</button>
+            <div className='infopopup_buttonsHolder'>
+                <button className='infopopup_close' onClick={onCancel}>CLOSE</button>
+                <button className='infopopup_close' >APPLY</button>
+            </div>
         </div>
     </div>
   )

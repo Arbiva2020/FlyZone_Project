@@ -22,10 +22,10 @@
 } */
 
 .infopopup_generic {
-    border-style: solid;
+    /* border-style: solid;
     border-width: 1px;
-    border-radius: 20px;
-    background-color: #2E2D2D;
+    border-radius: 20px; */
+    background-color: rgba(7, 7, 7, 0.8);
     color: white;
     width:400px;
     height:220px;
@@ -65,5 +65,12 @@
 }
 
 .infopopup_headline {
-    color: #B943B4;
+    color: rgb(110, 148, 180);
+}
+
+.infopopup_buttonsHolder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 50%;
 }

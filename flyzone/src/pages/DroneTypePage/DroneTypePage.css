@@ -20,6 +20,7 @@
     width: 90%;
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .drone_mainContent {
@@ -32,11 +33,41 @@
     align-items: center;
     position: relative;
     height: 40vh;
+    width: 95%;
+    justify-self: center;
 }
 
 .drone_img {
-    width: 300px;
+    width: 350px;
     display: inline-block;
     padding: 2px;
     cursor: pointer;
+    transition: 0.5s;
+    margin: 20px;
 }
+
+.drone_img:hover {
+    -ms-transform: scale(1.5); 
+    -webkit-transform: scale(1.5); 
+    transform: scale(1.5); 
+  }
+
+  .drone_slider {
+    height: 100%;
+    width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .drone_gallery {
+    margin: 30px 10px 0px 10px;
+  }
+
+  .drone_chevron {
+    opacity: 0.5;
+  }
+
+  .drone_chevron:hover {
+    opacity: 1;
+  }

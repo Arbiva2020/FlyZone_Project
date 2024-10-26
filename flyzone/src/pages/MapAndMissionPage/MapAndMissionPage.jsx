@@ -117,12 +117,12 @@ function MapAndMissionPage() {
                       <Button
                         size="small"
                         style={{
-                          color: "white",
-                          borderStyle: "solid",
-                          borderColor: "white",
-                          borderWidth: "1px",
-                          borderRadius: "10px",
-                          marginTop: "10px",
+                        color: "white",
+                        borderStyle: "solid",
+                        borderColor: "white",
+                        borderWidth: "1px",
+                        borderRadius: "10px",
+                        marginTop: "10px",
                         }}
                         // onClick={() =>
                         //   setMapInfoHandler(mapa.name, mapa.additionalData)

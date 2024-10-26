@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {fogDensity, maps, scenarios, windSpeed, missions} from '../../dataFake'
+import { droneData } from "../../pages/DroneTypePage/droneData";
+
 const initialState = {
 testForm:{}, 
 sliderForm:{},
@@ -9,7 +11,8 @@ maps: [],
 windSpeed:[],
 fogDensity:[],
 groupsOptions:[],
-pilotOptions:[]
+pilotOptions:[], 
+droneOptions: [],
 }
 
 const testSlice = createSlice({
@@ -24,7 +27,7 @@ const testSlice = createSlice({
       // state.windSpeed = action.payload.windSpeed;
       // state.forDensity = action.payload.fogDensity;
 
-       state.missions = missions;
+      state.missions = missions;
       state.scenarios = scenarios;
       state.maps = maps;
       state.windSpeed = windSpeed;
@@ -41,10 +44,13 @@ const testSlice = createSlice({
       },  
     setSliderform: (state, action) => {
       state.sliderForm[action.payload] = action.payload;
-    }
+    }, 
+    setDroneOptions: (state, action) => {
+      state.droneOptions = action.payload
+    },
   }
 });
 
-export const {setTestForm, setSliderform, setTestGenerationFormData,setGroupOptions,setPilotOptions} = testSlice.actions
+export const {setTestForm, setSliderform, setTestGenerationFormData,setGroupOptions,setPilotOptions, setDroneOptions} = testSlice.actions
 
 export default testSlice.reducer

@@ -91,7 +91,7 @@ let sizeOptions = companiesDb?.map(a=> a.size)
                       <div className="genertateTest_scaling">
                         <div className='geberateTest_up'>
                           <div className='scaling_left'>
-                            <div className='left_headline'>Environment parameters:</div>
+                            <div className='left_headline'>Mission main parameters:</div>
                                     <div className='generate_environment'>
                                       <FormControl style={{display:"flex", flexDirection:"column"}}>
                                       <div className='generate_environment_text'><Link to="/scenarioAndMission" style={{color:"white", textDecoration:"none"}}>Scenario:</Link></div>
@@ -120,6 +120,16 @@ let sizeOptions = companiesDb?.map(a=> a.size)
                                           id="select-map-change"
                                           title="Choose map"
                                           name="map"
+                                          value={testForm.map}
+                                          onChange={handleTestForm}
+                                          options={maps}
+                                        />
+                                        <div className='generate_environment_text'><Link to="/chooseDrone" style={{color:"white", textDecoration:"none"}}>Drone type:</Link></div>
+                                      <CustomSelect 
+                                          label="Choose drone" 
+                                          id="select-drone-change"
+                                          title="Choose drone"
+                                          name="drone"
                                           value={testForm.map}
                                           onChange={handleTestForm}
                                           options={maps}

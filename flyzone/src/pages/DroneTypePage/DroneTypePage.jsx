@@ -38,6 +38,9 @@ function DroneTypePage() {
         setDroneInfo(newObj);
     }
 
+    // const lis = droneData.map((item)=> Object.values(droneData.specialFeatures))
+    // console.log(droneData[i].specialFeatures[i])
+
   return (
     <div className="drone_main">
         <AuthHeader />

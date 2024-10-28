@@ -2,20 +2,25 @@ import React, { useState } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import AuthHeader from '../../components/AuthHeader/AuthHeader'
 import SideBar from '../../components/SideBar/SideBar'
-// import Profile from '../../assets/Profile.png'
 import './UserFullStats.css'
+import { useSelector, useDispatch } from "react-redux";
 import BarChart from '../../components/BarChart/BarChart'
 import PieChart from '../../components/PieChart/PieChart'
 import LineChart from '../../components/LineChart/LineChart'
 import HorizontalBarChart from '../../components/HorizontalBarChart/HorizontalBarChart'
 import UserSideData from '../../components/UserSideData/UserSideData'
 import Button from '../../components/Generic/Button/Button'
-import { lineData, pieData, datafake, horizontalBarData, allUsers } from '../../dataFake'
+import { lineData, pieData, datafake, horizontalBarData, allUsers, level } from '../../dataFake';
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
 import { Chart as ChartJS, Colors } from 'chart.js/auto'
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { IoMdArrowDropupCircle } from "react-icons/io";
 import { Link } from 'react-router-dom';
+import { useFilters, useSortBy, useTable } from "react-table";
+import { FaSortAmountDownAlt } from "react-icons/fa";
+import { FaSortAmountDown } from "react-icons/fa";
+import { setSelectGroup, setFilterUsers } from "../../store/slices/userStatisticChartsSlice";
+
 
 
 ChartJS.register(
@@ -25,17 +30,64 @@ ChartJS.register(
 function UserFullStats(props) {
   const {id, firstName} = useParams()
 
-const [userAllTests, setUserAllTests] = useState({
-  labels: allUsers.map((data) => (data.testsFinal).index+1),
-  datasets: [
-    {
-      // label: "Tests",
-      data: allUsers.map((data) => data.testsFinal), 
-      borderColor: "pink",
-      backgroundColor: "pink"
-    }
-  ] 
-})
+  const [userAllTests, setUserAllTests] = useState({
+    labels: allUsers.map((data) => (data.testsFinal).index+1),
+    datasets: [
+      {
+        // label: "Tests",
+        data: allUsers.map((data) => data.testsFinal), 
+        borderColor: "pink",
+        backgroundColor: "pink"
+      }
+    ] 
+  })
+
+
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Level",
+        accessor: "queueOfLevel",
+      },
+      {
+        Header: "Created at",
+        accessor: "createdAt",
+      },
+      {
+        Header: "Finished at",
+        accessor: "finishedAt",
+      },
+      {
+        Header: "Pass",
+        accessor: "pass",
+      },
+      {
+        Header: "Time for Mission",
+        accessor: "timeForMission",
+      },
+      {
+        Header: "Connection loss",
+        accessor: "lossOfConnection",
+      },
+      {
+        Header: "Total Score",
+        accessor: "totalScore",
+      },
+    ],
+    []
+  );
+
+  const {totalScoreSum, allUsersStatisticsPageData, avgMmr} = useSelector(state => state.users)
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setFilter,
+  } = useTable({ columns, data:allUsersStatisticsPageData }, useFilters, useSortBy);
+
 
   const [singleuserData, setSingleuserData] = useState({
     labels: allUsers.map((data) => data.id), 
@@ -207,13 +259,67 @@ const handleNavigateToTestPage = (id)=>{
             <div className='userFullStats_mainView_line_right'><LineChart chartData={userAllTests} /></div>
           </div>
           <div className='userFullStats_middle_chart_section'>
-            <div className='userFullStats_bar_left'>
+          <div className="users_chart">
+              <table {...getTableProps()}>
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr
+                      {...headerGroup.getHeaderGroupProps()}
+                      className="usersStats_tr"
+                    >
+                      {headerGroup.headers.map((column) => (
+                        <th
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          className="usersStats_th"
+                        >
+                          {column.render("Header")}
+                          <span className="usersStats_span">
+                            {column.isSorted ? (
+                              column.isSortedDesc ? (
+                                <FaSortAmountDown />
+                              ) : (
+                                <FaSortAmountDownAlt />
+                              )
+                            ) : (
+                              ""
+                            )}
+                          </span>
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                  {rows.map((row, i) => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => (
+                          <td
+                            // onClick={() =>
+                            //   cell.column.Header === columns[0]["Header"]
+                            //     ? handleNavigateToUserPage(allUsersStatisticsPageData[cell.row.id].id)
+                            //     : console.log(cell)
+                            // }
+                            {...cell.getCellProps()}
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            {/* <div className='userFullStats_bar_left'>
               <BarChart chartData={singleuserData} />
             </div>
             <div className='userFullStats_bar_right'>
-              {/* <LineChart chartData={singleuserLineData} /> */}
               <BarChart chartData={singleuserHorizontalData} />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className='userFullStats_sideData'>

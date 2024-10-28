@@ -32,7 +32,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    height: 40vh;
+    /* height: 40vh; */
     width: 95%;
     justify-self: center;
 }
@@ -44,6 +44,7 @@
     cursor: pointer;
     transition: 0.5s;
     margin: 20px;
+    vertical-align: middle;
 }
 
 .drone_img:hover {

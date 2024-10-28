@@ -232,6 +232,39 @@ export const pieData =
     }
 
 
+    export const pieDataA = 
+    {
+        crash: 10,
+        battary: 10,
+        targeted: 40, 
+        wind: 10, 
+        balancing: 15, 
+        timeOut: 5,
+    }
+
+
+    export const pieDataB = 
+    {
+        crash: 20,
+        battary: 20,
+        targeted: 20, 
+        wind: 5, 
+        balancing: 10, 
+        timeOut: 5,
+    }
+
+
+    export const pieDataC = 
+    {
+        crash: 30,
+        battary: 5,
+        targeted: 5, 
+        wind: 10, 
+        balancing: 10, 
+        timeOut: 10,
+    }
+
+
     export const gaugeData = 
     {
         success: 80,
@@ -605,3 +638,38 @@ export const pieData =
             name: "FF", 
         }
     ]
+
+    export const level = [
+        {
+            id:"", 
+            queueOfLevel: 1,
+            createdAt: "12/3/24 11:32", 
+            finishedAt:"12/3/24 11:59", 
+            scenario: "Checkpoints", 
+            pass: "", 
+            checkpoints: [1, 1 ,0 ,1], 
+            fogScore:"", 
+            windScore:"", 
+            brightnessScore:"", 
+            timeForMission:30, 
+            lossOfConnection:3, 
+            score: 85, 
+        },
+        {
+            id:"", 
+            queueOfLevel: 2,
+            createdAt: "18/5/24 12:45", 
+            finishedAt:"18/5/24 13:25", 
+            scenario: "Checkpoints", 
+            pass: "", 
+            checkpoints: [0, 1 ,1 ,1], 
+            fogScore:"", 
+            windScore:"", 
+            brightnessScore:"", 
+            timeForMission:20, 
+            lossOfConnection:2, 
+            score: 78,
+        }
+    ]
+        
+    

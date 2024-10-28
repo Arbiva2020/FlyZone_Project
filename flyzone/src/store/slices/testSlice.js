@@ -32,6 +32,7 @@ const testSlice = createSlice({
       state.maps = maps;
       state.windSpeed = windSpeed;
       state.fogDensity = fogDensity;
+      state.droneData = droneData;
     },
     setGroupOptions: (state,action) => {
       state.groupsOptions = action.payload

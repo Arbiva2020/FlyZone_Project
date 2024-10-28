@@ -8,9 +8,10 @@ const UserSideData = (props) => {
     <div className='userSideData_profile '>
             <img src={Profile} className="userSideData_pic"/>
             <div className='userSideData_list'>
-              <p>Name: {props.userName}</p>
-              <p>Level: {props.level}</p>
-              <p>Score: {props.score} </p>
+              <p>Name: Netta Glory</p>
+              <p>Scenario: Checkpoints</p>
+              <p>Level: D</p>
+              <p>Score: 75% </p>
             </div>
         </div>
   )

@@ -12,14 +12,15 @@ import CustomSelect from "../../components/Generic/Select/Select";
 import UserSideData from '../../components/UserSideData/UserSideData';
 import { useDispatch, useSelector } from 'react-redux';
 import InfoPopup from '../../components/InfoPopup/InfoPopup';
-import { setGroupOptions, setPilotOptions, setTestForm, setTestGenerationFormData } from '../../store/slices/testSlice';
+import { setGroupOptions, setPilotOptions, setTestForm, setTestGenerationFormData, setDroneOptions } from '../../store/slices/testSlice';
+import { droneData } from '../DroneTypePage/droneData';
 
 
 const GenerateTest = () => {
 const {id} = useParams
 const dispatch = useDispatch();
 const {companies:companiesDb, allUsersPrimary:users} = useSelector(state => state.users)
-const {missions, scenarios, maps, windSpeed, fogDensity, testForm, groupsOptions, pilotOptions, sliderForm} = useSelector(state => state.testFlight)
+const {missions, scenarios, maps, windSpeed, fogDensity, testForm, groupsOptions, pilotOptions, sliderForm, droneOptions} = useSelector(state => state.testFlight)
 const [hover, setHover] = useState(false);
 
 
@@ -46,6 +47,12 @@ const handleGroupSelected = (name,value) => {
   }));
   dispatch(setPilotOptions(tweakedPilotInfoForSelect))
 }
+
+// const handleDroneSelected = (name, value) => {
+//   handleTestForm(name, value)
+//   const chosenDrone = droneData.find(drn => drn.name === value)
+
+// }
 
 
 useEffect(() => {
@@ -130,9 +137,9 @@ let sizeOptions = companiesDb?.map(a=> a.size)
                                           id="select-drone-change"
                                           title="Choose drone"
                                           name="drone"
-                                          value={testForm.map}
+                                          value={testForm.drone}
                                           onChange={handleTestForm}
-                                          options={maps}
+                                          options={droneData}
                                         />
                                       </FormControl>
                                     </div>   

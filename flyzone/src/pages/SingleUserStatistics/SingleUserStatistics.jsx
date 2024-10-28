@@ -10,7 +10,7 @@ import LineChart from '../../components/LineChart/LineChart'
 import HorizontalBarChart from '../../components/HorizontalBarChart/HorizontalBarChart'
 import UserSideData from '../../components/UserSideData/UserSideData'
 import Button from '../../components/Generic/Button/Button'
-import { lineData, pieData, datafake, horizontalBarData, gaugeData } from '../../dataFake'
+import { lineData, pieData, datafake, horizontalBarData, gaugeData, pieDataA, pieDataB, pieDataC } from '../../dataFake'
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
 import { Chart as ChartJS, Colors } from 'chart.js/auto'
 import { IoMdArrowDropdownCircle } from "react-icons/io";
@@ -63,6 +63,97 @@ function SingleUserStatistics() {
     datasets: [
       {
         data: Object.values(pieData), 
+        borderColor: [
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+        ],
+        backgroundColor: [
+          'rgb(110, 119, 180, 0.8)',
+          'rgb(54, 162, 235, 0.8)',
+          'rgb(142, 110, 180, 0.8)',
+          'rgb(110, 113, 180, 0.8)',
+          'rgb(110, 148, 180, 0.8)',
+          'rgb(192, 226, 233, 0.8)',
+        ],
+        borderColor: [
+          'rgb(250, 250, 254)'
+        ],
+        borderWidth:0.5, 
+      },
+    ]
+  })
+
+
+  const [singleuserPieDataA, setSingleuserPieDataA] = useState({
+    labels: Object.keys(pieDataA), 
+    datasets: [
+      {
+        data: Object.values(pieDataA), 
+        borderColor: [
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+        ],
+        backgroundColor: [
+          'rgb(110, 119, 180, 0.8)',
+          'rgb(54, 162, 235, 0.8)',
+          'rgb(142, 110, 180, 0.8)',
+          'rgb(110, 113, 180, 0.8)',
+          'rgb(110, 148, 180, 0.8)',
+          'rgb(192, 226, 233, 0.8)',
+        ],
+        borderColor: [
+          'rgb(250, 250, 254)'
+        ],
+        borderWidth:0.5, 
+      },
+    ]
+  })
+
+
+  
+  const [singleuserPieDataB, setSingleuserPieDataB] = useState({
+    labels: Object.keys(pieDataB), 
+    datasets: [
+      {
+        data: Object.values(pieDataB), 
+        borderColor: [
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
+        ],
+        backgroundColor: [
+          'rgb(110, 119, 180, 0.8)',
+          'rgb(54, 162, 235, 0.8)',
+          'rgb(142, 110, 180, 0.8)',
+          'rgb(110, 113, 180, 0.8)',
+          'rgb(110, 148, 180, 0.8)',
+          'rgb(192, 226, 233, 0.8)',
+        ],
+        borderColor: [
+          'rgb(250, 250, 254)'
+        ],
+        borderWidth:0.5, 
+      },
+    ]
+  })
+
+
+  const [singleuserPieDataC, setSingleuserPieDataC] = useState({
+    labels: Object.keys(pieDataC), 
+    datasets: [
+      {
+        data: Object.values(pieDataC), 
         borderColor: [
           'rgb(0, 0, 0)',
           'rgb(0, 0, 0)',
@@ -191,7 +282,7 @@ const handleNavigateToTestPage = (userId)=>{
         </div>
         <div className='singleUser_charts'>
           <div className='singleUser_mainHeadline'>
-            <div className='singleUser_headline'>Users' Statistics</div>
+            <div className='singleUser_headline'>Statistics and data - users' summary:</div>
             <p className='singelUser_text'>* The data presented here is of the last 4 tests. For full data <Link to="/fullStats" style={{color:"lightslategray"}}>{""}Click here</Link></p>
           </div>
           <div className='singleUser_upper_chart_section'>
@@ -243,10 +334,10 @@ const handleNavigateToTestPage = (userId)=>{
             </div>
           </div>
           <div className='singleUser_pie_section'>
-            <div className='singleUser_pie_pie'><h6>Test 1</h6><PieChart chartData={singleuserPieData} /></div>
-            <div className='singleUser_pie_pie'><h6>Test 2</h6><PieChart chartData={singleuserPieData} /></div>
-            <div className='singleUser_pie_pie'><h6>Test 3</h6><PieChart chartData={singleuserPieData} /></div>
-            <div className='singleUser_pie_pie'><h6>Test 4</h6><PieChart chartData={singleuserPieData} /></div>
+            <div className='singleUser_pie_pie'><h6>Level A 12.3.23 11:13</h6><PieChart chartData={singleuserPieData} /></div>
+            <div className='singleUser_pie_pie'><h6>Level B 14.3.23 15:16</h6><PieChart chartData={singleuserPieDataA} /></div>
+            <div className='singleUser_pie_pie'><h6>Level C 17.4.23 11:54</h6><PieChart chartData={singleuserPieDataB} /></div>
+            <div className='singleUser_pie_pie'><h6>Level D 22.4.23 11:23</h6><PieChart chartData={singleuserPieDataC} /></div>
           </div>
         </div>
         <div className='singleUser_sideData'>

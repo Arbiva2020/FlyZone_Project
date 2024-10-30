@@ -11,8 +11,8 @@ export const allUsers = [
     {
         security_level: 1,
         userName: "Radio BlaBla",
-        firstName: "Uri2",
-        lastName: "Levi2",
+        firstName: "Stanislav",
+        lastName: "Pushkin",
         password: "SA535536",
         email: "Radio@BlaBla.com",
         profileImguser: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU",
@@ -467,6 +467,15 @@ export const pieData =
             description: "This map will be used for scenarios that require CCCCCCCCCCCCCCCCCCC",
             additionalData:"Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
         },
+        {
+            id: 9, 
+            total: "3", //in the future, this will be gone and the sum of all usage of this specific map will appear un the chart of "main view"
+            name: "Industrial area", 
+            map: Map2, 
+            characteristics: ["industry", "port", "high density", "crowded"], 
+            description: "This map will be used for scenarios that require FFFFFFF",
+            additionalData:"Quis autem vel eum iure pariatur?",
+        },
     ]
 
 
@@ -541,6 +550,13 @@ export const pieData =
             description: "Drone will get to a X location, release cargo from air and go back home within 30 min.",
             key_words: ["drop", "cargo"]  
         },
+        {
+            id: 11, 
+            name: "Checkpoints",
+            difficulty_level: [1, 2, 3], 
+            description: "Drone must check certain points according to order in area",
+            key_words: ["Position", "video", "Height"]
+        },
     ]
 
     export const adminList = 
@@ -555,28 +571,28 @@ export const pieData =
     export const missions = [
         {
             id: 1, 
-            name: "A",
+            name: "Battery saving",
         },
         {
             id: 2, 
-            name: "B",
+            name: "Short roure",
         },
         {
             id: 3, 
-            name: "C",
+            name: "Safest route",
         },
         {
             id: 4, 
-            name: "D",
+            name: "Max. altitude",
              
         },
         {
             id: 5, 
-            name: "E",
+            name: "Obstacles",
         },
         {
             id: 6, 
-            name: "F", 
+            name: "Darkness", 
         }
     ]
 
@@ -585,28 +601,28 @@ export const pieData =
     export const windSpeed = [
         {
             id: 1, 
-            name: "A",
+            name: 20,
         },
         {
             id: 2, 
-            name: "B",
+            name: 30,
         },
         {
             id: 3, 
-            name: "C",
+            name: 40,
         },
         {
             id: 4, 
-            name: "D",
+            name: 50,
              
         },
         {
             id: 5, 
-            name: "E",
+            name: 60,
         },
         {
             id: 6, 
-            name: "F", 
+            name: 70, 
         }
     ]
 
@@ -614,28 +630,28 @@ export const pieData =
     export const fogDensity = [
         {
             id: 1, 
-            name: "AA",
+            name: 0.01,
         },
         {
             id: 2, 
-            name: "BB",
+            name: 0.03,
         },
         {
             id: 3, 
-            name: "CC",
+            name: 0.05,
         },
         {
             id: 4, 
-            name: "DD",
+            name: 0.07,
              
         },
         {
             id: 5, 
-            name: "EE",
+            name: 0.08,
         },
         {
             id: 6, 
-            name: "FF", 
+            name: 0.1, 
         }
     ]
 

@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
-import AuthHeader from '../../components/AuthHeader/AuthHeader'
-import SideBar from '../../components/SideBar/SideBar'
+import AuthHeader from '../../components/AuthHeader/AuthHeader';
+import SideBar from '../../components/SideBar/SideBar';
 import './UserFullStats.css'
 import { useSelector, useDispatch } from "react-redux";
 import BarChart from '../../components/BarChart/BarChart'
 import PieChart from '../../components/PieChart/PieChart'
-import LineChart from '../../components/LineChart/LineChart'
+import LineChart from '../../components/LineChart/LineChart';
 import HorizontalBarChart from '../../components/HorizontalBarChart/HorizontalBarChart'
-import UserSideData from '../../components/UserSideData/UserSideData'
-import Button from '../../components/Generic/Button/Button'
+import UserSideData from '../../components/UserSideData/UserSideData';
+import Button from '../../components/Generic/Button/Button';
 import { lineData, pieData, datafake, horizontalBarData, allUsers, level } from '../../dataFake';
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
-import { Chart as ChartJS, Colors } from 'chart.js/auto'
+import { Chart as ChartJS, Colors } from 'chart.js/auto';
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { IoMdArrowDropupCircle } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import { useFilters, useSortBy, useTable } from "react-table";
 import { FaSortAmountDownAlt } from "react-icons/fa";
 import { FaSortAmountDown } from "react-icons/fa";
-import { setSelectGroup, setFilterUsers } from "../../store/slices/userStatisticChartsSlice";
+// import { setSelectGroup, setFilterUsers } from "../../store/slices/userStatisticChartsSlice";
 
 
 

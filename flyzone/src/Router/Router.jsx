@@ -28,6 +28,7 @@ import {allUsers} from '../dataFake'
 import { setAllusers } from '../store/slices/usersSlice'
 import CreateNewUserPage from '../pages/CreateNewUserPage/CreateNewUserPage'
 import DroneTypePage from '../pages/DroneTypePage/DroneTypePage'
+import CopyOfGenerateTestPage from '../pages/CopyOfGenerateTestPage/CopyOfGenerateTestPage'
 
 const Router = () => {
 const dispatch = useDispatch()
@@ -62,6 +63,7 @@ const dispatch = useDispatch()
             <Route path="chooseDrone" element={<DroneTypePage/>} />
             <Route path="scenarioAndMission" element={<ScenarioAndMissionPage/>} />
             <Route path="resetPassword" element={<ResetPasswordPage/>} />
+            <Route path="copyofgenerate" element={<CopyOfGenerateTestPage/>} />
             <Route path="generate/:id" element={<GenerateTest/>} />
             <Route path="createUser" element={<CreateNewUserPage/>} />
             <Route path="map/:id" element={<UserMapPage/>} />

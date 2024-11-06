@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import AuthHeader from '../../components/AuthHeader/AuthHeader'
 import SideBar from '../../components/SideBar/SideBar'
@@ -233,6 +233,7 @@ const [singleuserGaugeData, setSingleuserGaugeData] = useState({
         'rgb(250, 250, 254)',
       ],
       backgroundColor: [
+        // gradientSegment,
         'rgb(192, 226, 233, 0.8)',
         'rgb(110, 148, 180, 0.8)',
       ],
@@ -240,26 +241,60 @@ const [singleuserGaugeData, setSingleuserGaugeData] = useState({
       cutout: '80%', 
       circumference: 180, 
       rotation: 270,
+      // borderRadius:10, 
+      needleValue: gaugeData.fail,
     },
   ]
-})
+});
 
-const gaugeScore = singleuserData.datasets[0].data[0]
-let rating = "No data";
-switch(rating) {
+
+
+
+// const canvasRef = useRef(null); // Ref for the canvas
+
+// // Create the gradient
+// useEffect(() => {
+//   const ctx = canvasRef.current?.getContext('2d'); // Get context safely
+//   if (ctx) {
+//     const gradientSegment = ctx.createLinearGradient(0, 0, 700, 0);
+//     gradientSegment.addColorStop(0, "red");
+//     gradientSegment.addColorStop(0.7, "yellow");
+//     gradientSegment.addColorStop(1, "green");
+
+//     // Update backgroundColor of dataset
+//     setSingleuserGaugeData(prevData => ({
+//       ...prevData,
+//       datasets: [
+//         {
+//           ...prevData.datasets[0],
+//           backgroundColor: [gradientSegment, 'rgb(110, 148, 180, 0.8)'], // Set the gradient
+//         }
+//       ]
+//     }));
+//   }
+// }, []);
+
+
+
+
+
+
+let gaugeScore = singleuserData.datasets[0].data[0]
+let rating = "";
+switch(true) {
   case gaugeScore < 50:
-    {rating: "Low"}
-    break
+    rating = "Low";
+    break;
   case gaugeScore >= 50 && gaugeScore <=80:
-    {rating:"Fair"}
-    break
+    rating = "Fair";
+    break;
   case gaugeScore >80:
-    {rating:"Good"}
-    break
+    rating = "Good";
+    break;
+    default: 
+    rating = "No Rating";
 }
-if(gaugeScore < 50){
-  rating === 'Low'
-}
+
 
 const navigate = useNavigate()
 
@@ -288,7 +323,12 @@ const handleNavigateToTestPage = (userId)=>{
           <div className='singleUser_upper_chart_section'>
             <div className='singleUser_num_left'>
               <div className='singleUser_num_numLeft'>
-                <GaugeChart chartData={singleuserGaugeData} gaugeScore={gaugeScore} />
+                <GaugeChart 
+                  chartData={singleuserGaugeData} 
+                  rating={rating} 
+                  gaugeScore={gaugeScore} 
+                  // ref={canvasRef}
+                />
               </div>
               {/* <p className='singleUser_num_textLeft'>My name is Inigo Montoya</p> */}
             </div>

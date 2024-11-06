@@ -15,6 +15,7 @@ import InfoPopup from '../../components/InfoPopup/InfoPopup';
 import { setGroupOptions, setPilotOptions, setTestForm, setTestGenerationFormData, setDroneOptions } from '../../store/slices/testSlice';
 import { droneData } from '../DroneTypePage/droneData';
 import map1 from "../../assets/map1.png"
+import { maps } from "../../dataFake"
 
 
 const CopyOfGenerateTestPage = () => {
@@ -247,6 +248,9 @@ let sizeOptions = companiesDb?.map(a=> a.size)
                     <div className='copyGenerate_map'>
                         <div className='copyGenerate_mapHolder'>
                             <img src={map1} style={{width:"100%"}}></img>
+                            <p style={{width:"100%", fontWeight:"550", lineHeight:"30px"}}>{maps.name}</p>
+                            <p style={{width:"100%", fontWeight:"200", lineHeight:"30px"}}>{maps.description}</p>
+
                         </div>
                     </div>
                   </div>

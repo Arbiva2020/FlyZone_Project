@@ -120,29 +120,6 @@ class Level(Base):
     birds = (Integer)
     battery_usage = (Integer)
 
-# class Level(Base):
-#     __tablename__ = 'level'
-#     id = Column(Integer, primary_key=True, index=True)
-#     level_level = Column(String, index=True)
-#     user_id = Column(Integer, ForeignKey('users.id'))
-#     user = relationship("User", back_populates="levels")
-#     fog_level = Column(Integer)
-#     brightness_level = Column(Integer)
-#     wind_level = Column(Integer)
-#     close_calls = Column(Integer)
-#     spotted = Column(Integer)
-#     time_to_finish = Column(Integer)
-#     mission_id = Column(Integer, ForeignKey('missions.id'))
-#     basemap_id = Column(Integer, ForeignKey('maps.id'))
-#     difficulty_level = Column(Integer)
-#     # connection_lost = Column(Integer)  # Ensure this line exists
-#     payload = Column(Integer)
-#     dust = Column(Integer)
-#     night_vision = Column(Boolean)
-#     trees = Column(Integer)
-#     birds = Column(Integer)
-#     battery_usage = Column(Integer)
-
 class Level_results(Base):
     __tablename__ = 'levelResults'
     id = Column(Integer, primary_key=True, index=True)

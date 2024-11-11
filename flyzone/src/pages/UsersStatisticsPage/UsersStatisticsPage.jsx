@@ -11,9 +11,10 @@ import Input from "../../components/Generic/Input/Input";
 import SearchPopup from "../../components/SearchPopup/SearchPopup";
 import Popup from "../../components/Popup/Popup";
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart'
+import BarChart from "../../components/BarChart/BarChart"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DoughnutDataBadges } from '../../dataFake'
+import { allUsers, DoughnutDataBadges } from '../../dataFake'
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
@@ -126,7 +127,33 @@ console.log(allUsersStatisticsPageData)
     ]
   })
 
-console.log(rows)
+// console.log(rows)
+
+const sortingBadges = allUsers.slice().sort((a,b) => b.badges - a.badges)
+
+const [mainViewTopBadges, setMainViewTopBadges] = useState({
+  labels: allUsers.slice(0,2).map((data) => data.firstName), 
+  // label: "Badges",
+  datasets: [{
+    label: "No. of badges",
+    data: sortingBadges.slice(0,2).map((data)=> data.badges),
+    backgroundColor: [
+      'rgb(192, 226, 233, 0.8)',
+      'rgba(94, 114, 250, 0.8)',
+      'rgb(54, 162, 235, 0.8)',
+      'rgba(12, 141, 178, 1)',
+      'rgb(110, 119, 180, 0.8)'
+    ],
+    borderColor: [
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)'
+    ]
+  }]
+})
+
+
   return (
     <div>
       <div className="users_main">
@@ -250,7 +277,11 @@ console.log(rows)
                 <div className="users_statHeadline">
                   Top badges:
                 </div>
-                <div className="users_doughnut"><DoughnutChart chartData={userDoughnutData}/></div>
+                  <div className="users_doughnut">
+                    <BarChart 
+                      chartData={mainViewTopBadges}
+                    />
+                  </div>
               </div>
               <div className="users_rightChart">
                 <div className="users_statHeadline">

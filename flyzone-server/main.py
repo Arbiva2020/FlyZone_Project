@@ -6,14 +6,15 @@ from fastapi import FastAPI, HTTPException, Depends, Query, status
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Union, Annotated, List, Optional
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
+# pydantic allowes validation of the data, and BaseModel is for the object comming in
+from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import timedelta, datetime
 from pytz import timezone
-from models import User
+from models import User, Level
 import models
 from database import SessionLocal, engine
 
@@ -62,6 +63,11 @@ SECRET_KEY = "09m25y094sec6re2556t818166k7e9563y93f7099f6f0f4caa6cf63b88e8d3e7"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+
+# There could be tests without certain values. hence, we could either define these values as Optional
+# for example: "radius: Ooptionl[int] = None, or create a function that saves the data no matter what 
+# we already have. 
+
 # creating the pydantic model to validate the requests from the react application:
 class UserLoginBase(BaseModel):
     username: str
@@ -105,7 +111,7 @@ class GroupBase(BaseModel):
      users_avg_score: int
 
 class CompanyBase(BaseModel):
-        company_name: str
+        company_name: str = Field(min_length=2)
         avatar: str
 
 class MapBase(BaseModel):
@@ -114,6 +120,7 @@ class MapBase(BaseModel):
     map_popularity: int
     map_characteristics: str
     map_description: str
+    # map_description: str = Field(min_length=5, max_length=100)
     map_additional_data: str
 
 class MissionBase(BaseModel):
@@ -124,7 +131,7 @@ class MissionBase(BaseModel):
     mission_additional_data: str
 
 class FogBase(BaseModel):
-    fog_level: int
+    fog_level: int = Field(gt=0, lt=6)
     fog_radius: int
     fog_density: int
     fog_duration: int
@@ -184,10 +191,11 @@ class Level_resultsBase(BaseModel):
     dust: int
     night_vision: int
     trees: int
-    birds: int
+    birds: Optional[int] = Field(description="birds is not needed on create", default=None)
     battery_usage: int
  
-
+# For pre-populating keys, we can use "model_config". maybe we could use this to pre-populate each one of
+# the objects with data from Unity. 
 
 
     # to validate therequests from our React application:
@@ -490,6 +498,14 @@ async def read_user_by_id(user_id: int, db: db_dependency):
     return user 
 
 
+@app.get("/return_users_by_score/", response_model=List[UserModel])
+async def read_user_by_total_score(total_score: int, db: Session=Depends(get_db)):
+    users = db.query(User).filter(User.total_score == total_score).all()
+    if not users:
+        raise HTTPException(status_code=404, detail="No users found with the specified total_score")
+    return users
+
+
 @app.patch("/users/{user_id}")
 async def update_user_by_id(user_id: int, user_name: str):
     return {"user_name": user_name, "user_id": user_id}
@@ -498,6 +514,21 @@ async def update_user_by_id(user_id: int, user_name: str):
 @app.put("/users/{user_id}")
 async def update_user(user_id: int, user_name: str):
     return {"user_name": user_name, "user_id": user_id}
+
+
+# Updating a new level and switch its automatic values with these the admin decided upon:
+@app.put("/levels/{level_id}", response_model=LevelModel)
+async def update_level(level_id: int, updated_level: LevelBase, db: Annotated[Session, Depends(get_db)]):
+    level_entry = db.query(Level).filter(Level.id == level_id).first()
+    if not level_entry:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Level entry not found")
+    # Update fields from the input LevelBase model
+    for field, value in updated_level.dict(exclude_unset=True).items():
+        setattr(level_entry, field, value)
+    db.commit()
+    db.refresh(level_entry)
+    
+    return level_entry 
 
 
 
@@ -512,7 +543,11 @@ async def delete_user_by_firstname(user_first_name: str, db: db_dependency):
     user = db.query(models.User).filter(models.User.first_name == user_first_name).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return ("user deleted:", user)
+    db.delete(user)
+    db.commit()  # Commit the transaction to apply the delete action
+
+    return {"message": f"User with first name '{user_first_name}' has been deleted."}
+    
 
 @app.delete("/companies/{company_id}")
 async def delete_company_by_id(company_id: int, db: db_dependency):

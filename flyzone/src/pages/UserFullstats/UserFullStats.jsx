@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import SideBar from '../../components/SideBar/SideBar';
@@ -19,7 +19,8 @@ import { Link } from 'react-router-dom';
 import { useFilters, useSortBy, useTable } from "react-table";
 import { FaSortAmountDownAlt } from "react-icons/fa";
 import { FaSortAmountDown } from "react-icons/fa";
-// import { setSelectGroup, setFilterUsers } from "../../store/slices/userStatisticChartsSlice";
+import { setAllLevelsDataForUser } from "../../store/slices/userStatisticChartsSlice"
+
 
 
 
@@ -28,16 +29,16 @@ ChartJS.register(
   ); 
 
 function UserFullStats(props) {
+  const dispatch = useDispatch()
   const {id, firstName} = useParams()
-
   const [userAllTests, setUserAllTests] = useState({
     labels: allUsers.map((data) => (data.testsFinal).index+1),
     datasets: [
       {
         // label: "Tests",
         data: allUsers.map((data) => data.testsFinal), 
-        borderColor: "pink",
-        backgroundColor: "pink"
+        borderColor: "gray",
+        backgroundColor: "lightBlue"
       }
     ] 
   })
@@ -47,7 +48,7 @@ function UserFullStats(props) {
     () => [
       {
         Header: "Level",
-        accessor: "queueOfLevel",
+        accessor: "currentLevel",
       },
       {
         Header: "Created at",
@@ -77,7 +78,12 @@ function UserFullStats(props) {
     []
   );
 
-  const {totalScoreSum, allUsersStatisticsPageData, avgMmr} = useSelector(state => state.users)
+  useEffect(() => {
+    dispatch(setAllLevelsDataForUser(level));
+  }, [dispatch]);
+
+  const {allLevelStatisticsPerUser} = useSelector(state => state.userStatisticCharts)
+  console.log("Redux level data:", allLevelStatisticsPerUser)
 
   const {
     getTableProps,
@@ -85,8 +91,8 @@ function UserFullStats(props) {
     headerGroups,
     rows,
     prepareRow,
-    setFilter,
-  } = useTable({ columns, data:allUsersStatisticsPageData }, useFilters, useSortBy);
+    // setFilter,
+  } = useTable({ columns, data:allLevelStatisticsPerUser }, useFilters, useSortBy);
 
 
   const [singleuserData, setSingleuserData] = useState({
@@ -292,7 +298,7 @@ const handleNavigateToTestPage = (id)=>{
                   ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                  {rows.map((row, i) => {
+                  {rows.map((row) => {
                     prepareRow(row);
                     return (
                       <tr {...row.getRowProps()}>

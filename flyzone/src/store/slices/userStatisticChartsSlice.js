@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 // the redux logic for the user charts feature
 const initialState = {
   allLevelsPrimary: [],
+  allLevelStatisticsPerUser: [],
   allUsersPrimaryStatisticsTable:[],
   totalMissionTimeSum: 0,
 }
@@ -34,29 +35,36 @@ const userStatisticChartsSlice = createSlice({
     setUserLevelsTable: (state, action) => {
       state.userData[action.payload.name] = action.payload.value;
     },
-    // setAllLevelsTableForUser: (state, action) => {
-    //   state.allLevelsPrimary = action.payload;
-    //   const dataForUserPageTable = action.payload.map((level) => {
-    //     return {
-    //       queueOfLevel: level.queueOfLevel,
-    //       scenario: level.scenario,
-    //       checkpoints: level.checkpoints,
-    //       fogScore: level.fogScore,
-    //       windScore: level.windScore,
-    //       brightnessScore: level.brightnessScore,
-    //       timeForMission: level.timeForMission,
-    //     };
+    setAllLevelsDataForUser: (state, action) => {
+      state.allLevelsPrimary = action.payload;
+      const dataForUserPageTable = action.payload.map((level) => {
+        return {
+          currentLevel: level.queueOfLevel,
+          createdAt: level.createdAt, 
+          finishedAt: level.finishedAt, 
+          // scenario: level.scenario,
+          pass: level.pass,
+          // checkpoints: level.checkpoints,
+          // fogScore: level.fogScore,
+          // windScore: level.windScore,
+          // brightnessScore: level.brightnessScore,
+          timeForMission: level.timeForMission,
+          lossOfConnection:level.lossOfconnection, 
+          totalScore: level.score, 
+        };
         
-    //   });
-    //   state.allUsersPrimaryStatisticsTable = dataForUserPageTable;
-    //   state.allUserLevelStatisticsPageData = dataForStatisticsPageTable
-    //   state.totalMissionTimeSum = getAllTotalMissionTimeSumHelper(
-    //     action.payload.map((level) => level.timeForMission)
-    //   );
-    //   state.avgConnection =
-    //     getAllTotalMissionTimeSumHelper(action.payload.map((level) => level.lossOfConnection)) /
-    //     action.payload.length;
-    // },
+      });
+      state.allLevelsPrimary = dataForUserPageTable;
+      state.allLevelStatisticsPerUser = dataForUserPageTable;
+      state.allUsersPrimaryStatisticsTable = dataForUserPageTable;
+      // state.allUserLevelStatisticsPageData = dataForStatisticsPageTable
+      // state.totalMissionTimeSum = getAllTotalMissionTimeSumHelper(
+      //   action.payload.map((level) => level.timeForMission)
+      // );
+      // state.avgConnection =
+      //   getAllTotalMissionTimeSumHelper(action.payload.map((level) => level.lossOfConnection)) /
+      //   action.payload.length;
+    },
   }
 });
 
@@ -65,7 +73,8 @@ export const {
   setUserLineChart, 
   setUserBarChart, 
   setUserSecondBar, 
-  setUserLevelsTable
+  setUserLevelsTable, 
+  setAllLevelsDataForUser,
 } = userStatisticChartsSlice.actions
 
 export default userStatisticChartsSlice.reducer

@@ -36,7 +36,7 @@ const UsersStatisticsPage = (props) => {
   const {totalScoreSum, allUsersStatisticsPageData, avgMmr} = useSelector(state => state.users)
   const dispatch = useDispatch()
   
-console.log(allUsersStatisticsPageData)
+// console.log(allUsersStatisticsPageData)
   const columns = React.useMemo(
     () => [
       {

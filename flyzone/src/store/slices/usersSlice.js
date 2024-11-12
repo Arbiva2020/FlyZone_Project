@@ -43,7 +43,7 @@ const usersSlice = createSlice({
         
       });
       state.allUsersPrimaryStatisticsPageData = dataForStatisticsPageTable;
-      state.allUsersStatisticsPageData = dataForStatisticsPageTable
+      state.allUsersStatisticsPageData = dataForStatisticsPageTable;
       state.totalScoreSum = getAllScoresSumHelper(
         action.payload.map((user) => user.totalScore)
       );

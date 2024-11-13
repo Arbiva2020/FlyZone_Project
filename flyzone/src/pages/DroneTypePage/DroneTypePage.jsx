@@ -1,19 +1,27 @@
 import React, {useState, useEffect} from "react";
 import AuthHeader from "../../components/AuthHeader/AuthHeader";
 import SideBar from "../../components/SideBar/SideBar";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { droneData } from "./droneData";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import InfoPopup from "../../components/InfoPopup/InfoPopup.jsx";
 import Button from "../../components/Generic/Button/Button.jsx"
 import "./DroneTypePage.css";
+import { setTestForm } from "../../store/slices/testSlice.js";
+import { useNavigate } from "react-router-dom";
 // import { Button } from "@mui/material";
 
 function DroneTypePage() {
     const {chosenUser} = useSelector(state => state.users)
     const [openDroneInfo, setOpenDroneInfo] = useState(false)
     const [droneInfo, setDroneInfo] = useState({ specialFeatures: "", name: ""});
+    const navigate = useNavigate()
 
+const dispatch = useDispatch()
+    const handleChooseDrone = () => {
+        dispatch(setTestForm({name:"drone", value:droneInfo.name}))
+        navigate(-1)
+    }
 
 
     const slideLeft = () => {
@@ -89,6 +97,7 @@ function DroneTypePage() {
                     <div className="drone_infoBox">
                     {openDroneInfo && (
                         <InfoPopup
+                        onClick={handleChooseDrone}
                             isOpen={openDroneInfo}
                             headline={droneInfo.name}
                             onCancel={() => setOpenDroneInfo(false)}

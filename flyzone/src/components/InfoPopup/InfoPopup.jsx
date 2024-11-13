@@ -7,7 +7,7 @@ import { Icon } from '@mui/material';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 
-const InfoPopup = ({onCancel, isOpen, headline, children}) => {
+const InfoPopup = ({onCancel, isOpen, headline, children, onClick}) => {
 
 return (
     <div className={isOpen ? 'infopopup_main shown' : 'infopopup_main hidden'} >
@@ -17,8 +17,8 @@ return (
                  {children}
             </div>
             <div className='infopopup_buttonsHolder'>
-                <button className='infopopup_close' onClick={onCancel}>CLOSE</button>
-                <button className='infopopup_close' >APPLY</button>
+                <button className='infopopup_btn' onClick={onCancel}>CLOSE</button>
+                <button className='infopopup_btn' onClick={onClick} >APPLY</button>
             </div>
         </div>
     </div>

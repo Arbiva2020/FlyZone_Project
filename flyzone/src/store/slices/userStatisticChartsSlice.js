@@ -42,12 +42,7 @@ const userStatisticChartsSlice = createSlice({
           currentLevel: level.queueOfLevel,
           createdAt: level.createdAt, 
           finishedAt: level.finishedAt, 
-          // scenario: level.scenario,
           pass: level.pass,
-          // checkpoints: level.checkpoints,
-          // fogScore: level.fogScore,
-          // windScore: level.windScore,
-          // brightnessScore: level.brightnessScore,
           timeForMission: level.timeForMission,
           lossOfConnection:level.lossOfconnection, 
           totalScore: level.score, 
@@ -57,13 +52,6 @@ const userStatisticChartsSlice = createSlice({
       state.allLevelsPrimary = dataForUserPageTable;
       state.allLevelStatisticsPerUser = dataForUserPageTable;
       state.allUsersPrimaryStatisticsTable = dataForUserPageTable;
-      // state.allUserLevelStatisticsPageData = dataForStatisticsPageTable
-      // state.totalMissionTimeSum = getAllTotalMissionTimeSumHelper(
-      //   action.payload.map((level) => level.timeForMission)
-      // );
-      // state.avgConnection =
-      //   getAllTotalMissionTimeSumHelper(action.payload.map((level) => level.lossOfConnection)) /
-      //   action.payload.length;
     },
   }
 });

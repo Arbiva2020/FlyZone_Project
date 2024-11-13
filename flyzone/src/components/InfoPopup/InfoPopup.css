@@ -22,22 +22,19 @@
 } */
 
 .infopopup_generic {
-    /* border-style: solid;
-    border-width: 1px;
-    border-radius: 20px; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
     background-color: rgba(7, 7, 7, 0.8);
     color: white;
-    width:400px;
-    height:220px;
-    align-items: center;
-    display: flex;
     flex-direction: column;
-    position: absolute;
-    left: 65%;
-    top:50%;
-    margin-top: -25px;
-    margin-left: -400px;
     padding: 20px;
+    width: 400px;
+    height: 220px;
 }
 
 .infopopup_headline {

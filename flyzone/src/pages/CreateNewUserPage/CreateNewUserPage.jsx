@@ -263,7 +263,7 @@ import Input from '../../components/Generic/Input/Input';
 import Button from '../../components/Generic/Button/Button';
 import Checkbox from "../../components/Generic/Checkbox/Checkbox";
 import SideBar from '../../components/SideBar/SideBar';
-//import api from "../../api";
+import { postToServer } from "../../api";
 import "./CreateNewUserPage.css";
 import { registerDefaultValidState } from '../../constants/FormDeaults'; 
 import { validateEmail, validateMinMax, validatePassword, confirmPassword } from '../../validators/validators';
@@ -395,16 +395,15 @@ function CreateNewUserPage() {
             return
           }
 
+          const digestedData = {...userData, number_of_failures:0, straight_failures:0}
 
-
-        // event.preventDefault();
-        // try {
-        //     await api.post('/users/', userData);
-        //     // Add any additional success handling here, e.g., fetching users, showing a success message
-        // } catch (error) {
-        //     console.error('Failed to create user:', error);
-        //     // Add any error handling here, e.g., showing an error message
-        // }
+         try {
+              await postToServer('/users/', digestedData)
+             // Add any additional success handling here, e.g., fetching users, showing a success message
+         } catch (error) {
+             console.error('Failed to create user:', error);
+             // Add any error handling here, e.g., showing an error message
+         }
     };
 
     return (

@@ -9,7 +9,7 @@ DATABASE_URL = 'sqlite:///./flyzone.db'
 # Create an engine
 engine = create_engine(
     DATABASE_URL, 
-    connect_args={"check_same_thread": False, "timeout":30}, 
+    connect_args={"check_same_thread": False}, 
     poolclass=NullPool  
 )
 with engine.connect() as conn:

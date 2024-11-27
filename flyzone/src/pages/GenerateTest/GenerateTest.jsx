@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import InfoPopup from '../../components/InfoPopup/InfoPopup';
 import { setGroupOptions, setPilotOptions, setTestForm, setTestGenerationFormData, setDroneOptions } from '../../store/slices/testSlice';
 import { droneData } from '../DroneTypePage/droneData';
+import "../../dataFake";
 
 
 const GenerateTest = () => {
@@ -151,7 +152,7 @@ let sizeOptions = companiesDb?.map(a=> a.size)
                                     <div className='generate_text'>
                                       {data.title}
                                     </div>
-                                    <Slider 
+                                    <Slider
                                       defaultValue={1}
                                       getAriaValueText={valuetext}
                                       step={data.step}

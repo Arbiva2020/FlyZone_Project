@@ -11,12 +11,23 @@ import Input from "../../components/Generic/Input/Input";
 import "../MapAndMissionPage/MapAndMissionPage.css";
 import { FaSearch } from "react-icons/fa";
 import { maps } from "../../dataFake";
+import { setTestForm } from "../../store/slices/testSlice.js";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import InfoPopup from "../../components/InfoPopup/InfoPopup.jsx";
 
 function MapAndMissionPage() {
   const [filterMaps, setFilterMaps] = React.useState(maps);
   const [openMap, setOpenMap] = React.useState(false);
   const [mapInfo, setMapInfo] = useState({ headline: "", additionalData: "", name: ""});
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const handleChooseMap = () => {
+    dispatch(setTestForm({ name: "map", value: mapInfo.name }));
+    navigate(-1);
+    console.log("click")
+  };
 
   const handleInputChange = (val) =>
     setFilterMaps(
@@ -124,9 +135,7 @@ function MapAndMissionPage() {
                         borderRadius: "10px",
                         marginTop: "10px",
                         }}
-                        // onClick={() =>
-                        //   setMapInfoHandler(mapa.name, mapa.additionalData)
-                        // }
+                        onClick={handleChooseMap}
                       >
                         Select Map
                       </Button>
@@ -140,9 +149,9 @@ function MapAndMissionPage() {
                 isOpen={openMap}
                 headline={mapInfo.name}
                 onCancel={() => setOpenMap(false)}
+                onClick={handleChooseMap}
               >
                 <p>{mapInfo.additionalData}</p>
-                dsaldsaklasjdsakljasdkla
               </InfoPopup>
             )}
           </div>

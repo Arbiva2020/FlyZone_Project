@@ -20,6 +20,7 @@ const SideBar = ({currentUserId}) => {
               }
               return (
                 <div 
+                  key={data.id}
                   title={data.title} 
                   className={sideBarActiveId !== data.id ? 'sidebar_icon_div' : 'sidebar_icon_div_active'} 
                   onClick={() => toggleStyle(data.id)}

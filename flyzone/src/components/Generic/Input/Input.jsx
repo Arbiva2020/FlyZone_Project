@@ -1,7 +1,19 @@
 import React, {useState} from 'react'
 import './Input.css'
 
-const Input = ({name, type="text", placeholder="", onBlur=()=>{}, onChange=()=>{}, customStyles={}, value, setIsFormValid, checkErrorsFunc, errorFuncParams=[], rest}) => {
+const Input = ({
+  name, 
+  type="text", 
+  placeholder="", 
+  onBlur=()=>{}, 
+  onChange=()=>{}, 
+  customStyles={}, 
+  value, 
+  setIsFormValid =() =>{}, 
+  checkErrorsFunc, 
+  errorFuncParams=[], 
+  rest
+}) => {
   const [error,setError] = useState("")
 
   const handleOnBlur = (e) => {
@@ -14,8 +26,14 @@ const Input = ({name, type="text", placeholder="", onBlur=()=>{}, onChange=()=>{
         return
       }
     }
-    setIsFormValid(prev => {return {...prev, [e.target.name]:true }})
+    setIsFormValid((prev) => {return {...prev, [e.target.name]:true }});
   } 
+
+  // if (typeof setIsFormValid === "function") {
+  //   setIsFormValid((prev) => {
+  //     return { ...prev, [e.target.name]: true };
+  //   });
+  // }
   
   return (
     <div className="input_main">

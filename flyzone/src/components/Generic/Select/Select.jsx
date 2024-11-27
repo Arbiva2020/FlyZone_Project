@@ -34,7 +34,7 @@ const CustomSelect = ({onChange, name, value='', title, options=[], label="defau
                 }
             }}
             >
-            {options.map(option => <MenuItem value={option.name}>{option.name}</MenuItem>)}
+            {options.map(option => <MenuItem key={option.name} value={option.name}>{option.name}</MenuItem>)}
             </Select>
         </FormControl>
     </div>

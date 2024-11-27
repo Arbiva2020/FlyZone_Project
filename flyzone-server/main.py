@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import Union, Annotated, List, Optional
 from sqlalchemy.orm import Session
 # pydantic allowes validation of the data, and BaseModel is for the object comming in
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from dotenv import load_dotenv
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -74,12 +74,11 @@ class UserLoginBase(BaseModel):
     password: str
 
 class UserCreate(BaseModel):
-    # security_level: int
-    first_name: str
-    last_name: str
-    username: str
-    password: str
-    email: str
+    username: str = Field(..., min_length=3, max_length=20)
+    first_name: str = Field(..., min_length=1)
+    last_name: str = Field(..., min_length=1)
+    password: str = Field(..., min_length=8)
+    email: EmailStr
     company_id: int
     group_id: int
     profileImguser: str 
@@ -267,7 +266,7 @@ def get_user_by_username(db: Session, username: str):
 
 def create_user(db: Session, user: UserCreate):
     hashed_password = pwd_context.hash(user.password)
-    print("Creating user with hashed password: {hashed_password}")  # Debug statement
+    print("Creating user with hashed password: {hashed_password}") 
     db_user = User(
         username=user.username,
         first_name=user.first_name,
@@ -288,7 +287,7 @@ def create_user(db: Session, user: UserCreate):
 
 #creating the endpoints for our application:
 
-@app.post("/register")
+@app.post("/register",  response_model=UserModel)
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
     print("Received user registration:", user)
     db_user = get_user_by_username(db, username=user.username)
@@ -531,20 +530,14 @@ async def update_level(level_id: int, updated_level: LevelBase, db: Annotated[Se
     return level_entry 
 
 
-
-# @app.delete('/users/{user_id}')
-# async def delete_user_by_id(user_id: int, db: db_dependency):
-#     user = db.query(models.User).filter(models.User.id == user_id).first()
-#     return ("user deleted:", user_id)
-
-
+# working
 @app.delete("/users/{user_first_name}")
 async def delete_user_by_firstname(user_first_name: str, db: db_dependency):
     user = db.query(models.User).filter(models.User.first_name == user_first_name).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
     db.delete(user)
-    db.commit()  # Commit the transaction to apply the delete action
+    db.commit()  
 
     return {"message": f"User with first name '{user_first_name}' has been deleted."}
     

@@ -1,7 +1,14 @@
 export const validateMinMax = (str,min,max,val) => {
+    console.log(`Validating ${str}:`, { min, max, val });
     if(val.length < min || val.length > max){
-        return {isSuccess:false, errorMessage: `${str} requires ${min} letters or max ${max} letters`}
-    } return {isSuccess:true, errorMessage:''}
+        return {
+            isSuccess:false, 
+            errorMessage: `${str} requires ${min} letters or max ${max} letters`
+        }
+    } return {
+        isSuccess:true, 
+        errorMessage:''
+    }
 }
 
 export const validateEmail = (str) => {

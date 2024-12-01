@@ -55,7 +55,7 @@ const initialState = {
 
   showPassword: false,
 
-  loggedUser: {userName:'almog'},
+  loggedUser: {userName:'Almog'},
 };
 
 const authSlice = createSlice({

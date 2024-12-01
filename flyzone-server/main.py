@@ -2,7 +2,7 @@ import os
 import logging
 import uvicorn
 from fastapi_sqlalchemy import DBSessionMiddleware, db
-from fastapi import FastAPI, HTTPException, Depends, Query, status
+from fastapi import FastAPI, HTTPException, Depends, Query, status, Path
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Union, Annotated, List, Optional
 from sqlalchemy.orm import Session
@@ -17,6 +17,7 @@ from pytz import timezone
 from models import User, Level
 import models
 from database import SessionLocal, engine
+from starlette import status
 
 load_dotenv('.env')
 
@@ -443,6 +444,13 @@ async def create_map(map: MapBase, db: db_dependency):
 async def read_maps(db:db_dependency, skip: int=0, limit: int = 100):
     maps = db.query(models.Map).offset(skip).limit(limit).all()
     return maps
+
+
+## working
+@app.get("/maps/{map_popularity}", response_model=List[MapModel])
+async def read_maps(db:db_dependency, map_popularity:int = Path(gt=2)):
+    maps = db.query(models.Map).filter(models.Map.map_popularity >= map_popularity).all()
+    return maps
     
     
 ## working  
@@ -510,7 +518,7 @@ async def update_user_by_id(user_id: int, user_name: str):
     return {"user_name": user_name, "user_id": user_id}
 
 
-@app.put("/users/{user_id}")
+@app.put("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def update_user(user_id: int, user_name: str):
     return {"user_name": user_name, "user_id": user_id}
 
@@ -531,7 +539,7 @@ async def update_level(level_id: int, updated_level: LevelBase, db: Annotated[Se
 
 
 # working
-@app.delete("/users/{user_first_name}")
+@app.delete("/users/{user_first_name}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user_by_firstname(user_first_name: str, db: db_dependency):
     user = db.query(models.User).filter(models.User.first_name == user_first_name).first()
     if user is None:
@@ -547,8 +555,7 @@ async def delete_company_by_id(company_id: int, db: db_dependency):
     company = db.query(models.Company).filter(models.Company.id == company_id).first()
     if company is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return ("company deleted:", company)  
-
+    return ("company deleted:", company) 
 
 
 

@@ -278,8 +278,8 @@ const [singleuserGaugeData, setSingleuserGaugeData] = useState({
 
 
 
-
-let gaugeScore = singleuserData.datasets[0].data[0]
+let gaugeScore = gaugeData.fail;
+// let gaugeScore = singleuserData.datasets[0].data[0]
 let rating = "";
 switch(true) {
   case gaugeScore < 50:

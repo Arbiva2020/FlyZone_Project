@@ -49,6 +49,7 @@ app.add_middleware(
 
 # creating the db dependencies:
 # the db will open when a request comes in, and closes when the request is complete. 
+# the "finally" runs after the data was delivered. 
 def get_db():
     db = SessionLocal()
     try:
@@ -245,11 +246,14 @@ class Level_resultsModel(Level_resultsBase):
 
 
 
-# create dependency injection:
+# create dependency injection for our API endpoints:
 db_dependency = Annotated[Session, Depends(get_db)]
 
-
-# when the FastAPI app is created, the db create the tables automatically
+print("creating tables")
+# When the FastAPI app is created, the db create the tables automatically.
+# The: models.Base.metadata.create_all(bind=engine) will only run once, to create the flyzone.db file. 
+# if we want to change someting in our database, it is best to delete the flyzone.db file and run the server again -
+# that if you dont work with the DB browser for sqlite.
 models.Base.metadata.create_all(bind=engine)
 
 # def verify_password(plain_password, hashed_password):
@@ -518,9 +522,23 @@ async def update_user_by_id(user_id: int, user_name: str):
     return {"user_name": user_name, "user_id": user_id}
 
 
-@app.put("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def update_user(user_id: int, user_name: str):
-    return {"user_name": user_name, "user_id": user_id}
+
+@app.put("/users/{user_id}", response_model=UserCreate)
+async def update_user(user_id: int, updated_user: UserCreate, db: Session = Depends(get_db)):
+    # Query the user by ID
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Update the fields dynamically
+    for field, value in updated_user.dict(exclude_unset=True).items():
+        setattr(user, field, value)
+
+    # Commit the changes to the database
+    db.commit()
+    db.refresh(user)
+
+    return user
 
 
 # Updating a new level and switch its automatic values with these the admin decided upon:

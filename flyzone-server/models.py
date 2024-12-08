@@ -1,6 +1,18 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
+from sqlalchemy import create_engine, inspect
+
+DATABASE_URL = "sqlite:///C:/Users/ADI/Desktop/flyzoneproj/flyzone-server/flyzone.db"
+engine = create_engine(DATABASE_URL)
+
+inspector = inspect(engine)
+tables = inspector.get_table_names()
+
+if tables:
+    print("Tables in the database:", tables)
+else:
+    print("No tables found in the database.")
 
 # Define your models
 class login(Base):

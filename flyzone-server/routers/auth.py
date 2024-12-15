@@ -9,9 +9,16 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException, Depends, Query, status, Path
 from typing import Union, Annotated, List, Optional
 from fastapi.security import OAuth2PasswordRequestForm
+from jose import jwt
+from datetime import timedelta, datetime, timezone
 
 
 router = APIRouter()
+
+
+SECRET_KEY= "62ded03cf075f6cb63572319cf7d94ac54de121b237e1be77a690b759829082c"
+ALGORYTHM = "HS256"
+
 
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto', default="bcrypt")
 print(bcrypt_context.schemes())
@@ -52,7 +59,13 @@ def authenticate_user(username: str, password: str, db):
         return False
     if not bcrypt_context.verify(password, user.password):
         return False
-    return True
+    return user
+
+def create_access_token(username: str, id: int, expires_delta: timedelta):
+    encode = {"sub": username, "id": id}
+    expires = datetime.now(timezone.utc) + expires_delta
+    encode.update({"exp":expires})
+    return jwt.encode(encode, SECRET_KEY, algorithm=ALGORYTHM)
   
 
 class UserModel(CreateUserRequest):
@@ -90,4 +103,6 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         return 'Failed Authentication'
-    return 'Successful Authentication'
+    token = create_access_token(user.username, user.id, timedelta(minutes=20))
+    return token
+    # return 'Successful Authentication'

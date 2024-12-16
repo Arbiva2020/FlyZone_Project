@@ -68,6 +68,7 @@ class Map(Base):
     map_characteristics = Column(String)
     map_description = Column(String)
     map_additional_data = Column(String)
+    owner_id = Column(Integer, ForeignKey("users.id"))
 
 class Mission(Base):
     __tablename__ = 'missions'

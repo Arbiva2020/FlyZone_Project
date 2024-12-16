@@ -8,12 +8,15 @@ from database import SessionLocal
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException, Depends, Query, status, Path
 from typing import Union, Annotated, List, Optional
-from fastapi.security import OAuth2PasswordRequestForm
-from jose import jwt
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from jose import jwt, JWSError, JWTError
 from datetime import timedelta, datetime, timezone
 
 
-router = APIRouter()
+router = APIRouter(
+    prefix='/auth',
+    tags=['auth']
+)
 
 
 SECRET_KEY= "62ded03cf075f6cb63572319cf7d94ac54de121b237e1be77a690b759829082c"
@@ -22,6 +25,8 @@ ALGORYTHM = "HS256"
 
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto', default="bcrypt")
 print(bcrypt_context.schemes())
+
+oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/token')
 
 class CreateUserRequest(BaseModel):
     security_level: int
@@ -42,6 +47,12 @@ class CreateUserRequest(BaseModel):
     company_id: int
     group_id: int
     profileImguser: str
+    
+    
+    
+class Token(BaseModel):
+    access_token: str
+    token_type: str
     
     
 def get_db():
@@ -66,12 +77,27 @@ def create_access_token(username: str, id: int, expires_delta: timedelta):
     expires = datetime.now(timezone.utc) + expires_delta
     encode.update({"exp":expires})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORYTHM)
+
+async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+    try: 
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORYTHM])
+        username: str = payload.get('sub')
+        id: int = payload.get('id')
+        if username is None or id is None:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                                detail='Could not validate user')
+        return {'username': username, "id": id}
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Could not validate user'
+        )
   
 
 class UserModel(CreateUserRequest):
     id: int
 
-@router.post("/auth", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependency, create_user_request: CreateUserRequest):
     create_user_model = User(
         security_level= create_user_request.security_level,
@@ -97,12 +123,13 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
     db.commit()
 
 
-@router.post("/token")
+@router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], 
                                  db: db_dependency):
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
-        return 'Failed Authentication'
+         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                                detail='Could not validate user')
     token = create_access_token(user.username, user.id, timedelta(minutes=20))
-    return token
+    return {'access_token': token, 'token_type': 'bearer'}
     # return 'Successful Authentication'

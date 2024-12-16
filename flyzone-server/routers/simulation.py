@@ -18,6 +18,7 @@ from models import User, Level
 import models
 from database import SessionLocal
 from starlette import status
+from .auth import get_current_user
 
 load_dotenv('.env')
 
@@ -243,7 +244,7 @@ class Level_resultsModel(Level_resultsBase):
 
 # create dependency injection for our API endpoints:
 db_dependency = Annotated[Session, Depends(get_db)]
-
+user_dependency = Annotated[dict, Depends(get_current_user)]
 print("creating tables")
 # When the FastAPI app is created, the db create the tables automatically.
 # The: models.Base.metadata.create_all(bind=engine) will only run once, to create the flyzone.db file. 
@@ -299,58 +300,58 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
     return create_user(db, user)
 
 
-def authenticate_user(username: str, password: str, db: Session):
-    user = db.query(User).filter(User.username == username).first()
-    print("#??#- Auth", username)
-    if not user:
-        print("User not found - Auth failed", username)
-        return False
-    if not pwd_context.verify(password, user.password):
-        print("Password does not match - Auth failed")
-        return False
-    print("???????????- Auth",user)
-    return user
+# def authenticate_user(username: str, password: str, db: Session):
+#     user = db.query(User).filter(User.username == username).first()
+#     print("#??#- Auth", username)
+#     if not user:
+#         print("User not found - Auth failed", username)
+#         return False
+#     if not pwd_context.verify(password, user.password):
+#         print("Password does not match - Auth failed")
+#         return False
+#     print("???????????- Auth",user)
+#     return user
 
 
 
-def create_access_token(data:dict, expires_delta: timedelta | None=None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.now(timezone.utc) + expires_delta
-    else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+# def create_access_token(data:dict, expires_delta: timedelta | None=None):
+#     to_encode = data.copy()
+#     if expires_delta:
+#         expire = datetime.now(timezone.utc) + expires_delta
+#     else:
+#         expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+#     to_encode.update({"exp": expire})
+#     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+#     return encoded_jwt
 
 
 
-@router.post("/token", response_model=dict)
-def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    print("Received data:", form_data)
-    user = authenticate_user(form_data.username, form_data.password, db)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
+# @router.post("/token", response_model=dict)
+# def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+#     print("Received data:", form_data)
+#     user = authenticate_user(form_data.username, form_data.password, db)
+#     if not user:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Incorrect username or password",
+#             headers={"WWW-Authenticate": "Bearer"},
+#         )
+#     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+#     access_token = create_access_token(
+#         data={"sub": user.username}, expires_delta=access_token_expires
+#     )
+#     return {"access_token": access_token, "token_type": "bearer"}
 
 
-def verify_token(token: str = Depends(oauth2_scheme)):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise HTTPException(status_code=403, detail="Token is invalid or expired")
-        return payload
-    except JWTError:
-        raise HTTPException(status_code=403, detail="Token is invalid or expired")
+# def verify_token(token: str = Depends(oauth2_scheme)):
+#     try:
+#         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+#         username: str = payload.get("sub")
+#         if username is None:
+#             raise HTTPException(status_code=403, detail="Token is invalid or expired")
+#         return payload
+#     except JWTError:
+#         raise HTTPException(status_code=403, detail="Token is invalid or expired")
 
 
 
@@ -430,6 +431,20 @@ async def read_companies(db:db_dependency, skip: int=0, limit: int = 100):
 async def create_map(map: MapBase, db: db_dependency):
     try:
         db_map = models.Map(**map.dict())
+        db.add(db_map)
+        db.commit()
+        db.refresh(db_map)
+        return db_map
+    except Exception as e:
+        db.rollback()  # Rollback in case of error
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@router.post("/maps/", response_model=MapModel, status_code=status.HTTP_201_CREATED)
+async def create_new_map(map: MapBase, user: user_dependency, db: db_dependency):
+    if user is None:
+        raise HTTPException(status_code=401, detail='Authentication Failed')
+    try:
+        db_map = models.Map(**map.dict(), owner_id=user.get('id'))
         db.add(db_map)
         db.commit()
         db.refresh(db_map)

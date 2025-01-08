@@ -14,7 +14,7 @@ from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import timedelta, datetime
 from pytz import timezone
-from models import User, Level
+from models import User, Level, Map, Level_results
 import models
 from database import SessionLocal
 from starlette import status
@@ -172,13 +172,13 @@ class LevelBase(BaseModel):
     battery_usage: int
 
 class Level_resultsBase(BaseModel):
-    level_level: int
+    level_level: str
     user_id: int
     fog_level: int
     brightness_level: int
     wind_level: int
     close_calls: int
-    spoted: int
+    spotted: Optional[int] = None  
     time_to_finish: int
     mission_id: int
     basemap_id: int
@@ -186,10 +186,10 @@ class Level_resultsBase(BaseModel):
     connection_lost: int
     payload: int
     dust: int
-    night_vision: int
-    trees: int
-    birds: Optional[int] = Field(description="birds is not needed on create", default=None)
-    battery_usage: int
+    night_vision: Optional[bool] = None  
+    trees: Optional[int] = None  
+    birds: Optional[int] = None  
+    battery_usage: Optional[int] = None  
  
 # For pre-populating keys, we can use "model_config". maybe we could use this to pre-populate each one of
 # the objects with data from Unity. 
@@ -300,61 +300,6 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
     return create_user(db, user)
 
 
-# def authenticate_user(username: str, password: str, db: Session):
-#     user = db.query(User).filter(User.username == username).first()
-#     print("#??#- Auth", username)
-#     if not user:
-#         print("User not found - Auth failed", username)
-#         return False
-#     if not pwd_context.verify(password, user.password):
-#         print("Password does not match - Auth failed")
-#         return False
-#     print("???????????- Auth",user)
-#     return user
-
-
-
-# def create_access_token(data:dict, expires_delta: timedelta | None=None):
-#     to_encode = data.copy()
-#     if expires_delta:
-#         expire = datetime.now(timezone.utc) + expires_delta
-#     else:
-#         expire = datetime.now(timezone.utc) + timedelta(minutes=15)
-#     to_encode.update({"exp": expire})
-#     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-#     return encoded_jwt
-
-
-
-# @router.post("/token", response_model=dict)
-# def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-#     print("Received data:", form_data)
-#     user = authenticate_user(form_data.username, form_data.password, db)
-#     if not user:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED,
-#             detail="Incorrect username or password",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-#     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-#     access_token = create_access_token(
-#         data={"sub": user.username}, expires_delta=access_token_expires
-#     )
-#     return {"access_token": access_token, "token_type": "bearer"}
-
-
-# def verify_token(token: str = Depends(oauth2_scheme)):
-#     try:
-#         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-#         username: str = payload.get("sub")
-#         if username is None:
-#             raise HTTPException(status_code=403, detail="Token is invalid or expired")
-#         return payload
-#     except JWTError:
-#         raise HTTPException(status_code=403, detail="Token is invalid or expired")
-
-
-
 
 ## check why route is failing!!!!!!!
 @router.post("/login/", response_model=UserLoginModel)
@@ -425,6 +370,22 @@ async def read_companies(db:db_dependency, skip: int=0, limit: int = 100):
     companies = db.query(models.Company).offset(skip).limit(limit).all()
     return companies
 
+
+@router.get("/maps", response_model=List[MapModel], status_code=status.HTTP_200_OK)
+async def read_all(user: user_dependency, db: db_dependency):
+    print(f"User from dependency: {user}")  # Debugging
+    if user is None:
+        raise HTTPException(status_code=401, detail='Authentication Failed')
+    
+    user_id = user.get('id')
+    print(f"User ID: {user_id}")  # Debugging
+    
+    maps = db.query(Map).filter(Map.owner_id == user_id).all()
+    print(f"Maps found: {maps}")  # Debugging
+    
+    return maps
+
+
     
 ## working
 @router.post("/maps/", response_model=MapModel)
@@ -439,6 +400,7 @@ async def create_map(map: MapBase, db: db_dependency):
         db.rollback()  # Rollback in case of error
         raise HTTPException(status_code=500, detail=str(e))
     
+    
 @router.post("/maps/", response_model=MapModel, status_code=status.HTTP_201_CREATED)
 async def create_new_map(map: MapBase, user: user_dependency, db: db_dependency):
     if user is None:
@@ -452,6 +414,7 @@ async def create_new_map(map: MapBase, user: user_dependency, db: db_dependency)
     except Exception as e:
         db.rollback()  # Rollback in case of error
         raise HTTPException(status_code=500, detail=str(e))
+
 
 
 ## working
@@ -577,6 +540,18 @@ async def delete_user_by_firstname(user_first_name: str, db: db_dependency):
     db.commit()  
 
     return {"message": f"User with first name '{user_first_name}' has been deleted."}
+
+
+# working
+@router.delete("/maps/{map_map_name}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_map_by_name(map_map_name: str, db: db_dependency):
+    map = db.query(models.Map).filter(models.Map.map_name == map_map_name).first()
+    if map is None:
+        raise HTTPException(status_code=404, detail="Map not found")
+    db.delete(map)
+    db.commit()  
+
+    return {"message": f"Map with name '{map_map_name}' has been deleted."}
     
 
 @router.delete("/companies/{company_id}")
@@ -585,6 +560,97 @@ async def delete_company_by_id(company_id: int, db: db_dependency):
     if company is None:
         raise HTTPException(status_code=404, detail="User not found")
     return ("company deleted:", company) 
+
+
+# working
+@router.post("/level_results/", response_model=Level_resultsModel)
+async def create_level_result(level_result: Level_resultsBase, db: db_dependency):
+    try:
+        db_level_result = models.Level_results(**level_result.dict())
+        db.add(db_level_result)
+        db.commit()
+        db.refresh(db_level_result)
+        return db_level_result
+    except Exception as e:
+        db.rollback()  # Rollback in case of error
+        raise HTTPException(status_code=500, detail=str(e))
+    
+    
+   # working 
+@router.get("/levelResults/", response_model=List[Level_resultsModel])
+async def read_level_results(db:db_dependency, skip: int=0, limit: int = 100):
+    level_result = db.query(models.Level_results).offset(skip).limit(limit).all()
+    return level_result
+
+# working - user that is currently logged in
+@router.get("/level_results_by_user", response_model=List[Level_resultsModel])
+async def read_levels_by_user(user: user_dependency, db: db_dependency):
+    return db.query(Level_results).filter(Level_results.user_id == user.get('id')).all()
+
+
+#if i am logged as a specific user that posted a certain level - the quary will provide me with the level that 
+#belonged to the user i logged in with
+@router.get("/level/{level_results_id}", status_code=status.HTTP_200_OK)
+async def read_level_results(user: user_dependency, db: db_dependency, level_results_id: int = Path(gt=0)):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication failed")
+    
+    level_results_model = db.query(Level_results).filter(Level_results.id == level_results_id).first()
+    print(f"Found level result: {level_results_model}")
+    if level_results_model and level_results_model.user_id == user.get("id"):
+        return level_results_model
+    raise HTTPException(status_code=404, detail="Results not found")
+
+# working
+@router.get("/level/{level_results_id}", status_code=status.HTTP_200_OK)
+async def read_levels(user: user_dependency, db: db_dependency, level_results_id: int = Path(gt=0)):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication failed")
+    
+    level_results_model = db.query(Level_results).filter(Level_results.id == level_results_id)\
+        .filter(Level.user_id == user.get('id')).first()
+    print(f"Found level result: {level_results_model}")
+    if level_results_model is not None:
+        return level_results_model
+    raise HTTPException(status_code=404, detail="Results not found")
+
+
+# working
+@router.put("/level/{level_results_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def update_level_results(user: user_dependency, db: db_dependency, 
+                               level_results_request: Level_resultsBase,
+                               level_results_id: int = Path(gt=0)):
+    level_results_model = db.query(Level_results).filter(Level_results.id == level_results_id)\
+        .filter(Level_results.user_id == user.get('id')).first()
+    if level_results_model is None:
+        raise HTTPException(status_code=404, detail='Level results not found')
+    
+    
+    level_results_model.level_level = level_results_request.level_level
+    level_results_model.user_id = level_results_request.user_id
+    level_results_model.fog_level = level_results_request.fog_level
+    level_results_model.brightness_level = level_results_request.brightness_level
+    level_results_model.wind_level = level_results_request.wind_level
+    level_results_model.close_calls = level_results_request.close_calls
+    level_results_model.spotted = level_results_request.spotted
+    level_results_model.time_to_finish = level_results_request.time_to_finish
+    level_results_model.mission_id = level_results_request.mission_id
+    level_results_model.basemap_id = level_results_request.basemap_id
+    level_results_model.difficulty_level = level_results_request.difficulty_level
+    level_results_model.connection_lost = level_results_request.connection_lost
+    level_results_model.payload = level_results_request.payload
+    level_results_model.dust = level_results_request.dust
+    level_results_model.night_vision = level_results_request.night_vision
+    level_results_model.trees = level_results_request.trees
+    level_results_model.birds = level_results_request.birds
+    level_results_model.battery_usage = level_results_request.battery_usage
+    
+    db.add(level_results_model)
+    db.commit()
+    db.refresh(level_results_model)
+    return level_results_model
+
+     
 
 
 

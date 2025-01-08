@@ -15,7 +15,7 @@ from datetime import timedelta, datetime, timezone
 
 router = APIRouter(
     prefix='/auth',
-    tags=['auth']
+    tags=['Auth']
 )
 
 
@@ -78,16 +78,43 @@ def create_access_token(username: str, id: int, expires_delta: timedelta):
     encode.update({"exp":expires})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORYTHM)
 
+# async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+#     try: 
+#         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORYTHM])
+#         username: str = payload.get('sub')
+#         id: int = payload.get('id')
+#         if username is None or id is None:
+#             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+#                                 detail='Could not validate user')
+#         return {'username': username, "id": id}
+#     except JWTError:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail='Could not validate user'
+#         )
+
 async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Authorization token is missing'
+        )
+
+    print(f"Token received: {token}")  # Debugging line
     try: 
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORYTHM])
         username: str = payload.get('sub')
         id: int = payload.get('id')
         if username is None or id is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                                detail='Could not validate user')
+            print("Missing username or id in token payload")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='Could not validate user'
+            )
+        print(f"Valid user: {username}, ID: {id}")  # Debugging line
         return {'username': username, "id": id}
-    except JWTError:
+    except JWTError as e:
+        print(f"JWTError: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail='Could not validate user'

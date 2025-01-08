@@ -128,10 +128,10 @@ class Level(Base):
     connection_lost = Column(Integer)
     payload = Column(Integer)
     dust = Column(Integer)
-    night_vision = (Boolean)
-    trees = (Integer)
-    birds = (Integer)
-    battery_usage = (Integer)
+    night_vision = Column(Boolean)
+    trees = Column(Integer)
+    birds = Column(Integer)
+    battery_usage = Column(Integer)
 
 class Level_results(Base):
     __tablename__ = 'levelResults'
@@ -143,7 +143,7 @@ class Level_results(Base):
     brightness_level = Column(Integer)
     wind_level = Column(Integer)
     close_calls = Column(Integer)
-    spotted = Column(Integer)
+    spotted = Column(Integer, nullable=True)  # Nullable
     time_to_finish = Column(Integer)
     mission_id = Column(Integer, ForeignKey('missions.id'))
     basemap_id = Column(Integer, ForeignKey('maps.id'))
@@ -151,10 +151,10 @@ class Level_results(Base):
     connection_lost = Column(Integer)
     payload = Column(Integer)
     dust = Column(Integer)
-    night_vision = (Boolean)
-    trees = (Integer)
-    birds = (Integer)
-    battery_usage = (Integer)
+    night_vision = Column(Boolean, nullable=True)  # Nullable Boolean
+    trees = Column(Integer, nullable=True)  # Nullable Integer
+    birds = Column(Integer, nullable=True)  # Nullable Integer
+    battery_usage = Column(Integer, nullable=True)  # Nullable Integer
 
 
     

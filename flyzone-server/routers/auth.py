@@ -72,8 +72,8 @@ def authenticate_user(username: str, password: str, db):
         return False
     return user
 
-def create_access_token(username: str, id: int, expires_delta: timedelta):
-    encode = {"sub": username, "id": id}
+def create_access_token(username: str, id: int, security_level: int, expires_delta: timedelta):
+    encode = {"sub": username, "id": id, 'security_level': security_level}
     expires = datetime.now(timezone.utc) + expires_delta
     encode.update({"exp":expires})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORYTHM)
@@ -105,6 +105,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORYTHM])
         username: str = payload.get('sub')
         id: int = payload.get('id')
+        security_level: int = payload.get('security_level')
         if username is None or id is None:
             print("Missing username or id in token payload")
             raise HTTPException(
@@ -112,7 +113,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
                 detail='Could not validate user'
             )
         print(f"Valid user: {username}, ID: {id}")  # Debugging line
-        return {'username': username, "id": id}
+        return {'username': username, "id": id, 'security_level': security_level}
     except JWTError as e:
         print(f"JWTError: {str(e)}")
         raise HTTPException(
@@ -157,6 +158,6 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
     if not user:
          raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail='Could not validate user')
-    token = create_access_token(user.username, user.id, timedelta(minutes=20))
+    token = create_access_token(user.username, user.id, user.security_level, timedelta(minutes=20))
     return {'access_token': token, 'token_type': 'bearer'}
     # return 'Successful Authentication'

@@ -1,19 +1,55 @@
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.pool import NullPool
+
+# # Database URL
+# DATABASE_URL = 'sqlite:///./flyzone.db'
+
+# # Create an engine
+# engine = create_engine(
+#     DATABASE_URL, 
+#     connect_args={"check_same_thread": False}, 
+#     poolclass=NullPool  
+# )
+# with engine.connect() as conn:
+#     conn.execute("PRAGMA journal_mode=WAL;")
+
+# # Create a configured "Session" class
+# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# # Create a Base class
+# Base = declarative_base()
+
+
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.pool import NullPool
+
+# # Database URL
+# DATABASE_URL = 'postgresql://postgres:Adi1013192704@localhost/FlyZoneApplicationDatabase'
+
+# # Create an engine
+# engine = create_engine(DATABASE_URL)
+
+# # Create a configured "Session" class
+# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# # Create a Base class
+# Base = declarative_base()
+
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.pool import NullPool
 
 # Database URL
-DATABASE_URL = 'sqlite:///./flyzone.db'
+DATABASE_URL = 'mysql+pymysql://root:Adi1013192704@127.0.0.1:3306/Flyzoneapplicationdatabase'
 
 # Create an engine
-engine = create_engine(
-    DATABASE_URL, 
-    connect_args={"check_same_thread": False}, 
-    poolclass=NullPool  
-)
-with engine.connect() as conn:
-    conn.execute("PRAGMA journal_mode=WAL;")
+engine = create_engine(DATABASE_URL)
 
 # Create a configured "Session" class
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

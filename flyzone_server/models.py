@@ -160,6 +160,7 @@ class LevelResults(Base):
     battery_usage = Column(Integer, nullable=True)  # Nullable Integer
 
 
+
     
     
     

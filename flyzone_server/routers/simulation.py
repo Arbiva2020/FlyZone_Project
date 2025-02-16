@@ -2,7 +2,7 @@ import os
 import logging
 import uvicorn
 from fastapi_sqlalchemy import DBSessionMiddleware, db
-from fastapi import APIRouter, HTTPException, Depends, Query, status, Path
+from fastapi import APIRouter, HTTPException, Depends, Query, status, Path, Response
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Union, Annotated, List, Optional
 from sqlalchemy.orm import Session
@@ -189,7 +189,7 @@ class LevelResultsBase(BaseModel):
     night_vision: Optional[bool] = None  
     trees: Optional[int] = None  
     birds: Optional[int] = None  
-    battery_usage: Optional[int] = None  
+    battery_usage: Optional[int] = None 
  
 # For pre-populating keys, we can use "model_config". maybe we could use this to pre-populate each one of
 # the objects with data from Unity. 
@@ -258,59 +258,59 @@ print("creating tables")
 
 
 
-def verify_password(plain_password, hashed_password):
-    print(f"Verifying password: {plain_password} with hashed: {hashed_password}")
-    return pwd_context.verify(plain_password, hashed_password)
+# def verify_password(plain_password, hashed_password):
+#     print(f"Verifying password: {plain_password} with hashed: {hashed_password}")
+#     return pwd_context.verify(plain_password, hashed_password)
 
-def get_user_by_username(db: Session, username: str):
-    print("$$$$$$$$", User)
-    return db.query(User).filter(User.username == username).first()
+# def get_user_by_username(db: Session, username: str):
+#     print("$$$$$$$$", User)
+#     return db.query(User).filter(User.username == username).first()
 
-def create_user(db: Session, user: UserCreate):
-    hashed_password = pwd_context.hash(user.password)
-    print("Creating user with hashed password: {hashed_password}") 
-    db_user = User(
-        username=user.username,
-        first_name=user.first_name,
-        last_name=user.last_name,
-        password=hashed_password,  # Store the hashed password
-        email=user.email,
-        company_id=user.company_id,
-        group_id=user.group_id,
-        profileImguser=user.profileImguser
-    )
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
-    # return "complete"
-
-
-
-#creating the endpoints for our application:
-
-@router.post("/register",  response_model=UserModel)
-def register_user(user: UserCreate, db: Session = Depends(get_db)):
-    print("Received user registration:", user)
-    db_user = get_user_by_username(db, username=user.username)
-    print("##########", db_user)
-    if db_user:
-        raise HTTPException(status_code=400, detail="Username already registered")
-    print("################", create_user(db, user))
-    return create_user(db, user)
+# def create_user(db: Session, user: UserCreate):
+#     hashed_password = pwd_context.hash(user.password)
+#     print("Creating user with hashed password: {hashed_password}") 
+#     db_user = User(
+#         username=user.username,
+#         first_name=user.first_name,
+#         last_name=user.last_name,
+#         password=hashed_password,  # Store the hashed password
+#         email=user.email,
+#         company_id=user.company_id,
+#         group_id=user.group_id,
+#         profileImguser=user.profileImguser
+#     )
+#     db.add(db_user)
+#     db.commit()
+#     db.refresh(db_user)
+#     return db_user
+#     # return "complete"
 
 
 
-## check why route is failing!!!!!!!
-@router.post("/login/", response_model=UserLoginModel)
-async def login_user(user:UserLoginBase, db: db_dependency):
-    print(user)
-    try:
-        db_user=models.User(**user.dict())
-        db.query(db_user).filter(UserLoginBase.username == user.username and UserLoginBase.password == user.password).first()
-    except Exception as e:
-        print(e)
-        raise HTTPException(status_code=500, detail=str(e))
+# #creating the endpoints for our application:
+
+# @router.post("/register",  response_model=UserModel)
+# def register_user(user: UserCreate, db: Session = Depends(get_db)):
+#     print("Received user registration:", user)
+#     db_user = get_user_by_username(db, username=user.username)
+#     print("##########", db_user)
+#     if db_user:
+#         raise HTTPException(status_code=400, detail="Username already registered")
+#     print("################", create_user(db, user))
+#     return create_user(db, user)
+
+
+
+# ## check why route is failing!!!!!!!
+# @router.post("/login/", response_model=UserLoginModel)
+# async def login_user(user:UserLoginBase, db: db_dependency):
+#     print(user)
+#     try:
+#         db_user=models.User(**user.dict())
+#         db.query(db_user).filter(UserLoginBase.username == user.username and UserLoginBase.password == user.password).first()
+#     except Exception as e:
+#         print(e)
+#         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/", status_code=status.HTTP_200_OK)
@@ -320,18 +320,18 @@ async def read_all(user:user_dependency, db:db_dependency):
     return db.query(LevelResults).filter(LevelResults.user_id == user.get('id')).all()
 
 
-## working
-@router.post("/users/", response_model=UserModel)
-async def create_user(user: UserBase, db: db_dependency):
-    try:
-        db_user = models.User(**user.dict())
-        db.add(db_user)
-        db.commit()
-        db.refresh(db_user)
-        return db_user
-    except Exception as e:
-        db.rollback()  # Rollback in case of error
-        raise HTTPException(status_code=500, detail=str(e))
+# ## working
+# @router.post("/users/", response_model=UserModel)
+# async def create_user(user: UserBase, db: db_dependency):
+#     try:
+#         db_user = models.User(**user.dict())
+#         db.add(db_user)
+#         db.commit()
+#         db.refresh(db_user)
+#         return db_user
+#     except Exception as e:
+#         db.rollback()  # Rollback in case of error
+#         raise HTTPException(status_code=500, detail=str(e))
     
 
 ## working    
@@ -632,6 +632,47 @@ async def read_levelResults_user(user: user_dependency, db: db_dependency, skip:
     print(f"Queried levelResults: {levelResults}")  # This should print the data fetched from DB
     return levelResults
 
+@router.delete("/levelResults/{levelResults_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_levelResults_by_id(levelResults_id: int, db: db_dependency):
+    levelResult = db.query(models.LevelResults).filter(models.LevelResults.id == levelResults_id).first()
+    if levelResult is None:
+        raise HTTPException(status_code=404, detail="Results not found")
+    db.delete(levelResult)
+    db.commit()  
+
+    return {"message": f"Results with id '{levelResults_id}' has been deleted."}
+
+# @router.put("/levelResults/{levelResults_id}", response_model=LevelResultsModel)
+# async def update_levelResults(levelResults_id: int, levelResult: LevelResultsBase, db: db_dependency):
+#     # Fetch the existing record from the database
+#     db_level_result = db.query(models.LevelResults).filter(models.LevelResults.id == levelResults_id).first()
+    
+#     if not db_level_result:
+#         raise HTTPException(status_code=404, detail="Results not found")
+    
+#     # Update the fields dynamically using the Pydantic model (levelResult) values
+#     for field, value in levelResult.dict(exclude_unset=True).items():
+#         setattr(db_level_result, field, value)
+
+#     # Commit the changes to the database
+#     db.commit()
+#     db.refresh(db_level_result)
+
+#     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+@router.put("/levelResults/{levelResults_id}", response_model=LevelResultsBase)
+async def update_results(levelResults_id: int, updated_results: LevelResultsBase, db: Session = Depends(get_db)):
+    # Query the level results by ID
+    results = db.query(models.LevelResults).filter(models.LevelResults.id == levelResults_id).first()
+    if not results:
+        raise HTTPException(status_code=404, detail="Results not found")
+    for field, value in updated_results.dict(exclude_unset=True).items():
+        setattr(results, field, value)
+    db.commit()
+    db.refresh(results)
+
+    # Return the updated results with 200 OK
+    return results  # This will return the updated resource with a 200 OK status code
 
 
 # @router.get("/levelResults/", response_model=List[LevelResultsModel])

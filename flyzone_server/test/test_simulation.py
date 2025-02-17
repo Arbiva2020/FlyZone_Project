@@ -36,7 +36,7 @@ def auth_headers():
         
         
 def test_levelResult_read_one_authenticated_not_found():
-    response = client.get("/levelResults/999")
+    response = client.get("/simulation/levelResults/999")
     assert response.status_code == 404
     assert response.json() == {'detail': "Level not found"}
     
@@ -64,7 +64,7 @@ def test_create_level(test_levelResults):
         # 'id': 5
     }
     
-    response = client.post('/levelResults/', json=request_data)
+    response = client.post('/simulation/levelResults/', json=request_data)
     assert response.status_code == 201
     
 
@@ -92,7 +92,7 @@ def level_results_update(test_levelResults):
         # 'id': 5
     }
     
-    response = client.put('/levelresults/5', json=request_data)
+    response = client.put('/simulation/levelresults/5', json=request_data)
     assert response.status_code == 204
     db = TestingSessionLocal()
     model = db.query(LevelResults).filter(LevelResults.id == 5).first()
@@ -122,7 +122,7 @@ def level_results_update_not_found(test_levelResults):
         # 'id': 1
     }
     
-    response = client.put('/levelresults/999', json=request_data)
+    response = client.put('/simulation/levelresults/999', json=request_data)
     assert response.status_code == 404
     assert response.json() == {'detail': 'Level results not found'}
     
@@ -135,7 +135,7 @@ def test_read_all_authenticated(auth_headers, test_levelResults):
     assert len(results) > 0  # Ensure there's data in the database
 
     # Make the request with the auth header
-    response = client.get("/levelResults_by_user", headers=auth_headers)
+    response = client.get("/simulation/levelResults_by_user", headers=auth_headers)
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) > 0  # Ensure the response contains data
 
@@ -172,7 +172,7 @@ def test_read_all_authenticated(auth_headers, test_levelResults):
     
 def test_read_one_authenticated(auth_headers, test_levelResults):   
     # Make the request with the auth header
-    response = client.get("/levelResults/5", headers=auth_headers)
+    response = client.get("/simulation/levelResults/5", headers=auth_headers)
     
     # Ensure that the response status code is correct
     assert response.status_code == status.HTTP_200_OK
@@ -222,7 +222,7 @@ def test_delete_levelResults(test_levelResults):
     model = db.query(LevelResults).filter(LevelResults.id == 1).first()
     assert model is not None  # Ensure the record exists before deletion
     
-    response = client.delete('/levelResults/1')
+    response = client.delete('/simulation/levelResults/1')
     assert response.status_code == 204
     model = db.query(LevelResults).filter(LevelResults.id == 1).first()
     assert model is None  # Ensure it was deleted
@@ -230,7 +230,7 @@ def test_delete_levelResults(test_levelResults):
     
 
 def test_delete_levelResults_not_found():
-    response = client.delete('/levelResults/999')
+    response = client.delete('/simulation/levelResults/999')
     assert response.status_code == 404
     assert response.json() == {'detail':'Results not found'}
 

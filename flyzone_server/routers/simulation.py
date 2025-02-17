@@ -23,7 +23,10 @@ from .auth import get_current_user
 load_dotenv('.env')
 
 
-router = APIRouter()
+router = APIRouter(
+    prefix='/simulation',
+    tags=['simulation']
+)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 

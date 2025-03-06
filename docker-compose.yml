@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./flyzone_server  
+    volumes:
+      - ./flyzone_server:/app  
+    ports:
+      - "8000:8000"  
+    environment:
+      - DATABASE_URL=sqlite:///./test.db
+      - SECRET_KEY=your_secret_key
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+  frontend:
+    build:
+      context: ./flyzone  
+    ports:
+      - "3000:80"  
+    depends_on:
+      - backend 

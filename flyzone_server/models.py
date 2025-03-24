@@ -116,7 +116,7 @@ class Spotted(Base):
 class Level(Base):
     __tablename__ = 'level'
     id = Column(Integer, primary_key=True, index=True)
-    level_level = Column(String, index=True)
+    level_level = Column(Integer, index=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User", back_populates="levels")
     fog_level = Column(Integer)
@@ -161,7 +161,8 @@ class LevelResults(Base):
 
 
 
-    
+    def __repr__(self):
+        return f"<Level(id={self.id}, level_level={self.level_level}, user_id={self.user_id}, fog_level={self.fog_level}, brightness_level={self.brightness_level}, wind_level={self.wind_level}, close_calls={self.close_calls}, spotted={self.spotted}, time_to_finish={self.time_to_finish}, mission_id={self.mission_id}, basemap_id={self.basemap_id}, difficulty_level={self.difficulty_level}, connection_lost={self.connection_lost}, payload={self.payload}, dust={self.dust},night_vision={self.night_vision}, trees={self.trees}, birds={self.birds}, battery_usage={self.battery_usage})>"  
     
     
 

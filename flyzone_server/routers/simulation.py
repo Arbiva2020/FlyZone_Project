@@ -156,7 +156,6 @@ class SpottedBase(BaseModel):
 class LevelBase(BaseModel):
     level_level: int
     user_id: int
-    user: int
     fog_level: int
     brightness_level: int
     wind_level: int
@@ -169,7 +168,7 @@ class LevelBase(BaseModel):
     connection_lost: int
     payload: int
     dust: int
-    night_vision: int
+    night_vision: bool
     trees: int
     birds: int
     battery_usage: int

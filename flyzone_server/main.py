@@ -20,7 +20,7 @@ import models
 from database import engine
 from starlette import status
 # from routers import auth, simulation, admin, users
-from routers import auth, simulation, admin, users
+from routers import auth, simulation, admin, users, game_data
 
 
 load_dotenv('.env')
@@ -34,6 +34,8 @@ app = FastAPI(
 )
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+
 
 # our react application and our fastAPI aplication are located at the same place, obviasly. the origin of the React app. port 3000
 #is the port from which one application can call the fastAPI application:
@@ -64,6 +66,8 @@ app.include_router(auth.router)
 app.include_router(simulation.router)
 app.include_router(admin.router)
 app.include_router(users.router)
+app.include_router(game_data.router)
+
 # def verify_password(plain_password, hashed_password):
 # return pwd_context.verify(plain_password, hashed_password)
 

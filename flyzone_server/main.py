@@ -20,7 +20,7 @@ import models
 from database import engine
 from starlette import status
 # from routers import auth, simulation, admin, users
-from routers import auth, simulation, admin, users, game_data
+from routers import auth, simulation, admin, users, game_data, analysis
 
 
 load_dotenv('.env')
@@ -67,6 +67,7 @@ app.include_router(simulation.router)
 app.include_router(admin.router)
 app.include_router(users.router)
 app.include_router(game_data.router)
+app.include_router(analysis.router)
 
 # def verify_password(plain_password, hashed_password):
 # return pwd_context.verify(plain_password, hashed_password)

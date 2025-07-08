@@ -32,14 +32,23 @@
     height: 100vh;
     width: 100%;
     position: relative;
+    transform-origin: bottom;
+    animation: background-image-animation linear forwards;
+    animation-timeline: view();
+    animation-range: exit;
+}
+
+@keyframes background-image-animation {
+    25% {opacity: 1;}
+    85%, 100% {opacity: 0;}
 }
 
 .content {
     display: flex;
     flex-direction: column;
-    margin-left: 20%;
+    /* margin-left: 20%; */
     margin-right: 0;
-    margin-top: 8%;
+    margin-top: 20vh;
 }
 
 .main_headline {
@@ -47,9 +56,12 @@
     font-family: lexend;
     display: flex;
     flex-direction: row;
-    justify-content: left;
-    /* margin-left: 50px; */
-    font-size: 700%;
+    justify-content: center;
+    font-size: 800%;
+    animation: fade-out linear;
+    animation-timeline: view();
+    animation-range: exit -200px;
+
 }
 
 .slogen {
@@ -57,19 +69,43 @@
     font-family: lexend;
     display: flex;
     flex-direction: row;
-    justify-content: left;
-    /* margin-left: 50px; */
-    font-size: 200%;
+    justify-content: center;
+    font-size: 300%;
     font-weight: 200;
     margin-top: 20px;
     margin-bottom: 50px;
+    animation: fade-out linear;
+    animation-timeline: view();
+    animation-range: exit -200px;
+}
+
+.mainContent {
+    color: #ffffff;
+    font-family: lexend;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 130%;
+    font-weight: 200;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    line-height: 200%;
+    animation: fade-out linear;
+    animation-timeline: view();
+    animation-range: exit -200px;
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
 }
 
 .middleSection {
     display: flex;
     flex-direction: row;
     padding-top: 10vh;
-    height: 300px;;
+    height: 300px;
 }
 
 .middleSectionHeadline {
@@ -80,6 +116,20 @@
 .theProblemTextContent {
     line-height: 400%;
     margin-left: 5vh;
+}
+
+.buttomSection {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10vh;
+    height: 300px;
+    margin-bottom: 20vh;
+}
+
+.buttomSectionHeadline {
+    font-size: 400%;
+    margin-left: 10vh;
+    align-content: center;
 }
 
 .circle1 {
@@ -107,10 +157,10 @@
 }
 
 .buttons {
-    width: 30%;
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     height: 3rem;
     position: relative;
     align-items: center;
@@ -125,4 +175,56 @@
     width: 500px;
     height: 300px;
     margin-top: 50px;
+    animation: fade-in linear;
+    animation-timeline: view();
+    animation-range-start: cover;
+    animation-range-end: 900px;
+}
+
+@keyframes fade-in {
+    from {
+        scale: 0.8; opacity: 0;
+    }
+    to {
+        scale: 1; opacity: 1;
+    }
+}
+
+.homeIcons {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    ;
+}
+
+.homeUpperIcons {
+    display: flex;
+    flex-direction: row;
+    width: 50px;
+    height: 50px;
+    top: 20px;
+    left: 20px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.homeButtoIcons {
+    display: flex;
+    flex-direction: row;
+    width: 50px;
+    height: 50px;
+    top: 20px;
+    left: 20px;
+    color: white;
+    margin-top: 100px;
+}
+
+.homeIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 100px;
 }

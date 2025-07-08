@@ -8,6 +8,12 @@ import Drone1 from '../../assets/Drone1-removebg-preview.png'
 import drone13 from '../../assets/drone13.png'
 import futuristic from '../../assets/futuristic.jpg'
 import { icons } from './HomePageIcons'
+import { IoEarthOutline } from "react-icons/io5";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+
+
+
 
 
 const HomePage = () => {
@@ -58,8 +64,8 @@ const HomePage = () => {
         <div style={{backgroundColor:"white", width:"2px", height:"60%", marginLeft:"20px"}}></div>
         <div className='theProblemText'>
           <p className='theProblemTextContent'>
-            Current solutions in the field of drone certification are generic<br /> 
-            and do not provide the pilot with custom-tailored and fie-tuned <br /> 
+            Current solutions in the field of drone certification are generic
+            and do not provide <br />the pilot with custom-tailored and fie-tuned 
             training that is unique and fits the pilot's specific weak points.  <br /> 
           </p>
         </div>
@@ -80,7 +86,7 @@ const HomePage = () => {
         </div>
         <div className='circle2'></div>
       </div>
-      <div className='buttomSection'>
+      <div className='middleSection'>
         <h1 className='buttomSectionHeadline'>What do we <br />offer?</h1>
         <div style={{backgroundColor:"white", width:"2px", height:"120%", marginLeft:"20px"}}></div>
         <div className='homeIcons'>
@@ -104,6 +110,34 @@ const HomePage = () => {
                 </div>
               )).slice(3)}
             </div>
+        </div>
+      </div>
+      <div className='buttomSection'>
+        <h1 className='middleSectionHeadline'>Why FlyZone</h1>
+        <div style={{backgroundColor:"white", width:"20px", height:"20px"}}></div>
+
+        <div className='theProblemText'>
+          <p className='theProblemTextContent'>
+          In light of the rising popularity of drones in various industries 
+          and under complex mission scenarios, <br /> well-trained pilots are of the
+          essence.  FlyZone is the only tool that enables the user to train with <br />
+          confidence in multiple environments and suited conditions thanks to <br />
+          our novel algorithm that provides tailored assessment for maximizing performance.
+          </p>
+        </div>
+        <div className='iconsContainer'>
+          <div className='iconContainer'>
+            <IoEarthOutline style={{fontSize:"50px"}}/>
+            <p>Custom environments/drone types</p>
+          </div>
+          <div className='iconContainer'>
+            <IoGameControllerOutline style={{fontSize:"50px"}}/>
+            <p>Personalized and gradual training </p>
+          </div>
+          <div className='iconContainer'>
+            <LiaChalkboardTeacherSolid style={{fontSize:"50px"}}/>
+            <p>Novel assessment algorithm</p>
+          </div>
         </div>
       </div>
     </div>
